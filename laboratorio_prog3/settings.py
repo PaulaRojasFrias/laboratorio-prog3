@@ -44,7 +44,11 @@ INSTALLED_APPS = [
     'PTF',
 
     'persona',
+<<<<<<< HEAD
 
+=======
+    'comisiones',
+>>>>>>> 60b357c94878e050d44be1b02c515b090cca082f
 ]
 
 MIDDLEWARE = [

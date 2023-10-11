@@ -18,7 +18,7 @@ class Docente(AbstractPersona):
 
 class Alumno(AbstractPersona):
     dni = models.CharField(max_length=8, unique=True)
-    matricula = models.CharField(max_length=5, unique=True)
+    matricula = models.CharField(max_length=5, unique=True) #Pueden ser dos?
     correo = models.EmailField(max_length=254)
 
 class Asesor(AbstractPersona):
