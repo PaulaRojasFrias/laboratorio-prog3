@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block titulo %}Gestion de trabajos finales{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+        <script src="https://kit.fontawesome.com/42b0819548.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <header>
+        <div class="header-superior">
+          <!-- Write your comments here -->
+          <div class="logos">
+            <img src="img/logo-unca.png" alt="unca">
+            <img src="img/LogoFTCA.png" alt="tecno">
+          </div>
+
+          <h2>Gestión de trabajos finales</h2>
+
+          <div class="buscador">
+            <input type="search" name="" placeholder="¿Qué estás buscando?">
+          </div>
+
+        </div>
+
+        <div class="container-menu">
+
+          <div class="menu">
+            <input type="checkbox" name="" id="check__menu">
+            <label id="#label__Check" for="check__menu">
+              <i class="fa-solid fa-bars icon__menu"></i>
+            </label>
+
+              <nav>
+              <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Registrar</a>
+                <ul>
+                  <li><a href="./pages/2_registroCSTF.html">Integrantes de la CSTF</a></li>
+                  <li><a href="./pages/2_registroTE.html">Integrantes del tribunal evaluador</a></li>
+                  <li><a href="./pages/inscripcionalumno.html">Alumnos</a></li>
+                  <li><a href="./pages/punto1.html">Proyecto de trabajo final</a></li>
+                  <li><a href="#">Movimientos y estados de un PTF</a></li>
+                  <li><a href="#">Informes y evaluciones</a></li>
+                </ul>
+                </li>
+                <li><a href="./pages/estadisticas.html">Informes</a></li>
+                <li><a href="#">Evaluación formal</a></li>
+              </ul>
+              </nav>
+          </div>
+
+        </div>
+
+        </header>
+
+        <section>
+                {% block contenido %}
+                {% endblock %}
+        </section>
+
+    </body>
+
+      <footer>
+        <h3>&copy Gestión de trabajos finales</h3>
+        <h4>UNCa | Facultad de Tecnologia y Ciencias Aplicadas</h4>
+      </footer>
+
+</html>
