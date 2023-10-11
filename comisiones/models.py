@@ -19,10 +19,11 @@ class TribunalEvaluador(models.Model):
         ('vocal_secundario', 'Vocal Secundario')
     )
 
-    nroResolucionTribunal = models.CharField(max_length=50, unique = True)
+    nroDisposicionTribunal = models.CharField(max_length=50, unique = True)
     fechaCreacionTribunal = models.DateField(auto_now_add=False)
     docentesTribunal = models.ManyToManyField(Docente)
     rol = models.CharField(max_length=16, choices= rol_opc)
+    
 
     class Meta:
         ordering = ['fechaCreacionTribunal']
