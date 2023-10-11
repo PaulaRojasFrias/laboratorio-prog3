@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a16f5e66-7f16-4022-b869-8e61b191e5ab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/persona/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/persona/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyecto_trabajo_final/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyecto_trabajo_final/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyecto_trabajo_final/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyecto_trabajo_final/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyecto_trabajo_final/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyecto_trabajo_final/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requerimientos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/persona/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/persona/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/persona/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/persona/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/proyecto_trabajo_final/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/persona/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTF/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/persona/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratorio_prog3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/laboratorio_prog3/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +48,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/prog3/laboratorio_prog3&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
   }
