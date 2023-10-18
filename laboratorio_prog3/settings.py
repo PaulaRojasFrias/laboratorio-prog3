@@ -40,15 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'PTF',
-
+    'proyecto_trabajo_final',
     'persona',
-<<<<<<< HEAD
-
-=======
     'comisiones',
->>>>>>> 60b357c94878e050d44be1b02c515b090cca082f
 ]
 
 MIDDLEWARE = [

@@ -33,6 +33,6 @@ class ProyectoFinal(models.Model):
     estado= models.OneToOneField(  EstadoProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
 
 
-  def __str__(self):
+    def __str__(self):
         return self.titulo
 
