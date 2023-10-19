@@ -22,4 +22,4 @@ class Alumno(AbstractPersona):
     correo = models.EmailField(max_length=254)
 
 class Asesor(AbstractPersona):
-    curriculum = models.FileField(upload_to= "archivosCurriculums") #FIJARSE COMO ES 
+    curriculum = models.FileField() 

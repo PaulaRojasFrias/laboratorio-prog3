@@ -2,7 +2,7 @@ from django.db import models
 
 from persona.models import Alumno, Docente
 
-# Create your models here
+# Create your models here.
 
 
 class ProyectoFinal(models.Model):
@@ -20,7 +20,7 @@ class ProyectoFinal(models.Model):
     fechaAltaDirector= models.DateField()
     fechaBajaDirector= models.DateField(null=True, blank=True)
     
-    def __str__(self):
+    def _str_(self):
             return f'{self.titulo}'
 
 
@@ -37,3 +37,4 @@ class Movimientos(models.Model):
 class PTF_Integrantes(models.Model):
     proyectoFinal= models.OneToOneField(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
     alumnos= models.ForeignKey(Alumno, on_delete= models.CASCADE)
+

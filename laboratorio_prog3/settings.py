@@ -40,11 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'PTF',
-
+    'proyecto_trabajo_final',
     'persona',
-
+    'comisiones',
 
 ]
 
