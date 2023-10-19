@@ -2,7 +2,7 @@ from django.db import models
 
 from persona.models import Alumno, Docente
 
-# Create your models here.
+# Create your models here
 
 
 class ProyectoFinal(models.Model):
