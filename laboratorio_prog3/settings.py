@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'proyecto_trabajo_final',
     'persona',
     'comisiones',
+    'dictamenes',
 
 ]
 
