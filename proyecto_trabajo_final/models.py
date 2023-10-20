@@ -23,11 +23,26 @@ class ProyectoFinal(models.Model):
 
 
 class Movimientos(models.Model):
+    estado_opc = (
+        ('aceptado', 'Aceptado'),
+        ('rechazado', 'Rechazado'),
+        ('observado', 'Observado'),
+    )
+    movimientos_opc = (
+        ('presentacion ptf', 'Presentación PTF'),
+        ('pase a la cstf', 'Pase a la CSTF'),
+        ('dictamen de la cstf sobre el formato del ptf', 'Dictamen de la CSTF sobre el formato del PTF'),
+        ('pase al te', 'Pase al TE'),
+        ('dictamen tribunal evaluador sobre evaluación ptf', 'Dictamen tribunal evaluador sobre evaluación PTF'),
+        ('presentación borrador informe final', 'Presentación borrador Informe final'),
+        ('dictamen tribunal evaluador sobre borrador', 'dictamen tribunal evaluador sobre borrador'),
+    )
     proyectoFinal = models.OneToOneField(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
-    estado = models.CharField(max_length=50)
+    estado = models.CharField(max_length=50, choices=estado_opc)
+    observacion = models.CharField(max_length=50,null=True, blank=True)
     fechaMovimiento = models.DateField()
     archivoAsociado = models.FileField(null=True, blank=True)
-    tipoMovimiento = models.CharField(max_length=50)
+    tipoMovimiento = models.CharField(max_length=50, choices=movimientos_opc)
     fechaVencimiento = models.DateField(null=True, blank=True)
     fechaCulminacion = models.DateField(null=True, blank=True)
 
