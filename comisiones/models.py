@@ -18,8 +18,8 @@ class TribunalEvaluador(models.Model):
        ordering = ['fechaCreacionTribunal']
 
 class IntegrantesComision(models.Model):
-    docente = models.OneToOneField(Docente, on_delete=models.CASCADE)
-    comision = models.OneToOneField(Comision, on_delete=models.CASCADE)
+    docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
+    comision = models.ForeignKey(Comision, on_delete=models.CASCADE)
     fecha_alta_cs = models.DateField(auto_now_add=False)
     fecha_baja_cs = models.DateField(auto_now_add=False)
     class Meta:
