@@ -1,12 +1,12 @@
 from django.db import models
 
-from persona.models import Alumno, Docente
+from persona.models import Alumno, Docente, Asesor
+
 
 # Create your models here.
 
 
 class ProyectoFinal(models.Model):
-    id = models.CharField(primary_key=True, max_length=8, unique=True)
     titulo = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=250)
     fechaPresentacion = models.DateField()
@@ -14,7 +14,7 @@ class ProyectoFinal(models.Model):
     notaAceptacionDirector = models.FileField()
     director = models.OneToOneField(Docente, on_delete=models.SET_NULL, null=True, related_name='proyectos_director')
     coDirector = models.ForeignKey(Docente, on_delete=models.SET_NULL, null=True, blank=True, related_name='proyectos_co_director')
-    asesor= models.OneToOneField(Docente, on_delete=models.SET_NULL, null=True, blank=True, related_name='proyectos_asesor')
+    asesor= models.OneToOneField(Asesor, on_delete=models.SET_NULL, null=True, blank=True, related_name='proyectos_asesor')
     fechaAltaDirector = models.DateField()
     fechaBajaDirector = models.DateField(null=True, blank=True)
     
@@ -49,7 +49,7 @@ class Movimientos(models.Model):
 
 class PTF_Integrantes(models.Model):
     proyectoFinal = models.OneToOneField(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
-    alumnos = models.ForeignKey(Alumno, on_delete= models.CASCADE)
+    alumnos = models.ManyToManyField(Alumno, related_name='proyectos')
     fechaAltaAlumno = models.DateField(null=True, blank=True)
     fechaBajaAlumno = models.DateField(null=True, blank=True)
     certificadoAnalitico = models.FileField()
