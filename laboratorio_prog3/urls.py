@@ -17,8 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', views.home),
+    path('regCSTF/', views.regCSTF),
+    path('regTribunal/', views.regTribunal),
+    path('regAlumno/', views.regAlumno),
+    #path('regPTF', ),
+    #path('regMovimientoPTF', ),
+
+
 ]
+

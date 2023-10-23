@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+        <script src="https://kit.fontawesome.com/42b0819548.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../css/2styles_registro_comision.css">
+    <title>Registro CSTF | Gestión de trabajos finales</title>
+</head>
+
+<body>
+  <header>
+    <div class="header-superior">
+      <div class="logos">
+        <img src="../img/logo-unca.png" alt="unca">
+        <img src="../img/LogoFTCA.png" alt="tecno">
+      </div>
+
+      <h2>Gestión de trabajos finales</h2>
+
+      <div class="buscador">
+        <input type="search" name="buscador" placeholder="¿Qué estás buscando?">
+      </div>
+
+    </div>
+
+    <div class="container-menu">
+      <div class="menu">
+        <input type="checkbox" name="" id="check__menu">
+        <label id="#label__Check" for="check__menu">
+          <i class="fa-solid fa-bars icon__menu"></i>
+        </label>
+
+          <nav>
+          <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="#">Registrar</a>
+            <ul>
+              <li><a href="./2_registroCSTF.html">Integrantes de la CSTF</a></li>
+              <li><a href="./2_registroTE.html">Integrantes del tribunal evaluador</a></li>
+              <li><a href="./inscripcionalumno.html">Alumnos</a></li>
+              <li><a href="#">Proyecto de trabajo final</a></li>
+              <li><a href="#">Movimientos y estados de un PTF</a></li>
+              <li><a href="#">Informes y evaluciones</a></li>
+            </ul>
+            </li>
+            <li><a href="./estadisticas.html">Informes</a></li>
+            <li><a href="#">Evaluación formal</a></li>
+          </ul>
+          </nav>
+      </div>
+    </div>
+
+  </header>
+
+  <main>
+        <h2>Registro Integrante de la CSTF</h2>
+
+        <form id="formCstf" action="#" method="post">
+            <h3>Datos del Integrante</h3>
+            <div id="grupo__nombre">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name= "nombre" placeholder="Ingrese Nombre Completo" required>
+            <p class="formulario__input-error">El nombre tiene que contener solo letras.</p>
+            </div>
+            <br>
+
+            <div id="grupo__apellido">
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" placeholder="Ingrese Apellido Completo" required>
+            <p class="formulario__input-error">El apellido tiene que contener solo letras.</p>
+            </div>
+            <br>
+
+            <div id="grupo__cuil">
+            <label for="cuil">CUIL:</label>
+            <input type="number" id="cuil" name="cuil" placeholder="Ingrese Nro Cuil sin puntos" required>
+            <p class="formulario__input-error">El CUIL tiene que ser de 11 dígitos y solo puede contener numeros.</p>
+            </div>
+            <br>
+
+            <div id="grupo__fecha">
+            <label for="fecha_integracion">Fecha de Integracion:</label>
+            <input type="date" id="fecha_integracion" name="fecha_integracion" value="2006-12-19" required>
+            <p class="formulario__input-error">La fecha de integracion no puede ser posterior a la fecha actual.</p>
+            </div>
+            <br>
+
+            <p class="formulario__mensaje" id="formulario__mensaje" ><b>Error:</b> Por favor rellena el formulario correctamente. </p>
+            <input class = "boton" type="submit" name="guardar" value="Guardar">
+            <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+        </form>
+    </main>
+
+
+    <footer>
+        <h3>&copy Gestión de trabajos finales</h3>
+        <h4>UNCa | Facultad de Tecnologia y Ciencias Aplicadas</h4>
+    </footer>
+    <script src="../js/registro_comision.js"></script>
+
+</body>
+
+</html>
