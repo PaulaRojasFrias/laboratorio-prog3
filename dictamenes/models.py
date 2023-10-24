@@ -1,54 +1,53 @@
 from django.db import models
 
-from proyecto_trabajo_final.models import ProyectoFinal,Movimientos
+from proyecto_trabajo_final.models import InformeTF, ProyectoFinal,Movimientos
 
 
-from comisiones.models import IntegrantesComision,IntegrantesTribunal,TribunalEvaluador
+from comisiones.models import Comision, IntegrantesComision,IntegrantesTribunal,TribunalEvaluador
 # Create your models here.
 
 class EvaluacionPTF_CSTF(models.Model):
-    evaluacion = (
+    resultados_opc = (
         ('aprobado', 'Aprobado'),
         ('observado', 'Observado'),
         ('rechazado', 'Rechazado')
     )
-    evaluador = models.ForeignKey(IntegrantesComision, on_delete= models.CASCADE)
-    ptf_evaluado = models.ForeignKey(ProyectoFinal, on_delete= models.CASCADE)
-    movimiento_registrado = models.ForeignKey(Movimientos, on_delete= models.CASCADE)
-    archivo_evaluacion =models.FileField(null=True, blank=True)
-    observaciones =models.CharField(max_length=256)
+    resultadoCSTF = models.CharField(max_length=256, choices= resultados_opc)
+    observaciones =models.CharField(max_length=256, null=True, blank=True)
+    evaluadorCSTF = models.ForeignKey(Comision, on_delete= models.CASCADE)
+    ptf_evaluadoCSTF = models.OneToOneField(ProyectoFinal, on_delete= models.CASCADE) #PREGUNTAR A LA PROFE
+    informeEvaluacionCSTF =models.FileField(null=True, blank=True)
+    fechaEvaluacionCSTF = models.DateField(auto_now=False)
+    #movimiento_registrado = models.ForeignKey(Movimientos, on_delete= models.CASCADE) 
+
 class EvaluacionPTF_TE(models.Model):
-    evaluacion = (
+    resultados_opc = (
         ('aprobado', 'Aprobado'),
         ('observado', 'Observado'),
         ('rechazado', 'Rechazado')
     )
-    evaluador = models.ForeignKey(IntegrantesTribunal, on_delete=models.CASCADE)
-    ptf_evaluado = models.ForeignKey(ProyectoFinal, on_delete=models.CASCADE)
-    movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
-    archivo_evaluacion = models.FileField(null=True, blank=True)
-    observaciones = models.CharField(max_length=256)
+    resultadoTE = models.CharField(max_length=256, choices= resultados_opc)
+    observaciones = models.CharField(max_length=256, null=True, blank=True)
+    evaluadorTE = models.OneToOneField(TribunalEvaluador, on_delete=models.CASCADE)#PREGUNTAR A LA PROFE
+    ptf_evaluadoTE = models.OneToOneField(ProyectoFinal, on_delete=models.CASCADE)#PREGUNTAR A LA PROFE
+    informeEvaluacionTE = models.FileField(null=True, blank=True)
+    fechaEvaluacionTE = models.DateField(auto_now=False)
+    #movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
 
 class EvaluacionITF(models.Model):
-    evaluacion = (
+    resultados_opc = (
         ('aprobado', 'Aprobado'),
         ('observado', 'Observado'),
         ('rechazado', 'Rechazado')
     )
-    evaluador = models.ForeignKey(IntegrantesTribunal, on_delete=models.CASCADE)
-    """itf_evaluado = models.ForeignKey(InformeProyectoFinal, on_delete=models.CASCADE)"""
-    movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
-    archivo_evaluacion = models.FileField(null=True, blank=True)
+    resultadoITF = models.CharField(max_length=256, choices= resultados_opc)
     observaciones = models.CharField(max_length=256)
-
-
-
+    evaluadorTE_ITF = models.OneToOneField(TribunalEvaluador, on_delete=models.CASCADE)#PREGUNTAR A LA PROFE
+    itf_evaluadoTE = models.OneToOneField(InformeTF, on_delete=models.CASCADE)
+    informeEvaluacionITF = models.FileField(null=True, blank=True)
+    fechaEvaluacionITF = models.DateField(auto_now=False)
+    #movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
+    
 class DefensaOral(models.Model):
-    evaluacion = (
-        ('aprobado', 'Aprobado'),
-        ('desaprobado', 'Desaprobado'),
-    )
-    tribunalEvaluador = models.ForeignKey(TribunalEvaluador, on_delete=models.CASCADE)
-    """itf_evaluado = models.ForeignKey(InformeProyectoFinal, on_delete=models.CASCADE)"""
-    movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
-
+    fechaDefensa = models.DateField(auto_now=False)
+    notaObtenida = models.IntegerField()

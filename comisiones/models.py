@@ -21,7 +21,7 @@ class IntegrantesComision(models.Model):
     docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
     comision = models.ForeignKey(Comision, on_delete=models.CASCADE)
     fecha_alta_cs = models.DateField(auto_now_add=False)
-    fecha_baja_cs = models.DateField(auto_now_add=False)
+    fecha_baja_cs = models.DateField(auto_now_add=False, null=True, blank=True)
     class Meta:
        ordering = ['fecha_alta_cs']
 
@@ -35,6 +35,6 @@ class IntegrantesTribunal(models.Model):
     tribunal = models.ForeignKey(TribunalEvaluador, on_delete= models.CASCADE)
     rol = models.CharField(max_length=16, choices= rol_opc)
     fecha_alta_te = models.DateField(auto_now_add=False)
-    fecha_baja_te = models.DateField(auto_now_add=False)
+    fecha_baja_te = models.DateField(auto_now_add=False, null=True, blank=True)
     class Meta:
        ordering = ['fecha_alta_te']
