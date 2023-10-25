@@ -22,4 +22,6 @@ class Alumno(AbstractPersona):
     correo = models.EmailField(max_length=254)
 
 class Asesor(AbstractPersona):
+    cuil = models.CharField(max_length=11, unique=True) #modificado
     curriculum = models.FileField(upload_to='persona/')
+
