@@ -1,6 +1,7 @@
 from django.db import models
 
 from persona.models import Docente
+from proyecto_trabajo_final.models import ProyectoFinal
 
 class Comision(models.Model):
     fechaDeCreacionComision = models.DateField(auto_now_add=False)
@@ -14,6 +15,7 @@ class TribunalEvaluador(models.Model):
     nroDisposicionTribunal = models.CharField(max_length=50, unique = True)
     fechaCreacionTribunal = models.DateField(auto_now_add=False)
     archivoDisposicion = models.FileField(upload_to='archivosComisiones/')
+    proyectoTE = models.OneToOneField(ProyectoFinal, on_delete=models.CASCADE)
     class Meta:
        ordering = ['fechaCreacionTribunal']
 
