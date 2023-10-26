@@ -61,7 +61,7 @@ class Movimientos(models.Model):
 
 class PTF_Integrantes(models.Model):
     proyectoFinal = models.ForeignKey(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
-    alumnos = models.ForeignKey(Alumno,on_delete=models.CASCADE ,related_name='proyectos')
+    alumnos = models.ForeignKey(Alumno,on_delete=models.CASCADE, related_name='proyectos')
     fechaAltaAlumno = models.DateField(null=True, blank=True)
     fechaBajaAlumno = models.DateField(null=True, blank=True)
     certificadoAnalitico = models.FileField(upload_to='archivosPTF/')

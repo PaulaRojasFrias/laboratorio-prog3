@@ -13,7 +13,7 @@ class EvaluacionPTF_CSTF(models.Model):
         ('rechazado', 'Rechazado')
     )
     resultadoCSTF = models.CharField(max_length=256, choices= resultados_opc)
-    observaciones =models.CharField(max_length=256, null=True, blank=True)
+    observaciones = models.CharField(max_length=256, null=True, blank=True)
     evaluadorCSTF = models.ForeignKey(Comision, on_delete= models.CASCADE)
     ptf_evaluadoCSTF = models.OneToOneField(ProyectoFinal, on_delete= models.CASCADE) #PREGUNTAR A LA PROFE
     informeEvaluacionCSTF =models.FileField(null=True, blank=True, upload_to='archivosDictamenes/')
