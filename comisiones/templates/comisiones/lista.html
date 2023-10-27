@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}Lista de CSTF{% endblock %}
+{% block contenido %}
+<main>
+    <secction class='seccionClasico'>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
+                {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
+            {% endfor %}
+        {% endif %}
+        <h2>Lista de Comisiones</h2>
+        <table>
+            <tr>
+                <th>Nro. Resolucion</th>
+                <th>Fecha Resolucion</th>
+                <th>Archivo Resolucion</th>
+            </tr>
+            {% for comision in comisiones %}
+                <tr>
+                <td><a href="{% url 'comisiones:cstf_detalle' comision.id %}">{{ comision.nroResolucionComision }}</a></td>
+                <td>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ comision.archivoResolucion|default_if_none:"---"  }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </secction>
+  </main>
+
+{% endblock %}

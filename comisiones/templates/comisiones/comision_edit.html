@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Edición de Programa{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición de CSTF</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.fechaDeCreacionComision.errors }}
+                <label for="{{ form.fechaDeCreacionComision.id_for_label}}">Nombre:</label>
+                {{ form.fechaDeCreacionComision }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.nroResolucionComision.errors }}
+                <label for="{{ form.nroResolucionComision.id_for_label}}">Tipo de Asistencias:</label>
+                {{ form.nroResolucionComision }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.archivoResolucion.errors }}
+                <label for="{{ form.archivoResolucion.id_for_label}}">Requisitos:</label>
+                {{form.archivoResolucion}}
+            </div>
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}

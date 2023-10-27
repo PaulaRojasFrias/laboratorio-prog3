@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('persona/', include('persona.urls', namespace='persona')),
+    path('comisiones/', include('comisiones.urls', namespace='comsiones')),
     #path('regCSTF/', views.regCSTF),
     #path('regTribunal/', views.regTribunal),
     #path('regAlumno/', views.regAlumno),
