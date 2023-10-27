@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+
+     <main>
+          <h3>Registro asesores</h3>
+          <form method="post">
+
+            {{ form }}
+               {% csrf_token %}
+            <button type="submit">Enviar</button>
+          </form>
+
+     </main>
+
+{% endblock %}
