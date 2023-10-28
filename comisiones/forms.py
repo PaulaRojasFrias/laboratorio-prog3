@@ -52,7 +52,7 @@ class IntegranteComisionForm(forms.ModelForm):
             'fecha_baja_cs': DateInput(format='%y-%m-%d', attrs={'type': 'date'})
         }
 
-        def clean_fecha_alta_csn(self):
+        def clean_fecha_alta_cs(self):
             fecha = self.cleaned_data['fecha_alta_cs']
             # Verifica que la fecha de inicio sea anterior a fecha actual.
             if fecha and fecha > timezone.now().date():

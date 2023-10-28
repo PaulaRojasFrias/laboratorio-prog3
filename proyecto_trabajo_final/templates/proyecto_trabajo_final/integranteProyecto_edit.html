@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block titulo %}Edición de Integrante deL Proyecto{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición de Integrante deL Proyecto</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.proyectoFinal.errors }}
+                <label for="{{ form.proyectoFinal.id_for_label}}">Proyecto:</label>
+                {{ form.proyectoFinal }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.alumnos.errors }}
+                <label for="{{ form.alumnos.id_for_label}}">Alumno:</label>
+                {{ form.alumnos }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fechaAltaAlumno.errors }}
+                <label for="{{ form.fechaAltaAlumno.id_for_label}}">Fecha Alta:</label>
+                {{ form.fechaAltaAlumno }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fechaBajaAlumno.errors }}
+                <label for="{{ form.fechaBajaAlumno.id_for_label}}">Fecha Baja:</label>
+                {{ form.fechaBajaAlumno }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.certificadoAnalitico.errors }}
+                <label for="{{ form.certificadoAnalitico.id_for_label}}">Certificado Analitico:</label>
+                {{ form.certificadoAnalitico }}
+            </div>
+            <br>
+            
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}

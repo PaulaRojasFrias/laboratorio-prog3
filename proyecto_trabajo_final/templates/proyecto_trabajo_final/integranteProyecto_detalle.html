@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %}Detalle del integrante de un Proyecto{% endblock %}
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
+{% block contenido %}
+    <main>
+        <h1>Integrante del Proyecto</h1>
+        <div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
+                {% endfor %}
+            {% endif %}
+        
+            <p><strong>Proyecto: </strong>{{ integrante.proyectoFinal }}</p>
+            <p><strong>Alumno: </strong>{{ integrante.alumnos }}</p>
+            <p><strong>Fecha Alta: </strong>{{ integrante.fechaAltaAlumno|date:"SHORT_DATE_FORMAT" }}</p>
+            <p><strong>Fecha Baja: </strong>{{ integrante.fechaBajaAlumno|default_if_none:"---"  }}</p>
+            <p><strong>Certificado Analitico: </strong>
+                {% if integrante.certificadoAnalitico%}
+                    {{ integrante.certificadoAnalitico}}
+                {% else %}
+                No posee
+                {% endif %}
+            </p>
+
+            <div class='botonesForm'>
+                <button><a href="{% url 'proyecto_trabajo_final:integranteProyecto_edit' integrante.id %}">Editar</a></button>
+                <form action="{% url 'proyecto_trabajo_final:integranteProyecto_delete' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
+                    <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                </form>
+            </div>
+
+            
+        </div>
+    </main>
+{% endblock %}
