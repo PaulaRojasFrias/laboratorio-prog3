@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %}Detalle de la CSTF{% endblock %}
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
+{% block contenido %}
+    <main>
+        <h1>Proyecto</h1>
+        <div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <p><strong>Titulo: </strong>{{ proyecto.titulo }}</p>
+            <p><strong>Fecha Presentacion: </strong>{{ proyecto.fechaPresentacion|date:"SHORT_DATE_FORMAT" }}</p>
+            <p><strong>Descripcion:</strong></p>
+
+            <p><strong>Integrantes:</strong></p>
+            <div id='divTabla'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Proyecto</th>
+                        <th>Alumno</th>
+                        <th>Fecha Alta</th>
+                        <th>Fecha Baja</th>
+                        <th>Certificado Analitico</th>
+                    </tr>
+                    {% for integrante in integrantes %}
+                        <tr>
+                        <td><a href="{% url 'proyecto_trabajo_final:integranteProyecto_detalle' integrante.id %}">{{ integrante.proyectoFinal }}</a></td>
+                        <td>{{ integrante.alumnos }}</td>
+                        <td>{{ integrante.fechaAltaAlumno|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ integrante.fechaBajaAlumno|default_if_none:"---"  }}</td>
+                        <td>{{ integrante.certificadoAnalitico }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button><a href="{% url 'proyecto_trabajo_final:integranteProyecto_create' %}">Agregar Integrante</a></button>
+
+            </div>
+
+            <p><strong>Tutores:</strong></p>
+            <div id='divTabla2'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Proyecto</th>
+                        <th>Docentes</th>
+                        <th>Fecha Alta</th>
+                        <th>Fecha Baja</th>
+                        <th>Nota Aceptacion</th>
+                        <th>Rol del Tutor</th>
+                        <th></th>
+                    </tr>
+                    {% for tutor in tutores %}
+                        <tr>
+                        <td>{{ tutor.proyecto }}</td>
+                        <td>{{ tutor.docente }}</td>
+                        <td>{{ tutor.fechaAltaTutor|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ tutor.fechaBajaTutor|default_if_none:"---"  }}</td>
+                        <td>{{ tutor.notaAceptacion }}</td>
+                        <td>{{ tutor.rol_tutor }}</td>
+                        <td>
+                            <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_edit' pk=tutor.id pk2=proyecto.id %}">Modificar</a></button>
+                            <form action="{% url 'proyecto_trabajo_final:tutorProyecto_delete' proyecto.id%}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id_tutor" value="{{ tutor.id }}">
+                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                            </form>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_create' proyecto.id%}">Agregar Tutor</a></button>
+            </div>
+
+            <p><strong>Archivo Proyecto:</strong>
+                {% if proyecto.proyectoFinal %}
+                    {{ proyecto.proyectoFinal }}
+                {% else %}
+                No posee
+                {% endif %}
+            </p>
+
+            <div class='botonesForm'>
+                <button><a href="{% url 'proyecto_trabajo_final:proyecto_edit' proyecto.id %}">Editar</a></button>
+                <form action="{% url 'proyecto_trabajo_final:proyecto_delete' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_proyecto" value="{{ proyecto.id }}">
+                    <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                </form>
+            </div>
+
+       
+        </div>
+    </main>
+{% endblock %}

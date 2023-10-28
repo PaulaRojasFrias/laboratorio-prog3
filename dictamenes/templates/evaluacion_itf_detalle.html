@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}Detalle de Evaluacion ITF{% endblock %}
+
+{% block contenido %}
+    <main>
+        <h1>Detalle de Evaluacion ITF</h1>
+        <div class="detalle-evaluacion">
+            <p><strong>Resultado:</strong> {{ evaluacion.resultadoITF }}</p>
+            <p><strong>Observaciones:</strong> {{ evaluacion.observaciones }}</p>
+            <p><strong>Evaluador TE:</strong> {{ evaluacion.evaluadorTE_ITF }}</p>
+            <p><strong>ITF Evaluado TE:</strong> {{ evaluacion.itf_evaluadoTE }}</p>
+            <p><strong>Informe de Evaluacion:</strong> {{ evaluacion.informeEvaluacionITF }}</p>
+            <p><strong>Fecha de Evaluacion:</strong> {{ evaluacion.fechaEvaluacionITF }}</p>
+        </div>
+    </main>
+{% endblock %}

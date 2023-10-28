@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %}Confirmar Eliminación de Evaluacion TE{% endblock %}
+
+{% block contenido %}
+    <main>
+        <h1>Confirmar Eliminación de Evaluacion TE</h1>
+        <p>¿Estás seguro de que deseas eliminar la siguiente evaluación?</p>
+        <!-- Incluir los detalles específicos de EvaluacionTE aquí -->
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar">
+        </form>
+    </main>
+{% endblock %}

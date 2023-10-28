@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Creación de Evaluación PTF TE{% endblock %}
+{% block content %}
+    <main>
+        <h1>Creación de Evaluación PTF TE</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Guardar">
+        </form>
+    </main>
+{% endblock %}

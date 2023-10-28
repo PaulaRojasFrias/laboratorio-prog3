@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}Edición del Proyecto{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición de CSTF</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.titulo.errors }}
+                <label for="{{ form.titulo.id_for_label}}">Titulo:</label>
+                {{ form.titulo }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.descripcion.errors }}
+                <label for="{{ form.descripcion.id_for_label}}">Descripcion:</label>
+                {{ form.descripcion }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fechaPresentacion.errors }}
+                <label for="{{ form.fechaPresentacion.id_for_label}}">Fecha Presentacion:</label>
+                {{form.fechaPresentacion}}
+            </div>
+            <div class="campo">
+                {{ form.proyectoFinal.errors }}
+                <label for="{{ form.proyectoFinal.id_for_label}}">Archivo de Resolucion:</label>
+                {{form.proyectoFinal}}
+            </div>
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}

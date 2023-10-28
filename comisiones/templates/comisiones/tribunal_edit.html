@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}Edición del TE{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición del Tribunal Evaluador</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.fechaCreacionTribunal.errors }}
+                <label for="{{ form.fechaCreacionTribunal.id_for_label}}">Fecha Disposicion:</label>
+                {{ form.fechaCreacionTribunal }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.nroDisposicionTribunal.errors }}
+                <label for="{{ form.nroDisposicionTribunal.id_for_label}}">Nro. Disposicion:</label>
+                {{ form.nroDisposicionTribunal }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.proyectoTE.errors }}
+                <label for="{{ form.proyectoTE.id_for_label}}">Proyecto:</label>
+                {{form.proyectoTE}}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.archivoDisposicion.errors }}
+                <label for="{{ form.archivoDisposicion.id_for_label}}">Archivo de Resolucion:</label>
+                {{form.archivoDisposicion}}
+            </div>
+            
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+    
+</main>
+{% endblock %}

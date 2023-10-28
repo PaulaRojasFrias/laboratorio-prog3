@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block titulo %}Edición de Tutor del Proyecto{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición del Tutor del Proyecto</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.proyecto.errors }}
+                <label for="{{ form.proyecto.id_for_label}}">Proyecto:</label>
+                {{ form.proyecto }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.docente.errors }}
+                <label for="{{ form.docente.id_for_label}}">Docente:</label>
+                {{ form.docente }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fechaAltaTutor.errors }}
+                <label for="{{ form.fechaAltaTutor.id_for_label}}">Fecha Alta:</label>
+                {{ form.fechaAltaTutor }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fechaBajaTutor.errors }}
+                <label for="{{ form.fechaBajaTutor.id_for_label}}">Fecha Baja:</label>
+                {{ form.fechaBajaTutor }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.notaAceptacion.errors }}
+                <label for="{{ form.notaAceptacion.id_for_label}}">Nota de Aceptacion:</label>
+                {{ form.notaAceptacion }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.rol_tutor.errors }}
+                <label for="{{ form.rol_tutor.id_for_label}}">Rol del Tutor:</label>
+                {{ form.rol_tutor }}
+            </div>
+            
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}

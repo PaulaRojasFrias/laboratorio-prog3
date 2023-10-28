@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %}Detalle de la CSTF{% endblock %}
+{% block contenido %}
+    <main>
+        <h1>Tribunal Evaluador</h1>
+        
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <p><strong>Nro. Dictamen: </strong>{{ tribunal.nroDisposicionTribunal }}</p>
+        <p><strong>Fecha Dictamen: </strong>{{ tribunal.fechaCreacionTribunal|date:"SHORT_DATE_FORMAT" }}</p>
+        <p><strong>Proyecto: </strong>{{ tribunal.proyectoTE }}</p>
+        <p><strong>Archivo Dictamen:</strong>
+            {% if tribunal.archivoDisposicion %}
+                {{ tribunal.archivoDisposicion }}
+            {% else %}
+            No posee
+            {% endif %}
+        </p>
+        
+        <form action="{% url 'comisiones:te_delete' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id_tribunal" value="{{ tribunal.id }}">
+            <button><a href="{% url 'comisiones:te_edit' tribunal.id %}">Editar</a></button>
+            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+        </form>
+    </main>
+{% endblock %}

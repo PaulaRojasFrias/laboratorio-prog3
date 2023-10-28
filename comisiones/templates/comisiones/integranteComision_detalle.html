@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %}Detalle del integrante de la CSTF{% endblock %}
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
+{% block contenido %}
+    <main>
+        <h1>Integrante de la Comision de Seguimiento de Trabajo Final</h1>
+        <div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
+                {% endfor %}
+            {% endif %}
+        
+            <p><strong>Docente: </strong>{{ integrante.docente }}</p>
+            <p><strong>Fecha Alta: </strong>{{ integrante.fecha_alta_cs|date:"SHORT_DATE_FORMAT" }}</p>
+            <p><strong>Fecha Baja: </strong>{{ integrante.fecha_baja_cs|default_if_none:"---"  }}</p>
+            <p><strong>Comision: </strong>{{ integrante.comision }}</p>
+
+            <div class='botonesForm'>
+                <button><a href="{% url 'comisiones:integranteComision_edit' integrante.id %}">Editar</a></button>
+                <form action="{% url 'comisiones:integranteComision_delete' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
+                    <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                </form>
+            </div>
+
+            
+        </div>
+    </main>
+{% endblock %}
+
