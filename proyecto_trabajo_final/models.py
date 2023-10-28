@@ -1,7 +1,8 @@
 from django.db import models
-
+from django.utils import timezone
 from persona.models import Alumno, Docente, Asesor
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -62,6 +63,18 @@ class Movimientos(models.Model):
     fechaMovimiento = models.DateField()
     archivoAsociado = models.FileField(null=True, blank=True, upload_to='archivosPTF/')
     fechaVencimiento = models.DateField(null=True, blank=True)
+
+@receiver(post_save, sender=ProyectoFinal)
+def crear_movimiento(sender, instance, created, **kwargs):
+    if created:
+        # Crea un nuevo movimiento asociado al proyecto final y asigna el archivo asociado
+        movimiento = Movimientos.objects.create(
+            proyectoFinal=instance,
+            estado='aceptado',
+            tipoMovimiento='presentacion ptf',
+            fechaMovimiento=timezone.now(),
+            archivoAsociado=instance.proyectoFinal  # Asigna el archivo asociado del proyecto final al movimiento
+        )
 
 class PTF_Integrantes(models.Model):
     proyectoFinal = models.ForeignKey(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
