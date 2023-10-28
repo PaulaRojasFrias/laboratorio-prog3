@@ -41,6 +41,40 @@
 
             </div>
 
+            <p><strong>Tutores:</strong></p>
+            <div id='divTabla2'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Proyecto</th>
+                        <th>Docentes</th>
+                        <th>Fecha Alta</th>
+                        <th>Fecha Baja</th>
+                        <th>Nota Aceptacion</th>
+                        <th>Rol del Tutor</th>
+                        <th></th>
+                    </tr>
+                    {% for tutor in tutores %}
+                        <tr>
+                        <td>{{ tutor.proyecto }}</td>
+                        <td>{{ tutor.docente }}</td>
+                        <td>{{ tutor.fechaAltaTutor|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ tutor.fechaBajaTutor|default_if_none:"---"  }}</td>
+                        <td>{{ tutor.notaAceptacion }}</td>
+                        <td>{{ tutor.rol_tutor }}</td>
+                        <td>
+                            <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_edit' pk=tutor.id pk2=proyecto.id %}">Modificar</a></button>
+                            <form action="{% url 'proyecto_trabajo_final:tutorProyecto_delete' proyecto.id%}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id_tutor" value="{{ tutor.id }}">
+                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                            </form>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_create' proyecto.id%}">Agregar Tutor</a></button>
+            </div>
+
             <p><strong>Archivo Proyecto:</strong>
                 {% if proyecto.proyectoFinal %}
                     {{ proyecto.proyectoFinal }}

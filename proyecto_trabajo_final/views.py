@@ -2,10 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from proyecto_trabajo_final.forms import IntegranteProyectoForm, ProyectoForm
+from proyecto_trabajo_final.forms import IntegranteProyectoForm, ProyectoForm, TutorForm
 
-from proyecto_trabajo_final.models import PTF_Integrantes, ProyectoFinal
+from proyecto_trabajo_final.models import PTF_Integrantes, ProyectoFinal, TutoresPTF
 
+#<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 def proyecto_lista(request):
     proyectos = ProyectoFinal.objects.all()
     return render(request, 'proyecto_trabajo_final/proyecto_lista.html', {'proyectos': proyectos})
@@ -13,7 +14,8 @@ def proyecto_lista(request):
 def proyecto_detalle(request, pk):
     proyecto = get_object_or_404(ProyectoFinal, pk=pk)
     integrantes = PTF_Integrantes.objects.filter(proyectoFinal=proyecto)
-    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes})
+    tutores = TutoresPTF.objects.filter(proyecto=proyecto)
+    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores})
 
 def proyecto_create(request):
     nuevo_proyecto = None
@@ -53,6 +55,9 @@ def proyecto_delete(request):
             messages.error(request, 'Debe indicar que proyecto desea eliminar')
     return redirect(reverse('proyecto_trabajo_final:proyecto_lista'))
 
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< ALUMNOS QUE CONFORMAN LOS PROYECTOS  >>>>>>>>>>>>>>>>>>>>>>
 
 def integranteProyecto_detalle(request, pk):
     integrante = get_object_or_404(PTF_Integrantes, pk=pk)
@@ -96,3 +101,45 @@ def integranteProyecto_edit(request, pk):
         integrante_form = IntegranteProyectoForm(instance=integrante)
 
     return render(request, 'proyecto_trabajo_final/integranteProyecto_edit.html', {'form': integrante_form})
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< TUTORES QUE CONFORMAN LOS PROYECTOS  >>>>>>>>>>>>>>>>>>>>>>
+def tutorProyecto_create(request, pk):
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk)
+    nuevoIntegrante = None
+    if(request.method == 'POST'):
+        integranteForm = TutorForm(request.POST, request.FILES)
+        if integranteForm.is_valid():
+            nuevoIntegrante = integranteForm.save(commit=True)
+            messages.success(request, 'Se ha agrgado correctamente el nuevo tutor')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        integranteForm = TutorForm()
+
+    return render(request, 'proyecto_trabajo_final/tutorProyecto_form.html', {'form': integranteForm})
+
+def tutorProyecto_delete(request, pk):
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk)
+    if request.method == 'POST':
+        if 'id_tutor' in request.POST:
+            integrante = get_object_or_404(TutoresPTF, pk=request.POST['id_tutor'])
+            docente = integrante.docente
+            integrante.delete()
+            messages.success(request, 'Se ha eliminado existosamente el tutor  {}' .format(docente))
+        else:
+            messages.error(request, 'Debe indicar que tutor desea eliminar')
+    return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+
+def tutorProyecto_edit(request, pk, pk2):
+    integrante = get_object_or_404(TutoresPTF, pk=pk)
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk2)
+    if request.method == 'POST':
+        integrante_form = TutorForm(request.POST, request.FILES, instance=integrante)
+        if integrante_form.is_valid():
+            integrante_form.save()
+            messages.success(request, 'Se ha actualizado correctamente el tutor')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        integrante_form = TutorForm(instance=integrante)
+
+    return render(request, 'proyecto_trabajo_final/tutorProyecto_edit.html', {'form': integrante_form})

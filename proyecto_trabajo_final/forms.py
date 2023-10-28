@@ -1,8 +1,9 @@
 from django import forms
 from django.utils import timezone
 from django.forms import DateInput, ValidationError
-from proyecto_trabajo_final.models import PTF_Integrantes, ProyectoFinal
+from proyecto_trabajo_final.models import PTF_Integrantes, ProyectoFinal, TutoresPTF
 
+#<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 class ProyectoForm(forms.ModelForm):
     class Meta:
         model = ProyectoFinal
@@ -37,8 +38,7 @@ class ProyectoForm(forms.ModelForm):
     
 
 
-
-    
+#<<<<<<<<<<<<<<<<<<<<<<<<< ALUMNOS QUE CONFORMAN LOS PROYECTOS  >>>>>>>>>>>>>>>>>>>>>>
 class IntegranteProyectoForm(forms.ModelForm):
     class Meta:
         model = PTF_Integrantes
@@ -59,7 +59,7 @@ class IntegranteProyectoForm(forms.ModelForm):
         }
 
         def clean_fechaAltaAlumno(self):
-            fecha = self.cleaned_data['fecha_alta_cs']
+            fecha = self.cleaned_data['fechaAltaAlumno']
             # Verifica que la fecha de inicio sea anterior a fecha actual.
             if fecha and fecha > timezone.now().date():
                 raise ValidationError(
@@ -87,3 +87,59 @@ class IntegranteProyectoForm(forms.ModelForm):
                     code='invalido'
                 )
             return cleaned_data
+        
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< TUTORES QUE CONFORMAN LOS PROYECTOS  >>>>>>>>>>>>>>>>>>>>>>
+
+class TutorForm(forms.ModelForm):
+    class Meta:
+        model = TutoresPTF
+        fields = ('docente', 'fechaAltaTutor', 'fechaBajaTutor', 'notaAceptacion', 'rol_tutor', 'proyecto')
+        
+        labels ={'proyectoFinal': 'Proyecto Final', 
+                  'docente': 'Docente', 
+                  'fechaAltaTutor': 'Fecha Alta', 
+                  'fechaBajaTutor': 'Fecha Baja',
+                  'notaAceptacion': 'Nota Aceptacion',
+                  'rol_tutor': 'Rol del Tutor',}
+        
+        widgets = {
+            'proyectoFinal': forms.Select(),
+            'docente': forms.Select(), 
+            'fechaAltaTutor': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+            'fechaBajaTutor': DateInput(format='%y-%m-%d', attrs={'type': 'date'}),
+            'notaAceptacion': forms.ClearableFileInput(),
+            'rol_tutor': forms.Select(choices=TutoresPTF.rol_docente)
+        }
+
+        def clean_fechaAltaTutor(self):
+            fecha = self.cleaned_data['fechaAltaTutor']
+            # Verifica que la fecha de inicio sea anterior a fecha actual.
+            if fecha and fecha > timezone.now().date():
+                raise ValidationError(
+                    {'fecha_inicio': 'La Fecha de Inicio no puede ser posterior que la fecha actual'},
+                    code='invalido'
+                )
+            return fecha
+        
+        def clean_notaAceptacion(self):
+            archivo = self.cleaned_data['notaAceptacion']
+            if archivo:
+                extension = archivo.name.rsplit('.', 1)[1].lower()
+                if extension != 'pdf':
+                    raise ValidationError('El archivo seleccionado no tiene el formato PDF.')
+            return archivo
+        
+        def clean(self):
+            cleaned_data = super().clean()
+            fecha_inicio = self.cleaned_data['fechaAltaTutor']
+            fecha_fin = self.cleaned_data['fechaBajaTutor']
+            # Verifica que la fecha de inicio sea anterior a fecha fin.
+            if fecha_fin and fecha_inicio > fecha_fin:
+                raise ValidationError(
+                    {'fecha_inicio': 'La Fecha de alta no puede ser posterior que la fecha baja'},
+                    code='invalido'
+                )
+            return cleaned_data
+        

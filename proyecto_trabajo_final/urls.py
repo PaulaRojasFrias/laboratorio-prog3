@@ -1,6 +1,6 @@
 from django.urls import path
 
-from proyecto_trabajo_final.views import integranteProyecto_create, integranteProyecto_delete, integranteProyecto_detalle, integranteProyecto_edit, proyecto_create, proyecto_delete, proyecto_detalle, proyecto_edit, proyecto_lista
+from proyecto_trabajo_final.views import integranteProyecto_create, integranteProyecto_delete, integranteProyecto_detalle, integranteProyecto_edit, proyecto_create, proyecto_delete, proyecto_detalle, proyecto_edit, proyecto_lista, tutorProyecto_create, tutorProyecto_delete, tutorProyecto_edit
 
 app_name = 'proyecto_trabajo_final'
 urlpatterns = [
@@ -15,4 +15,8 @@ urlpatterns = [
     path('integrante/<int:pk>/', integranteProyecto_detalle, name='integranteProyecto_detalle'),
     path('integrante/edit/<int:pk>/', integranteProyecto_edit, name='integranteProyecto_edit'),
     path('integrante/delete/', integranteProyecto_delete, name='integranteProyecto_delete'),
+
+    path('tutor/create/<int:pk>', tutorProyecto_create, name='tutorProyecto_create'),
+    path('tutor/delete/<int:pk>', tutorProyecto_delete, name='tutorProyecto_delete'),
+    path('tutor/edit/<int:pk>/<int:pk2>', tutorProyecto_edit, name='tutorProyecto_edit'),
 ]

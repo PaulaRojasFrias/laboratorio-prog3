@@ -15,11 +15,13 @@ class ProyectoFinal(models.Model):
         return f'{self.titulo}'
 
 class InformeTF(models.Model):
+    proyectoTF = models.OneToOneField(ProyectoFinal, on_delete=models.CASCADE)
     archivoITF = models.FileField(upload_to='archivosPTF/')
     fechaPresentacion = models.DateField()
-    proyectoTF = models.OneToOneField(ProyectoFinal, on_delete=models.CASCADE)
+    
 
 class AsesorPTF(models.Model):
+    proyecto = models.ForeignKey(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
     asesor= models.ForeignKey(Asesor, on_delete=models.SET_NULL, null=True, blank=True, related_name='proyectos_asesor')
     fechaAltaAsesor = models.DateField()
     fechaBajaAsesor = models.DateField(null=True, blank=True)
@@ -31,10 +33,12 @@ class TutoresPTF(models.Model):
         ('director', 'Director'),
     )
     docente = models.ForeignKey(Docente, on_delete=models.SET_NULL, null=True, blank=True, related_name='proyectos_tutores')
+    proyecto = models.ForeignKey(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
     fechaAltaTutor = models.DateField()
     fechaBajaTutor = models.DateField(null=True, blank=True)
     notaAceptacion = models.FileField(null=True, blank=True, upload_to='archivosPTF/')
     rol_tutor = models.CharField(max_length=50, choices=rol_docente)
+    
 
 class Movimientos(models.Model):
     proyectoFinal = models.OneToOneField(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
