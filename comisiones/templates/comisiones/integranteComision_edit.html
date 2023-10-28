@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}Edición de Integrante de la Comision{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición de Integrante de la Comision</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.docente.errors }}
+                <label for="{{ form.docente.id_for_label}}">Docente:</label>
+                {{ form.docente }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.comision.errors }}
+                <label for="{{ form.comision.id_for_label}}">Comision:</label>
+                {{ form.comision }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fecha_alta_cs.errors }}
+                <label for="{{ form.fecha_alta_cs.id_for_label}}">Fecha Alta:</label>
+                {{ form.fecha_alta_cs }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fecha_baja_cs.errors }}
+                <label for="{{ form.fecha_baja_cs.id_for_label}}">Fecha Baja:</label>
+                {{ form.fecha_baja_cs }}
+            </div>
+            <br>
+            
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}
