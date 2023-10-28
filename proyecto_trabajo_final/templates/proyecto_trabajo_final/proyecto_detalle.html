@@ -17,6 +17,34 @@
             <p><strong>Fecha Presentacion: </strong>{{ proyecto.fechaPresentacion|date:"SHORT_DATE_FORMAT" }}</p>
             <p><strong>Descripcion:</strong></p>
 
+            <p><strong>Informe:</strong></p>
+            <div id='divTabla'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Proyecto</th>
+                        <th>Archivo</th>
+                        <th>Fecha Presentacion</th>
+                        <th>Opciones</th>
+                    </tr>
+                    {% for informe in informes %}
+                        <tr>
+                        <td>{{ informe.proyectoTF }}</td>
+                        <td>{{ informe.archivoITF  }}</td>
+                        <td>{{ informe.fechaPresentacion|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>
+                            <button><a href="{% url 'proyecto_trabajo_final:informeProyecto_edit' pk=informe.id pk2=proyecto.id %}">Modificar</a></button>
+                            <form action="{% url 'proyecto_trabajo_final:informeProyecto_delete' proyecto.id%}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id_informe" value="{{ informe.id }}">
+                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                            </form>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button><a href="{% url 'proyecto_trabajo_final:informeProyecto_create' proyecto.id%}">Agregar Informe</a></button>
+            </div>
+
             <p><strong>Integrantes:</strong></p>
             <div id='divTabla'>
                 <table clase='tabla'>

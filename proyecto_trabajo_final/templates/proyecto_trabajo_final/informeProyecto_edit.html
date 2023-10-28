@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titulo %}Edición del Informe Final{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición del Informe Final</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.proyectoTF.errors }}
+                <label for="{{ form.proyectoTF.id_for_label}}">Proyecto:</label>
+                {{ form.proyectoTF }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.archivoITF.errors }}
+                <label for="{{ form.archivoITF.id_for_label}}">Archivo:</label>
+                {{ form.archivoITF }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.fechaPresentacion.errors }}
+                <label for="{{ form.fechaPresentacion.id_for_label}}">Fecha Presentacion:</label>
+                {{ form.fechaPresentacion }}
+            </div>
+            <br>
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}
