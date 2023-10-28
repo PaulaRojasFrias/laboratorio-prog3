@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Creacion de Evaluacion ITF{% endblock %}
+{% block contenido %}
+    <main>
+        <h1>Creacion de Evaluacion ITF</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% for field in form %}
+              <div class="campo">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+              </div><br>
+            {% endfor %}
+          {% csrf_token %}
+          <input type="submit" value="Guardar">
+        </form>
+    </main>
+{% endblock %}

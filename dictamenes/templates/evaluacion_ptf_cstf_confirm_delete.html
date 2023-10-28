@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}Confirmar Eliminación de Evaluacion PTF CSTF{% endblock %}
+
+{% block contenido %}
+    <main>
+        <h1>Confirmar Eliminación de Evaluacion PTF CSTF</h1>
+        <p>¿Estás seguro de que deseas eliminar la siguiente evaluación?</p>
+        <p><strong>ID de Evaluación:</strong> {{ evaluacion.id }}</p>
+        <p><strong>Resultado:</strong> {{ evaluacion.resultadoCSTF }}</p>
+        <p><strong>Observaciones:</strong> {{ evaluacion.observaciones }}</p>
+        <p><strong>Evaluador:</strong> {{ evaluacion.evaluadorCSTF }}</p>
+        <p><strong>PTF Evaluado:</strong> {{ evaluacion.ptf_evaluadoCSTF }}</p>
+        <p><strong>Informe de Evaluacion:</strong> {{ evaluacion.informeEvaluacionCSTF }}</p>
+        <p><strong>Fecha de Evaluacion:</strong> {{ evaluacion.fechaEvaluacionCSTF }}</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar">
+        </form>
+    </main>
+{% endblock %}
