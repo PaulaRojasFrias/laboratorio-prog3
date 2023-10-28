@@ -29,7 +29,5 @@ urlpatterns = [
     #path('regAlumno/', views.regAlumno),
     #path('regPTF', ),
     #path('regMovimientoPTF', ),
-
-
 ]
 

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block titulo %}Lista de CSTF{% endblock %}
+{% block contenido %}
+<main>
+    <secction class='seccionClasico'>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
+                {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
+            {% endfor %}
+        {% endif %}
+        <h2>Lista de Tribunales Evaluadores</h2>
+        <table>
+            <tr>
+                <th>Nro. Dictamen</th>
+                <th>Fecha Dictamen</th>
+                <th>Archivo Dictamen</th>
+                <th>Proyecto</th>
+            </tr>
+            {% for tribunal in tribunales %}
+                <tr>
+                <td><a href="{% url 'comisiones:te_detalle' tribunal.id %}">{{ tribunal.nroDisposicionTribunal }}</a></td>
+                <td>{{ tribunal.fechaCreacionTribunal|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ tribunal.archivoDisposicion|default_if_none:"---"  }}</td>
+                <td>{{ tribunal.proyectoTE }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </secction>
+  </main>
+
+{% endblock %}

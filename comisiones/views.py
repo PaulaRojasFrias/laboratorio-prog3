@@ -1,17 +1,17 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from comisiones.forms import ComisionForm
-from .models import Comision
+from comisiones.forms import ComisionForm, TribunalForm
+from .models import Comision, TribunalEvaluador
 
 #COMISION DE SEGUIMIENTO DE TRABAJO FINAL
 def cstf_lista(request): 
     comisiones = Comision.objects.all()
-    return render(request, 'comisiones/lista.html', {'comisiones': comisiones})
+    return render(request, 'comisiones/comisiones_lista.html', {'comisiones': comisiones})
 
 def cstf_detalle(request, pk):
     comision = get_object_or_404(Comision, pk=pk)
-    return render(request, 'comisiones/detalle.html', {'comision': comision})
+    return render(request, 'comisiones/comisiones_detalle.html', {'comision': comision})
 
 def cstf_create(request):
     nueva_cstf = None
@@ -50,4 +50,52 @@ def cstf_delete(request):
         else:
             messages.error(request, 'Debe indicar que Comision desea eliminar')
     return redirect(reverse('comisiones:cstf_lista'))
-#TRIBUNAL EVALUADOR
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< TRIBUNAL EVALUADOR >>>>>>>>>>>>>>>>>>>>>>
+def te_lista(request): 
+    tribunales = TribunalEvaluador.objects.all()
+    return render(request, 'comisiones/tribunal_lista.html', {'tribunales': tribunales})
+
+def te_detalle(request, pk):
+    tribunal = get_object_or_404(TribunalEvaluador, pk=pk)
+    return render(request, 'comisiones/tribunal_detalle.html', {'tribunal': tribunal})
+
+def te_create(request):
+    nueva_te = None
+    if request.method == 'POST':
+        tribunal_form = TribunalForm(request.POST, request.FILES)
+        if tribunal_form.is_valid():
+            #se guardan los datos que provienen del formulario en la B.D
+            nueva_te = tribunal_form.save(commit=True)
+            messages.success(request, 'Se ha agrgado correctamente el Tribunal {}' .format(nueva_te))
+            return redirect(reverse('comisiones:te_detalle', args={nueva_te.id}))
+    else:
+        tribunal_form = TribunalForm()
+
+    return render(request, 'comisiones/tribunal_form.html', {'form': tribunal_form})
+
+
+def te_edit(request, pk):
+    tribunal = get_object_or_404(TribunalEvaluador, pk=pk)
+    if request.method == 'POST':
+        tribunal_form = TribunalForm(request.POST, request.FILES, instance=tribunal)
+        if tribunal_form.is_valid():
+            tribunal_form.save()
+            messages.success(request, 'Se ha actualizado correctamente el Tribunal')
+            return redirect(reverse('comisiones:te_detalle', args=[tribunal.id]))
+    else:
+        tribunal_form = TribunalForm(instance=tribunal)
+    return render(request, 'comisiones/tribunal_edit.html', {'form': tribunal_form})
+
+def te_delete(request):
+    if request.method == 'POST':
+        if 'id_tribunal' in request.POST:
+            tribunal = get_object_or_404(TribunalEvaluador, pk=request.POST['id_tribunal'])
+            disposicionTribunal = tribunal.nroDisposicionTribunal
+            tribunal.delete()
+            messages.success(request, 'Se ha eliminado existosamente el tribunal con el nro. de disposicion {}' .format(disposicionTribunal))
+        else:
+            messages.error(request, 'Debe indicar que Tribunal desea eliminar')
+    return redirect(reverse('comisiones:te_lista'))
+

@@ -25,6 +25,6 @@
             <input type="hidden" name="id_comision" value="{{ comision.id }}">
             <button><a href="{% url 'comisiones:cstf_edit' comision.id %}">Editar</a></button>
             <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-          </form>
+        </form>
     </main>
 {% endblock %}
