@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block titulo %}Edición del Movimiento{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición del Movimiento</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.proyecto.errors }}
+                <label for="{{ form.proyecto.id_for_label}}">Proyecto:</label>
+                {{ form.proyecto }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.estado.errors }}
+                <label for="{{ form.estado.id_for_label}}">Estado:</label>
+                {{ form.estado }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.tipoMovimiento.errors }}
+                <label for="{{ form.tipoMovimiento.id_for_label}}">Tipo Movimiento:</label>
+                {{form.tipoMovimiento}}
+            </div>
+            <div class="campo">
+                {{ form.observacion.errors }}
+                <label for="{{ form.observacion.id_for_label}}">Observacion:</label>
+                {{form.observacion}}
+            </div>
+            <div class="campo">
+                {{ form.fechaMovimiento.errors }}
+                <label for="{{ form.fechaMovimiento.id_for_label}}">Fecha Movimiento:</label>
+                {{form.fechaMovimiento}}
+            </div>
+            <div class="campo">
+                {{ form.archivoAsociado.errors }}
+                <label for="{{ form.archivoAsociado.id_for_label}}">Archivo Asociado:</label>
+                {{form.archivoAsociado}}
+            </div>
+            <div class="campo">
+                {{ form.fechaVencimiento.errors }}
+                <label for="{{ form.fechaVencimiento.id_for_label}}">Fecha Vencimiento:</label>
+                {{form.fechaVencimiento}}
+            </div>
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}

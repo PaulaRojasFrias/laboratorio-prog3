@@ -108,6 +108,37 @@
                 <button><a href="{% url 'proyecto_trabajo_final:asesorProyecto_create' proyecto.id%}">Agregar Asesor</a></button>
             </div>
             <br>
+            <br>
+            <p><strong>Movimiento:</strong></p>
+            <div id='divTabla3'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Proyecto</th>
+                        <th>Tipo Movimiento</th>
+                        <th>Estado</th>
+                        <th>Observacion</th>
+                        <th>Fecha Movimiento</th>
+                        <th>Archivo Asociado:</th>
+                        <th>Fecha Vencimiento:</th>
+                        <th></th>
+                    </tr>
+                    {% for movimiento in movimientos %}
+                        <tr>
+                        <td>{{ movimiento.proyecto }}</td>
+                        <td>{{ movimiento.tipoMovimiento }}</td>
+                        <td>{{ movimiento.estado |default_if_none:"---"}}</td>
+                        <td>{{ movimiento.observacion|default_if_none:"---"}}</td>
+                        <td>{{ movimiento.fechaMovimiento|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ movimiento.archivoAsociado }}</td>
+                        <td>{{ movimiento.fechaVencimiento|default_if_none:"---"  }}</td>
+                        <td>
+                            <button><a href="{% url 'proyecto_trabajo_final:movimientoProyecto_edit' pk=movimiento.id pk2=proyecto.id %}">Modificar</a></button>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <br>
             
             <p><strong>Archivo Proyecto:</strong>
                 {% if proyecto.proyectoFinal %}

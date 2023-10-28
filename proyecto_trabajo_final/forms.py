@@ -1,7 +1,7 @@
 from django import forms
 from django.utils import timezone
 from django.forms import DateInput, ValidationError
-from proyecto_trabajo_final.models import AsesorPTF, PTF_Integrantes, ProyectoFinal, TutoresPTF
+from proyecto_trabajo_final.models import AsesorPTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 class ProyectoForm(forms.ModelForm):
@@ -191,3 +191,24 @@ class AsesorPTFForm(forms.ModelForm):
                 )
             return cleaned_data
         
+class MovimientoForm(forms.ModelForm):
+    class Meta:
+        model = Movimientos
+        fields = ('proyecto', 'estado', 'tipoMovimiento', 'observacion', 'fechaMovimiento', 'archivoAsociado', 'fechaVencimiento')
+        
+        labels ={'proyecto': 'Proyecto', 
+                  'estado': 'Estado', 
+                  'tipoMovimiento': 'Tipo Movimiento', 
+                  'observacion': 'Observacion',
+                  'fechaMovimiento': 'Fecha Movimiento',
+                  'archivoAsociado': 'Archivo Asociado',
+                  'fechaVencimiento': 'Fecha Vencimiento' }
+        
+        widgets = {
+            'proyecto': forms.Select(),
+            'estado': forms.Select(choices=Movimientos.estado_opc), 
+            'tipoMovimiento': forms.Select(choices=Movimientos.movimientos_opc),
+            'fechaMovimiento': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+            'fechaVencimiento': DateInput(format='%y-%m-%d', attrs={'type': 'date'}),
+            'archivoAsociado': forms.ClearableFileInput(),
+        }

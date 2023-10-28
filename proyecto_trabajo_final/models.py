@@ -42,7 +42,7 @@ class TutoresPTF(models.Model):
     
 
 class Movimientos(models.Model):
-    proyectoFinal = models.OneToOneField(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
+    proyecto = models.OneToOneField(ProyectoFinal, on_delete=models.SET_NULL, null=True, blank=True)
     estado_opc = (
         ('aceptado', 'Aceptado'),
         ('rechazado', 'Rechazado'),
@@ -69,8 +69,7 @@ def crear_movimiento(sender, instance, created, **kwargs):
     if created:
         # Crea un nuevo movimiento asociado al proyecto final y asigna el archivo asociado
         movimiento = Movimientos.objects.create(
-            proyectoFinal=instance,
-            estado='aceptado',
+            proyecto=instance,
             tipoMovimiento='presentacion ptf',
             fechaMovimiento=timezone.now(),
             archivoAsociado=instance.proyectoFinal  # Asigna el archivo asociado del proyecto final al movimiento

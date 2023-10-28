@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from proyecto_trabajo_final.forms import AsesorPTFForm, IntegranteProyectoForm, ProyectoForm, TutorForm
+from proyecto_trabajo_final.forms import AsesorPTFForm, IntegranteProyectoForm, MovimientoForm, ProyectoForm, TutorForm
 
-from proyecto_trabajo_final.models import AsesorPTF, PTF_Integrantes, ProyectoFinal, TutoresPTF
+from proyecto_trabajo_final.models import AsesorPTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 def proyecto_lista(request):
@@ -16,7 +16,8 @@ def proyecto_detalle(request, pk):
     integrantes = PTF_Integrantes.objects.filter(proyectoFinal=proyecto)
     tutores = TutoresPTF.objects.filter(proyecto=proyecto)
     asesores = AsesorPTF.objects.filter(proyecto=proyecto)
-    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores, 'asesores': asesores})
+    movimientos = Movimientos.objects.filter(proyecto=proyecto)
+    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores, 'asesores': asesores, 'movimientos': movimientos})
 
 def proyecto_create(request):
     nuevo_proyecto = None
@@ -186,3 +187,17 @@ def asesorProyecto_edit(request, pk, pk2):
 
     return render(request, 'proyecto_trabajo_final/asesorProyecto_edit.html', {'form': asesor_form})
 
+
+def movimientoProyecto_edit(request, pk, pk2):
+    movimiento = get_object_or_404(Movimientos, pk=pk)
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk2)
+    if request.method == 'POST':
+        movimiento_form = MovimientoForm(request.POST, request.FILES, instance=movimiento)
+        if movimiento_form.is_valid():
+            movimiento_form.save()
+            messages.success(request, 'Se ha actualizado correctamente el movimiento')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        movimiento_form = MovimientoForm(instance=movimiento)
+
+    return render(request, 'proyecto_trabajo_final/movimientoProyecto_edit.html', {'form': movimiento_form})

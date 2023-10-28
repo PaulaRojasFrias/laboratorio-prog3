@@ -1,6 +1,6 @@
 from django.urls import path
 
-from proyecto_trabajo_final.views import asesorProyecto_create, asesorProyecto_delete, asesorProyecto_edit, integranteProyecto_create, integranteProyecto_delete, integranteProyecto_detalle, integranteProyecto_edit, proyecto_create, proyecto_delete, proyecto_detalle, proyecto_edit, proyecto_lista, tutorProyecto_create, tutorProyecto_delete, tutorProyecto_edit
+from proyecto_trabajo_final.views import asesorProyecto_create, asesorProyecto_delete, asesorProyecto_edit, integranteProyecto_create, integranteProyecto_delete, integranteProyecto_detalle, integranteProyecto_edit, movimientoProyecto_edit, proyecto_create, proyecto_delete, proyecto_detalle, proyecto_edit, proyecto_lista, tutorProyecto_create, tutorProyecto_delete, tutorProyecto_edit
 
 app_name = 'proyecto_trabajo_final'
 urlpatterns = [
@@ -23,4 +23,7 @@ urlpatterns = [
     path('asesor/create/<int:pk>', asesorProyecto_create, name='asesorProyecto_create'),
     path('asesor/delete/<int:pk>', asesorProyecto_delete, name='asesorProyecto_delete'),
     path('asesor/edit/<int:pk>/<int:pk2>', asesorProyecto_edit, name='asesorProyecto_edit'),
+
+    
+    path('movimiento/edit/<int:pk>/<int:pk2>', movimientoProyecto_edit, name='movimientoProyecto_edit'),
 ]
