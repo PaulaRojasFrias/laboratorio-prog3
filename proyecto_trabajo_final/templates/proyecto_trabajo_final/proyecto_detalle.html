@@ -74,7 +74,41 @@
                 </table>
                 <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_create' proyecto.id%}">Agregar Tutor</a></button>
             </div>
-
+            <br>
+            <br>
+            <p><strong>Asesores:</strong></p>
+            <div id='divTabla2'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Proyecto</th>
+                        <th>Asesor</th>
+                        <th>Fecha Alta</th>
+                        <th>Fecha Baja</th>
+                        <th>Nota Aceptacion</th>
+                        <th></th>
+                    </tr>
+                    {% for asesor in asesores %}
+                        <tr>
+                        <td>{{ asesor.proyecto }}</td>
+                        <td>{{ asesor.asesor }}</td>
+                        <td>{{ asesor.fechaAltaAsesor|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ asesor.fechaBajaAsesor|default_if_none:"---"  }}</td>
+                        <td>{{ asesor.notaAceptacion }}</td>
+                        <td>
+                            <button><a href="{% url 'proyecto_trabajo_final:asesorProyecto_edit' pk=asesor.id pk2=proyecto.id %}">Modificar</a></button>
+                            <form action="{% url 'proyecto_trabajo_final:asesorProyecto_delete' proyecto.id%}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id_asesor" value="{{ asesor.id }}">
+                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                            </form>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button><a href="{% url 'proyecto_trabajo_final:asesorProyecto_create' proyecto.id%}">Agregar Asesor</a></button>
+            </div>
+            <br>
+            
             <p><strong>Archivo Proyecto:</strong>
                 {% if proyecto.proyectoFinal %}
                     {{ proyecto.proyectoFinal }}
