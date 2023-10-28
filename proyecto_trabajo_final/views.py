@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from proyecto_trabajo_final.forms import IntegranteProyectoForm, ProyectoForm, TutorForm
+from proyecto_trabajo_final.forms import AsesorPTFForm, IntegranteProyectoForm, ProyectoForm, TutorForm
 
-from proyecto_trabajo_final.models import PTF_Integrantes, ProyectoFinal, TutoresPTF
+from proyecto_trabajo_final.models import AsesorPTF, PTF_Integrantes, ProyectoFinal, TutoresPTF
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 def proyecto_lista(request):
@@ -15,7 +15,8 @@ def proyecto_detalle(request, pk):
     proyecto = get_object_or_404(ProyectoFinal, pk=pk)
     integrantes = PTF_Integrantes.objects.filter(proyectoFinal=proyecto)
     tutores = TutoresPTF.objects.filter(proyecto=proyecto)
-    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores})
+    asesores = AsesorPTF.objects.filter(proyecto=proyecto)
+    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores, 'asesores': asesores})
 
 def proyecto_create(request):
     nuevo_proyecto = None
@@ -143,3 +144,45 @@ def tutorProyecto_edit(request, pk, pk2):
         integrante_form = TutorForm(instance=integrante)
 
     return render(request, 'proyecto_trabajo_final/tutorProyecto_edit.html', {'form': integrante_form})
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< ASESORES QUE CONFORMAN LOS PROYECTOS  >>>>>>>>>>>>>>>>>>>>>>
+def asesorProyecto_create(request, pk):
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk)
+    nuevoAsesor = None
+    if(request.method == 'POST'):
+        asesorForm = AsesorPTFForm(request.POST, request.FILES)
+        if asesorForm.is_valid():
+            nuevoAsesor = asesorForm.save(commit=True)
+            messages.success(request, 'Se ha agrgado correctamente el nuevo asesor')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        asesorForm = AsesorPTFForm()
+
+    return render(request, 'proyecto_trabajo_final/asesorProyecto_form.html', {'form': asesorForm})
+
+def asesorProyecto_delete(request, pk):
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk)
+    if request.method == 'POST':
+        if 'id_asesor' in request.POST:
+            asesorPro = get_object_or_404(AsesorPTF, pk=request.POST['id_asesor'])
+            asesor = asesorPro.asesor
+            asesorPro.delete()
+            messages.success(request, 'Se ha eliminado existosamente el tutor  {}' .format(asesor))
+        else:
+            messages.error(request, 'Debe indicar que tutor desea eliminar')
+    return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+
+def asesorProyecto_edit(request, pk, pk2):
+    asesor = get_object_or_404(AsesorPTF, pk=pk)
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk2)
+    if request.method == 'POST':
+        asesor_form = AsesorPTFForm(request.POST, request.FILES, instance=asesor)
+        if asesor_form.is_valid():
+            asesor_form.save()
+            messages.success(request, 'Se ha actualizado correctamente el asesor')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        asesor_form = AsesorPTFForm(instance=asesor)
+
+    return render(request, 'proyecto_trabajo_final/asesorProyecto_edit.html', {'form': asesor_form})
+
