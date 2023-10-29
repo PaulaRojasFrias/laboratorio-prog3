@@ -1,6 +1,6 @@
 from django.urls import path
 
-from comisiones.views import cstf_create, cstf_delete, cstf_detalle, cstf_edit, cstf_lista, integranteComision_create, integranteComision_delete, integranteComision_detalle, integranteComision_edit, te_create, te_delete, te_detalle, te_edit, te_lista
+from comisiones.views import cstf_create, cstf_delete, cstf_detalle, cstf_edit, cstf_lista, integranteComision_create, integranteComision_delete, integranteComision_detalle, integranteComision_edit, integranteTE_create, integranteTE_delete, integranteTE_edit, te_create, te_delete, te_detalle, te_edit, te_lista
 
 app_name = 'comisiones'
 
@@ -22,5 +22,9 @@ urlpatterns = [
     path('integranteCSTF/create/', integranteComision_create, name='integranteComision_create'),
     path('integranteCSTF/<int:pk>', integranteComision_edit, name='integranteComision_edit'),
     path('integranteComision/delete/', integranteComision_delete, name='integranteComision_delete'),
+
+    path('integranteTE/create/<int:pk>', integranteTE_create, name='integranteTE_create'),
+    path('integranteTE/delete/<int:pk>', integranteTE_delete, name='integranteTE_delete'),
+    path('integranteTE/edit/<int:pk>/<int:pk2>', integranteTE_edit, name='integranteTE_edit'),
 
 ]

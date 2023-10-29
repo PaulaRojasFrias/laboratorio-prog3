@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from comisiones.forms import ComisionForm, IntegranteComisionForm, TribunalForm
-from .models import Comision, IntegrantesComision, TribunalEvaluador
+from comisiones.forms import ComisionForm, IntegranteComisionForm, IntegrantesTribunalForm, TribunalForm
+from .models import Comision, IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
 
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< COMISION DE SEGUIMIENTO DE TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
@@ -105,7 +105,8 @@ def te_lista(request):
 
 def te_detalle(request, pk):
     tribunal = get_object_or_404(TribunalEvaluador, pk=pk)
-    return render(request, 'comisiones/tribunal_detalle.html', {'tribunal': tribunal})
+    integrantes = IntegrantesTribunal.objects.filter(tribunal=tribunal)
+    return render(request, 'comisiones/tribunal_detalle.html', {'tribunal': tribunal, 'integrantes': integrantes})
 
 def te_create(request):
     nueva_te = None
@@ -144,4 +145,46 @@ def te_delete(request):
         else:
             messages.error(request, 'Debe indicar que Tribunal desea eliminar')
     return redirect(reverse('comisiones:te_lista'))
+
+
+
+def integranteTE_create(request, pk):
+    tribunal = get_object_or_404(TribunalEvaluador, pk=pk)
+    nuevoIntegrante = None
+    if(request.method == 'POST'):
+        integranteForm = IntegrantesTribunalForm(request.POST, request.FILES)
+        if integranteForm.is_valid():
+            nuevoIntegrante = integranteForm.save(commit=True)
+            messages.success(request, 'Se ha agrgado correctamente el nuevo integrante')
+            return redirect(reverse('comsiones:te_detalle', args=[tribunal.id]))
+    else:
+        integranteForm= IntegrantesTribunalForm()
+
+    return render(request, 'comisiones/integranteTE_form.html', {'form': integranteForm})
+
+def integranteTE_edit(request, pk, pk2):
+    integrante = get_object_or_404(IntegrantesTribunal, pk=pk)
+    tribunal = get_object_or_404(TribunalEvaluador, pk=pk2)
+    if request.method == 'POST':
+        integrante_form = IntegrantesTribunalForm(request.POST, request.FILES, instance=integrante)
+        if integrante_form.is_valid():
+            integrante_form.save()
+            messages.success(request, 'Se ha actualizado correctamente el asesor')
+            return redirect(reverse('comsiones:te_detalle', args=[tribunal.id]))
+    else:
+        integrante_form = IntegrantesTribunalForm(instance=integrante)
+
+    return render(request, 'comisiones/integranteTE_edit.html', {'form': integrante_form})
+
+def integranteTE_delete(request, pk):
+    tribunal = get_object_or_404(TribunalEvaluador, pk=pk)
+    if request.method == 'POST':
+        if 'id_integrante' in request.POST:
+            integrante = get_object_or_404(IntegrantesTribunal, pk=request.POST['id_integrante'])
+            docente = integrante.docente
+            integrante.delete()
+            messages.success(request, 'Se ha eliminado existosamente el integrante  {}' .format(docente))
+        else:
+            messages.error(request, 'Debe indicar que integrante desea eliminar')
+    return redirect(reverse('comsiones:te_detalle', args=[tribunal.id]))
 
