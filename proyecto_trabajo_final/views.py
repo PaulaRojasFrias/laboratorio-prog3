@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from proyecto_trabajo_final.forms import AsesorPTFForm, IntegranteProyectoForm, MovimientoForm, ProyectoForm, TutorForm
+from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, ProyectoForm, TutorForm
 
-from proyecto_trabajo_final.models import AsesorPTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
+from proyecto_trabajo_final.models import AsesorPTF, InformeTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 def proyecto_lista(request):
@@ -17,7 +17,8 @@ def proyecto_detalle(request, pk):
     tutores = TutoresPTF.objects.filter(proyecto=proyecto)
     asesores = AsesorPTF.objects.filter(proyecto=proyecto)
     movimientos = Movimientos.objects.filter(proyecto=proyecto)
-    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores, 'asesores': asesores, 'movimientos': movimientos})
+    informe = InformeTF.objects.filter(proyectoTF=proyecto)
+    return render(request, 'proyecto_trabajo_final/proyecto_detalle.html', {'proyecto': proyecto, 'integrantes':integrantes, 'tutores': tutores, 'asesores': asesores, 'movimientos': movimientos, 'informes': informe})
 
 def proyecto_create(request):
     nuevo_proyecto = None
@@ -201,3 +202,45 @@ def movimientoProyecto_edit(request, pk, pk2):
         movimiento_form = MovimientoForm(instance=movimiento)
 
     return render(request, 'proyecto_trabajo_final/movimientoProyecto_edit.html', {'form': movimiento_form})
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< INFORME FINAL QUE CONFORMAN LOS PROYECTOS  >>>>>>>>>>>>>>>>>>>>>>
+def informeProyecto_create(request, pk):
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk)
+    if(request.method == 'POST'):
+        informeForm = InformeFinalForm(request.POST, request.FILES)
+        if informeForm.is_valid():
+            informeForm.save(commit=True)
+            messages.success(request, 'Se ha agrgado correctamente el nuevo informe')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        informeForm = InformeFinalForm()
+
+    return render(request, 'proyecto_trabajo_final/informeProyecto_form.html', {'form': informeForm})
+
+
+def informeProyecto_delete(request, pk):
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk)
+    if request.method == 'POST':
+        if 'id_informe' in request.POST:
+            informe = get_object_or_404(InformeTF, pk=request.POST['id_informe'])
+            informe.delete()
+            messages.success(request, 'Se ha eliminado existosamente el informe')
+        else:
+            messages.error(request, 'Debe indicar que informe desea eliminar')
+    return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+
+def informeProyecto_edit(request, pk, pk2):
+    informe = get_object_or_404(InformeTF, pk=pk)
+    proyecto = get_object_or_404(ProyectoFinal, pk=pk2)
+    if request.method == 'POST':
+        informe_form = InformeFinalForm(request.POST, request.FILES, instance=informe)
+        if informe_form.is_valid():
+            informe_form.save()
+            messages.success(request, 'Se ha actualizado correctamente el informe')
+            return redirect(reverse('proyecto_trabajo_final:proyecto_detalle', args=[proyecto.id]))
+    else:
+        informe_form = InformeFinalForm(instance=informe)
+
+    return render(request, 'proyecto_trabajo_final/informeProyecto_edit.html', {'form': informe_form})
+

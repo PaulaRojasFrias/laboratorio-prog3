@@ -1,7 +1,7 @@
 from django import forms
 from django.utils import timezone
 from django.forms import DateInput, ValidationError
-from proyecto_trabajo_final.models import AsesorPTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
+from proyecto_trabajo_final.models import AsesorPTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF, InformeTF
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 class ProyectoForm(forms.ModelForm):
@@ -211,4 +211,21 @@ class MovimientoForm(forms.ModelForm):
             'fechaMovimiento': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
             'fechaVencimiento': DateInput(format='%y-%m-%d', attrs={'type': 'date'}),
             'archivoAsociado': forms.ClearableFileInput(),
+        }
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< IF  >>>>>>>>>>>>>>>>>>>>>>
+class InformeFinalForm(forms.ModelForm):
+    class Meta:
+        model = InformeTF
+
+        fields = ('proyectoTF', 'archivoITF', 'fechaPresentacion')
+        
+        labels = {'proyectoTF': 'Proyecto', 
+                  'archivoITF': 'Archivo IF', 
+                  'fechaPresentacion': 'Fecha de Presentacion'}
+        
+        widgets = {
+            'proyectoTF': forms.Select(),
+            'archivoITF': forms.ClearableFileInput(),
+            'fechaPresentacion': DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
         }

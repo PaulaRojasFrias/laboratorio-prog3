@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Detalle de la CSTF{% endblock %}
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
     <main>
         <h1>Tribunal Evaluador</h1>
@@ -20,6 +22,39 @@
             No posee
             {% endif %}
         </p>
+
+        <p><strong>Integrantes:</strong></p>
+            <div id='divTabla'>
+                <table clase='tabla'>
+                    <tr clase='encabezado'>
+                        <th>Docente</th>
+                        <th>Tribunal</th>
+                        <th>Fecha Alta</th>
+                        <th>Fecha Baja</th>
+                        <th>Rol</th>
+                        <th></th>
+                    </tr>
+                    {% for integrante in integrantes %}
+                        <tr>
+                        <td>{{ integrante.docente }}</td>
+                        <td>{{ integrante.tribunal }}</td>
+                        <td>{{ integrante.fecha_alta_te|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ integrante.fecha_baja_te|default_if_none:"---"  }}</td>
+                        <td>{{ integrante.rol }}</td>
+                        <td> 
+                            <button><a href="{% url 'comisiones:integranteTE_edit' pk=integrante.id pk2=tribunal.id %}">Modificar</a></button>
+                            <form action="{% url 'comisiones:integranteTE_delete' tribunal.id%}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
+                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                            </form>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button><a href="{% url 'comisiones:integranteTE_create' tribunal.id%}">Agregar Integrante</a></button>
+
+            </div>
         
         <form action="{% url 'comisiones:te_delete' %}" method="POST">
             {% csrf_token %}

@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django import forms
-from comisiones.models import Comision, IntegrantesComision, TribunalEvaluador
+from comisiones.models import Comision, IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
 from django.forms import DateInput, ValidationError
 
 class ComisionForm(forms.ModelForm):
@@ -75,7 +75,6 @@ class IntegranteComisionForm(forms.ModelForm):
             return cleaned_data
 
 
-
 class TribunalForm(forms.ModelForm):
     class Meta:
         model = TribunalEvaluador
@@ -107,3 +106,21 @@ class TribunalForm(forms.ModelForm):
                 code='invalido'
             )
         return fecha
+    
+class IntegrantesTribunalForm(forms.ModelForm):
+    class Meta:
+        model = IntegrantesTribunal
+        fields = ('docente', 'tribunal', 'fecha_alta_te', 'fecha_baja_te', 'rol' )
+        labels = {'docente': 'Docente', 
+                  'tribunal': 'Tribunal', 
+                  'fecha_alta_te': 'Fecha Alta', 
+                  'fecha_baja_te': 'Fecha Baja', 
+                  'rol': 'Rol Docente',  }
+        
+        widgets = {
+            'docente': forms.Select(),
+            'tribunal': forms.Select(), 
+            'fecha_alta_te': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+            'fecha_baja_te': DateInput(format='%y-%m-%d', attrs={'type': 'date'}),
+            'rol':forms.Select(choices=IntegrantesTribunal.rol_opc)
+        }
