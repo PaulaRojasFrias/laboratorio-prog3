@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Detalle asesor{% endblock %}
+{% block contenido %}
+
+<h1>Asesor: {{ asesor.cuil }}</h1>
+  {% if messages %}
+      {% for message in messages %}
+          {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
+      {% endfor %}
+  {% endif %}
+
+    <p><strong>Nombre: </strong>{{  asesor.nombre }}</p>
+    <p><strong>Apellido: </strong>{{  asesor.apellido}}</p>
+    <p><strong>Cuil: </strong>{{  asesor.cuil}}</p>
+    <p><strong>Curriculum: </strong>{{  asesor.curriculum}}</p>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Edición de Docente{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Edición de Docente</h1>
+    <form method="post" enctype="multipart/form-data">
+            <div class="campo">
+                {{ form.nombre.errors }}
+                <label for="{{ form.nombre.id_for_label}}">Nombre:</label>
+                {{ form.nombre }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.apellido.errors }}
+                <label for="{{ form.apellido.id_for_label}}">Apellido:</label>
+                {{ form.apellido }}
+            </div>
+            <br>
+            <div class="campo">
+                {{ form.cuil.errors }}
+                <label for="{{ form.cuil.id_for_label}}">Cuil:</label>
+                {{form.cuil}}
+            </div>
+        {% csrf_token %}
+        <input type="submit" value="Actualizar">
+    </form>
+</main>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block titulo %}Detalle alumno{% endblock %}
+{% block contenido %}
+
+<h1>Alumno: {{ alumno.dni }}</h1>
+  {% if messages %}
+      {% for message in messages %}
+          {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
+      {% endfor %}
+  {% endif %}
+
+    <p><strong>Nombre: </strong>{{ alumno.nombre }}</p>
+    <p><strong>Apellido: </strong>{{ alumno.apellido}}</p>
+    <p><strong>DNI: </strong>{{ alumno.dni}}</p>
+    <p><strong>Matricula: </strong>{{ alumno.matricula}}</p>
+    <p><strong>Correo: </strong>{{ alumno.correo}}</p>
+
+
+
+
+{% endblock %}

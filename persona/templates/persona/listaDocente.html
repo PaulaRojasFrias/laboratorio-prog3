@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %}Lista Docentes{% endblock %}
+{% block contenido %}
+
+<main>
+    <secction class='seccionClasico'>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
+                {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
+            {% endfor %}
+        {% endif %}
+        <h2>Lista de Docentes</h2>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cuil</th>
+            </tr>
+            {% for docente in docentes %}
+                <tr>
+                <td>{{ docente.nombre }}</a></td>
+                <td>{{ docente.apellido}}</td>
+                <td>{{ docente.cuil }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </secction>
+  </main>
+
+{% endblock %}
