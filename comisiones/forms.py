@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django import forms
+from datetime import date
 from comisiones.models import Comision, IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
 from django.forms import DateInput, ValidationError
 
@@ -25,14 +26,14 @@ class ComisionForm(forms.ModelForm):
     
 
     def clean_fechaDeCreacionComision(self):
-        fecha = self.cleaned_data['fechaDeCreacionComision']
-        # Verifica que la fecha de inicio sea anterior a fecha actual.
-        if fecha and fecha > timezone.now().date():
-            raise ValidationError(
-                {'fecha_inicio': 'La Fecha no puede ser posterior que la fecha actual'},
-                code='invalido'
-            )
-        return fecha
+        fecha_comision = self.cleaned_data.get('fechaDeCreacionComision')
+        fecha_actual = date.today()
+
+        if fecha_comision and fecha_comision > fecha_actual:
+            raise forms.ValidationError("La fecha de creación de la comisión no puede ser posterior a la fecha actual.")
+
+        return fecha_comision
+    
     
 
 

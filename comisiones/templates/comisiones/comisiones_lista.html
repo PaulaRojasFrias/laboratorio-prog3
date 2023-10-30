@@ -1,30 +1,69 @@
 {% extends "base.html" %}
-{% block titulo %}Lista de CSTF{% endblock %}
+{% load static %}
+{% block titulo %}Listado de CSTF's{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/tabla.css' %}" rel="stylesheet" >
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+ <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+{% endblock %}
 {% block contenido %}
-<main>
-    <secction class='seccionClasico'>
+    <main>
+        <h1>Listado de las Comisiones de Trabajos Finales</h1>
+
         {% if messages %}
             {% for message in messages %}
                 {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
                 {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
             {% endfor %}
         {% endif %}
-        <h2>Lista de Comisiones</h2>
-        <table>
-            <tr>
-                <th>Nro. Resolucion</th>
-                <th>Fecha Resolucion</th>
-                <th>Archivo Resolucion</th>
-            </tr>
-            {% for comision in comisiones %}
-                <tr>
-                <td><a href="{% url 'comisiones:cstf_detalle' comision.id %}">{{ comision.nroResolucionComision }}</a></td>
-                <td>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</td>
-                <td>{{ comision.archivoResolucion|default_if_none:"---"  }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </secction>
-  </main>
+
+        <div class='agregado'>
+            <div class='contendorBusqueda'>
+                <p>Buscar:</p>
+                <form action="{% url 'comisiones:cstf_lista' %}" method="GET">
+                    <input class='buscar' id='campoBusqueda' type="number" placeholder="Buscar" name='buscar' value="">
+                    <button class='BotonBuscar' type='submit' >Buscar</button>
+                </form>
+            </div>
+
+            <button class='BotonAgregar'> 
+                <a href="{% url 'comisiones:cstf_create' %} " class='BotonAgregar' >Agregar Comision</a>
+            </button>
+        </div>
+
+        <div class= 'contenedorTabla'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nro. Resolucion</th>
+                        <th>Fecha Resolucion</th>
+                        <th>Archivo Resolucion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comision in comisiones %}
+                        <tr>
+                            <td>{{ comision.nroResolucionComision }}</td>
+                            <td>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</td>
+                            <td>{{ comision.archivoResolucion|default_if_none:"---"  }}</td>
+                            <td>
+                                <div class='contenedorBotones'>
+                                    <button class= 'BotonVer'> 
+                                        <a href="{% url 'comisiones:cstf_detalle' comision.id %} " class='BotonVer' >Detalles</a>
+                                    </button>
+                                    <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id_comision" value="{{ comision.id }}">
+                                        <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+    </main>
 
 {% endblock %}

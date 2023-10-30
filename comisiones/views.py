@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.db.models import Q
 from django.contrib import messages
 from comisiones.forms import ComisionForm, IntegranteComisionForm, IntegrantesTribunalForm, TribunalForm
 from .models import Comision, IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
@@ -7,7 +8,13 @@ from .models import Comision, IntegrantesComision, IntegrantesTribunal, Tribunal
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< COMISION DE SEGUIMIENTO DE TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
 def cstf_lista(request): 
+    busqueda = request.GET.get("buscar")
     comisiones = Comision.objects.all()
+    if busqueda:
+        comisiones = Comision.objects.filter(
+            Q(fechaDeCreacionComision__icontains = busqueda) |
+            Q(nroResolucionComision__icontains = busqueda)
+        ).distinct()
     return render(request, 'comisiones/comisiones_lista.html', {'comisiones': comisiones})
 
 def cstf_detalle(request, pk):
