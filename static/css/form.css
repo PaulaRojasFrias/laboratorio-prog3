@@ -95,3 +95,11 @@ a{
     margin-top: 30px;
     width: 100%;
 }
+
+select.campoInput {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: white;
+    width: 100%; /* O el ancho que prefieras */
+}

@@ -107,13 +107,13 @@ a{
     background-color: #68da3e;
 }
 
-.btnVolver {
+.btnVolver, .btnRojo{
     background-color: #DC3545;
     color: white;
     text-decoration: none;
 }
 
-.btnVolver {
+.btnVolver, .btnRojo{
     background-color: #f80000 ;
 }
 

@@ -1,42 +1,54 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Edición de Integrante deL Proyecto{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 <main>
-    <h1>Edición de Integrante deL Proyecto</h1>
-    <form method="post" enctype="multipart/form-data">
-            <div class="campo">
-                {{ form.docente.errors }}
-                <label for="{{ form.docente.id_for_label}}">Docente:</label>
-                {{ form.docente }}
-            </div>
-            <br>
-            <div class="campo">
-                {{ form.tribunal.errors }}
-                <label for="{{ form.tribunal.id_for_label}}">Tribunal:</label>
-                {{ form.tribunal }}
-            </div>
-            <br>
-            <div class="campo">
-                {{ form.fecha_alta_te.errors }}
-                <label for="{{ form.fecha_alta_te.id_for_label}}">Fecha Alta:</label>
-                {{ form.fecha_alta_te }}
-            </div>
-            <br>
-            <div class="campo">
-                {{ form.fecha_baja_te.errors }}
-                <label for="{{ form.fecha_baja_te.id_for_label}}">Fecha Baja:</label>
-                {{ form.fecha_baja_te }}
-            </div>
-            <br>
-            <div class="campo">
-                {{ form.rol.errors }}
-                <label for="{{ form.rol.id_for_label}}">Rol Docente:</label>
-                {{ form.rol }}
-            </div>
-            <br>
-            
-        {% csrf_token %}
-        <input type="submit" value="Actualizar">
-    </form>
+    <div class='contenedorPrincipal'>
+        <h1>Edición de Integrante deL Proyecto</h1>
+        <div class='contenerdorForm'>
+            <form method="post" enctype="multipart/form-data">
+                <div class="campo">
+                    {{ form.docente.errors }}
+                    <label for="{{ form.docente.id_for_label}}">Docente:</label>
+                    {{ form.docente }}
+                </div>
+                <br>
+                <div class="campo">
+                    {{ form.tribunal.errors }}
+                    <label for="{{ form.tribunal.id_for_label}}">Tribunal:</label>
+                    {{ form.tribunal }}
+                </div>
+                <br>
+                <div class="campo">
+                    {{ form.fecha_alta_te.errors }}
+                    <label for="{{ form.fecha_alta_te.id_for_label}}">Fecha Alta:</label>
+                    {{ form.fecha_alta_te }}
+                </div>
+                <br>
+                <div class="campo">
+                    {{ form.fecha_baja_te.errors }}
+                    <label for="{{ form.fecha_baja_te.id_for_label}}">Fecha Baja:</label>
+                    {{ form.fecha_baja_te }}
+                </div>
+                <br>
+                <div class="campo">
+                    {{ form.rol.errors }}
+                    <label for="{{ form.rol.id_for_label}}">Rol Docente:</label>
+                    {{ form.rol }}
+                </div>
+                <br>
+                {% csrf_token %}
+                <div class='botones'>
+                    <input class='botonGuardar' type="submit" value="Actualizar">
+                </div>
+            </form>
+        </div>
+        <div class='botones'>
+            <button class= 'BotonCancelar btnEspecialedit'><a href="#" >Cancelar</a></button>
+        </div>
+    </div>
 </main>
 {% endblock %}
