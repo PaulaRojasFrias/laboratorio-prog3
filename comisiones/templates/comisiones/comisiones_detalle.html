@@ -4,55 +4,56 @@
 {% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
     <main>
-        <h1>Comision de Seguimiento de Trabajo Final</h1>
-        <div>
-
-            {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
-                {% endfor %}
-            {% endif %}
-
-            <p><strong>Nro. de Resolucion: </strong>{{ comision.nroResolucionComision }}</p>
-            <p><strong>Fecha de Resolucion: </strong>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</p>
-            <p><strong>Integrantes:</strong></p>
-            <div id='divTabla'>
-                <table clase='tabla'>
-                    <tr clase='encabezado'>
-                        <th>Docente</th>
-                        <th>Comision</th>
-                        <th>Fecha Alta</th>
-                        <th>Fecha Baja</th>
-                    </tr>
-                    {% for integrante in integrantes %}
-                        <tr>
-                        <td><a href="{% url 'comisiones:integranteComision_detalle' integrante.id %}">{{ integrante.docente }}</a></td>
-                        <td>{{ integrante.comision }}</td>
-                        <td>{{ integrante.fecha_alta_cs|date:"SHORT_DATE_FORMAT" }}</td>
-                        <td>{{ integrante.fecha_baja_cs|default_if_none:"---"  }}</td>
-                        </tr>
+        <div class='contenedorPrincipal'>
+            <h1>Comision de Seguimiento de Trabajo Final</h1>
+            <div class='contenedorDetalle'>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
                     {% endfor %}
-                </table>
-                <button><a href="{% url 'comisiones:integranteComision_create' %}">Agregar Integrante</a></button>
-            </div>
-
-            <p><strong>Archivo Resolucion:</strong>
-                {% if comision.archivoResolucion %}
-                    {{ comision.archivoResolucion }}
-                {% else %}
-                No posee
                 {% endif %}
-            </p>
+                <div class='contenedorInfo'>
+                    <p><strong>Nro. de Resolucion: </strong>{{ comision.nroResolucionComision }}</p>
+                    <br>
+                    <p><strong>Fecha de Resolucion: </strong>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</p>
+                    <br>
+                    <p><strong>Archivo Resolucion:</strong>
+                        {% if comision.archivoResolucion %}
+                            {{ comision.archivoResolucion }}
+                        {% else %}
+                        No posee
+                        {% endif %}
+                    </p>
+                    <br>
+                    <p><strong>Integrantes:</strong></p>
+                </div>
+                <div id='divTabla'>
+                    <table clase='tabla'>
+                        <tr clase='encabezado'>
+                            <th>Docente</th>
+                            <th>Comision</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Baja</th>
+                        </tr>
+                        {% for integrante in integrantes %}
+                            <tr>
+                            <td><a href="{% url 'comisiones:integranteComision_detalle' integrante.id %}">{{ integrante.docente }}</a></td>
+                            <td>{{ integrante.comision }}</td>
+                            <td>{{ integrante.fecha_alta_cs|date:"SHORT_DATE_FORMAT" }}</td>
+                            <td>{{ integrante.fecha_baja_cs|default_if_none:"---"  }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <button class='btnAgregar btn' ><a href="{% url 'comisiones:integranteComision_create' %}">Agregar Integrante</a></button>
+                </div>
+        
 
-            <div class='botonesForm'>
-                <button><a href="{% url 'comisiones:cstf_edit' comision.id %}">Editar</a></button>
-                <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="id_comision" value="{{ comision.id }}">
-                    <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                </form>
+                <div class='botones'>
+                    <button class='btnVolver btn'><a href="{% url 'comisiones:cstf_lista' %}">Volver</a></button>
+                    <button class='btnEditar btn'><a href="{% url 'comisiones:cstf_edit' comision.id %}">Editar</a></button>
+                </div>
+
             </div>
-
         </div>
     </main>
 {% endblock %}
