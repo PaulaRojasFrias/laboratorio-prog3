@@ -35,46 +35,54 @@ class ComisionForm(forms.ModelForm):
 
         return fecha_comision
     
-    
-
 
 class IntegranteComisionForm(forms.ModelForm):
     class Meta:
         model = IntegrantesComision
         fields = ('docente', 'comision', 'fecha_alta_cs', 'fecha_baja_cs' )
-        labels = {'docente': 'Docente', 
-                  'comision': 'Comision', 
-                  'fecha_alta_cs': 'Fecha Alta', 
-                  'fecha_baja_cs': 'Fecha Baja' }
+
+        labels= {'docente': 'Docente', 
+                 'comision': 'Comision', 
+                 'fecha_alta_cs': 'Fecha Alta', 
+                 'fecha_baja_cs': 'Fecha Baja' }
         
         widgets = {
-            'docente': forms.Select(),
-            'comision': forms.Select(), 
-            'fecha_alta_cs': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
-            'fecha_baja_cs': DateInput(format='%y-%m-%d', attrs={'type': 'date'})
+            'docente': forms.Select(attrs={'class': 'campoInput'}),
+            'comision': forms.Select(attrs={'class': 'campoInput'}), 
+            'fecha_alta_cs': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'campoInput'}),
+            'fecha_baja_cs': DateInput(format='%y-%m-%d', attrs={'type': 'date', 'class': 'campoInput'})
         }
 
         def clean_fecha_alta_cs(self):
-            fecha = self.cleaned_data['fecha_alta_cs']
-            # Verifica que la fecha de inicio sea anterior a fecha actual.
-            if fecha and fecha > timezone.now().date():
-                raise ValidationError(
-                    {'fecha_inicio': 'La Fecha de Inicio no puede ser posterior que la fecha actual'},
-                    code='invalido'
-                )
-            return fecha
+            fecha_comision = self.cleaned_data.get('fecha_alta_cs')
+            fecha_actual = date.today()
+
+            if fecha_comision and fecha_comision > fecha_actual:
+                raise forms.ValidationError("La fecha de incorporacion no puede ser posterior a la fecha actual.")
+
+            return fecha_comision
+
+        def clean_fecha_baja_cs(self):
+            fecha_comision = self.cleaned_data.get('fecha_baja_cs')
+            fecha_actual = date.today()
+
+            if fecha_comision and fecha_comision > fecha_actual:
+                raise forms.ValidationError("La fecha de incorporacion no puede ser posterior a la fecha actual.")
+
+            return fecha_comision
         
         def clean(self):
             cleaned_data = super().clean()
-            fecha_inicio = self.cleaned_data['fecha_alta_cs']
-            fecha_fin = self.cleaned_data['fecha_baja_cs']
+            fecha_alta = self.cleaned_data['fecha_alta_cs']
+            fecha_baja = self.cleaned_data['fecha_baja_cs']
             # Verifica que la fecha de inicio sea anterior a fecha fin.
-            if fecha_fin and fecha_inicio > fecha_fin:
+            if fecha_baja and fecha_alta > fecha_baja:
                 raise ValidationError(
-                    {'fecha_inicio': 'La Fecha de alta no puede ser posterior que la fecha baja'},
+                    {'fecha_alta': 'La Fecha de alta no puede ser posterior que la fecha de baja'},
                     code='invalido'
                 )
             return cleaned_data
+
 
 
 class TribunalForm(forms.ModelForm):

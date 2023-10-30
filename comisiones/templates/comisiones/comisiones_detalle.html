@@ -34,22 +34,33 @@
                             <th>Comision</th>
                             <th>Fecha Alta</th>
                             <th>Fecha Baja</th>
+                            <th></th>
                         </tr>
                         {% for integrante in integrantes %}
                             <tr>
-                            <td><a href="{% url 'comisiones:integranteComision_detalle' integrante.id %}">{{ integrante.docente }}</a></td>
+                            <td>{{ integrante.docente }}</td>
                             <td>{{ integrante.comision }}</td>
                             <td>{{ integrante.fecha_alta_cs|date:"SHORT_DATE_FORMAT" }}</td>
                             <td>{{ integrante.fecha_baja_cs|default_if_none:"---"  }}</td>
+                            <td>
+                                <div class='btnTabla'>
+                                    <button class='btn btnEditar'><a href="{% url 'comisiones:integranteComision_edit' integrante.id comision.id %}">Modificar</a></button>
+                                    <form action="{% url 'comisiones:integranteComision_delete' comision.id%}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
+                                        <input class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                    </form>
+                                </div>
+                            </td>
                             </tr>
                         {% endfor %}
                     </table>
-                    <button class='btnAgregar btn' ><a href="{% url 'comisiones:integranteComision_create' %}">Agregar Integrante</a></button>
+                    <button class='btnAgregar btn' ><a href="{% url 'comisiones:integranteComision_create' comision.id %}">Agregar Integrante</a></button>
                 </div>
         
 
                 <div class='botones'>
-                    <button class='btnVolver btn'><a href="{% url 'comisiones:cstf_lista' %}">Volver</a></button>
+                    <button class='btnVolver btn'><a href="{% url 'comisiones:cstf_detalle' comision.id%}">Volver</a></button>
                     <button class='btnEditar btn'><a href="{% url 'comisiones:cstf_edit' comision.id %}">Editar</a></button>
                 </div>
 

@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.contrib import messages
 from comisiones.forms import ComisionForm, IntegranteComisionForm, IntegrantesTribunalForm, TribunalForm
 from .models import Comision, IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
+from django.views.generic import UpdateView
 
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< COMISION DE SEGUIMIENTO DE TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
@@ -63,37 +64,41 @@ def cstf_delete(request):
 
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< Integrate de la Comision >>>>>>>>>>>>>>>>>>>>>>
-def integranteComision_create(request):
+def integranteComision_create(request, pk):
     nuevoIntegrante = None
+    comision = get_object_or_404(Comision, pk=pk)
     if(request.method == 'POST'):
         integranteForm = IntegranteComisionForm(request.POST, request.FILES)
         if integranteForm.is_valid():
             nuevoIntegrante = integranteForm.save(commit=True)
             messages.success(request, 'Se ha agrgado correctamente el nuevo integrante')
-            return redirect(reverse('comisiones:integranteComision_detalle', args=[nuevoIntegrante.id]))
+            return redirect(reverse('comisiones:cstf_detalle', args=[pk]))
     else:
-        integranteForm = IntegranteComisionForm()
+        integranteForm = IntegranteComisionForm(initial={'comision': comision})
 
-    return render(request, 'comisiones/integranteComision_form.html', {'form': integranteForm})
+    return render(request, 'comisiones/integranteComision_form.html', {'form': integranteForm, 'comisionId': pk})
 
 def integranteComision_detalle(request, pk):
     integrante = get_object_or_404(IntegrantesComision, pk=pk)
     return render(request, 'comisiones/integranteComision_detalle.html', {'integrante': integrante})
 
-def integranteComision_edit(request, pk):
+
+def integranteComision_edit(request, pk, pk2):
     integrante = get_object_or_404(IntegrantesComision, pk=pk)
+    comision = get_object_or_404(Comision, pk=pk2)
     if request.method == 'POST':
         integrante_form = IntegranteComisionForm(request.POST, request.FILES, instance=integrante)
         if integrante_form.is_valid():
             integrante_form.save()
             messages.success(request, 'Se ha actualizado correctamente el integrante')
-            return redirect(reverse('comisiones:integranteComision_detalle', args=[integrante.id]))
+            return redirect(reverse('comisiones:cstf_detalle', args=[comision.id]))
     else:
         integrante_form = IntegranteComisionForm(instance=integrante)
 
-    return render(request, 'comisiones/integranteComision_edit.html', {'form': integrante_form})
+    return render(request, 'comisiones/integranteComision_edit.html', {'form': integrante_form, 'comisionId': pk2})
 
-def integranteComision_delete(request):
+def integranteComision_delete(request, pk):
+    comision = get_object_or_404(Comision, pk=pk)
     if request.method == 'POST':
         if 'id_integrante' in request.POST:
             integrante = get_object_or_404(IntegrantesComision, pk=request.POST['id_integrante'])
@@ -102,7 +107,7 @@ def integranteComision_delete(request):
             messages.success(request, 'Se ha eliminado existosamente el integrante  {}' .format(docente))
         else:
             messages.error(request, 'Debe indicar que Integrante desea eliminar')
-    return redirect(reverse('comisiones:cstf_lista'))
+    return redirect(reverse('comisiones:cstf_detalle', args=[comision.id]))
 
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< TRIBUNAL EVALUADOR >>>>>>>>>>>>>>>>>>>>>>
@@ -152,8 +157,6 @@ def te_delete(request):
         else:
             messages.error(request, 'Debe indicar que Tribunal desea eliminar')
     return redirect(reverse('comisiones:te_lista'))
-
-
 
 def integranteTE_create(request, pk):
     tribunal = get_object_or_404(TribunalEvaluador, pk=pk)
