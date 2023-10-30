@@ -229,3 +229,13 @@ class InformeFinalForm(forms.ModelForm):
             'archivoITF': forms.ClearableFileInput(),
             'fechaPresentacion': DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
         }
+
+
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< Informe 1  >>>>>>>>>>>>>>>>>>>>>>
+
+class Informe1(forms.Form):
+    estado = forms.CharField(required=False)
+    fecha_inicio = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    fecha_fin = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))

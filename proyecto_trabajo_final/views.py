@@ -2,7 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
-from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, ProyectoForm, TutorForm
+from django.views.generic import ListView
+from datetime import datetime
+from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, \
+    ProyectoForm, TutorForm, Informe1
 
 from proyecto_trabajo_final.models import AsesorPTF, InformeTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
 
@@ -244,3 +247,32 @@ def informeProyecto_edit(request, pk, pk2):
 
     return render(request, 'proyecto_trabajo_final/informeProyecto_edit.html', {'form': informe_form})
 
+
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< ESTADISTICAS >>>>>>>>>>>>>>>>>>>>>>
+
+class Informe1(ListView):
+    model = Movimientos
+    template_name = 'proyecto_trabajo_final/informe1.html'
+    form_class = Informe1
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        estado = self.request.GET.get('estado')
+        fecha_inicio = self.request.GET.get('fecha_inicio')
+        fecha_fin = self.request.GET.get('fecha_fin')
+
+        if estado:
+            queryset = queryset.filter(estado=estado)
+
+        if fecha_inicio and fecha_fin:
+            fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d')
+            fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d')
+            queryset = queryset.filter(proyecto__fechaPresentacion__range=(fecha_inicio, fecha_fin))
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class(self.request.GET)
+        return context
