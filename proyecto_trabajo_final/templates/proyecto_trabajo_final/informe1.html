@@ -4,7 +4,7 @@
 <main>
     <h1>Informen 1: Listado de los PTF según su estado y rango de fecha</h1>
 
-    <form method="GET">
+    <form id="miFormulario" method="GET">
         {% csrf_token %}
         <label for="estado">Estado:</label>
         <input type="text" name="estado" id="estado">
@@ -15,17 +15,20 @@
         <label for="fecha_fin">Fecha de fin:</label>
         <input type="date" name="fecha_fin" id="fecha_fin">
         <br>
-        <button type="submit">Filtrar</button>
+        <button type="submit" id="myButton">Filtrar</button>
     </form>
 
-    {% if object_list %}
-        <ul>
-            {% for objeto in object_list %}
-                <li>{{ objeto }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
-    {% endif %}
+
+        {% if object_list %}
+            <ul >
+                {% for objeto in object_list %}
+                   <li><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' objeto.proyecto.id %}">{{ objeto.proyecto.titulo }}</a></li>
+
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
+        {% endif %}
+
     </main>
 {% endblock %}

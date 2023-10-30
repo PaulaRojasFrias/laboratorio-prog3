@@ -239,3 +239,8 @@ class Informe1(forms.Form):
     estado = forms.CharField(required=False)
     fecha_inicio = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     fecha_fin = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<< Informe 2  >>>>>>>>>>>>>>>>>>>>>>
+class Informe2(forms.Form):
+    nroDisposicionTribunal = forms.CharField(max_length=50)

@@ -4,8 +4,9 @@ from django.urls import reverse
 from django.contrib import messages
 from django.views.generic import ListView
 from datetime import datetime
+from comisiones.models import TribunalEvaluador
 from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, \
-    ProyectoForm, TutorForm, Informe1
+    ProyectoForm, TutorForm, Informe1, Informe2
 
 from proyecto_trabajo_final.models import AsesorPTF, InformeTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
 
@@ -270,6 +271,25 @@ class Informe1(ListView):
             fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d')
             queryset = queryset.filter(proyecto__fechaPresentacion__range=(fecha_inicio, fecha_fin))
 
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class(self.request.GET)
+        return context
+
+
+class Informe2(ListView):
+    model = TribunalEvaluador
+    template_name = 'proyecto_trabajo_final/informe2.html'
+    form_class = Informe2
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        nroDisposicionTribunal = self.request.GET.get('nroDisposicionTribunal')
+
+        if nroDisposicionTribunal:
+            queryset = queryset.filter(nroDisposicionTribunal=nroDisposicionTribunal)
         return queryset
 
     def get_context_data(self, **kwargs):

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Informe 1{% endblock %}
+{% block contenido %}
+<main>
+    <h1>Informen 2: Listado de los Tribunales Evaluadores y sus PTF asignados</h1>
+
+    <form  method="GET">
+        {% csrf_token %}
+        <label for="nroDisposicionTribunal">Número de disposicion tribunal:</label>
+        <input type="text" name="nroDisposicionTribunal" id="nroDisposicionTribunal">
+        <br>
+        <button type="submit" id="myButton">Filtrar</button>
+    </form>
+
+
+        {% if object_list %}
+            <ul >
+                {% for objeto in object_list %}
+                   <li><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' objeto. proyectoTE .id %}">{{ objeto.proyectoTE.titulo }}</a></li>
+
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
+        {% endif %}
+
+    </main>
+{% endblock %}
