@@ -12,8 +12,9 @@ class ComisionForm(forms.ModelForm):
                   'nroResolucionComision': 'Nro. Resolucion', 
                   'archivoResolucion': 'Archivo Resolucion' }
         widgets = {
-            'archivoResolucion': forms.ClearableFileInput(),
-            'fechaDeCreacionComision': DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+            'fechaDeCreacionComision': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'campoInput'}),
+            'nroResolucionComision': forms.TextInput(attrs={'type': 'number', 'class': 'campoInput'}),
+            'archivoResolucion': forms.FileInput(attrs={'class': 'campoInput'})
         }
 
     def clean_archivoResolucion(self):

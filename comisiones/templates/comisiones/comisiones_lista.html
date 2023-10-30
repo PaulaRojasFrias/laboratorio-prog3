@@ -3,8 +3,6 @@
 {% block titulo %}Listado de CSTF's{% endblock %}
 {% block extra_css %}
  <link href="{% static 'css/tabla.css' %}" rel="stylesheet" >
- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
 {% endblock %}
 {% block contenido %}
     <main>
@@ -26,9 +24,7 @@
                 </form>
             </div>
 
-            <button class='BotonAgregar'> 
-                <a href="{% url 'comisiones:cstf_create' %} " class='BotonAgregar' >Agregar Comision</a>
-            </button>
+            <button class='BotonAgregar'> <a href="{% url 'comisiones:cstf_create' %} ">Agregar Comision</a></button>
         </div>
 
         <div class= 'contenedorTabla'>
@@ -49,9 +45,7 @@
                             <td>{{ comision.archivoResolucion|default_if_none:"---"  }}</td>
                             <td>
                                 <div class='contenedorBotones'>
-                                    <button class= 'BotonVer'> 
-                                        <a href="{% url 'comisiones:cstf_detalle' comision.id %} " class='BotonVer' >Detalles</a>
-                                    </button>
+                                    <button class= 'BotonVer'><a href="{% url 'comisiones:cstf_detalle' comision.id %} ">Detalles</a></button>
                                     <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="id_comision" value="{{ comision.id }}">

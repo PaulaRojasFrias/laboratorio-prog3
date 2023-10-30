@@ -84,21 +84,21 @@ button, .BotonEliminar{
 
 .BotonAgregar {
   background-color: #28A745;
-  color: white;
   width: 20%;
-}
-
-.BotonEliminar {
-  background-color: #DC3545;
 }
 
 .BotonVer {
   background-color: #0056b3;
+}
+
+.BotonVer:hover {
+  background-color: #0026e9;
   color: white;
 }
 
 a{
   text-decoration: none;
+  color: white;
 }
 
 .agregado {
@@ -132,6 +132,19 @@ p {
   margin-left: 10px;
 }
 
-.BotonBuscar:hover, .BotonAgregar:hover {
-  background-color: #0056b3;
+.BotonBuscar:hover{
+  background-color: #2196f3;
+}
+
+.BotonAgregar:hover{
+  background-color: #68da3e;
+}
+
+
+.BotonEliminar {
+  background-color: #DC3545;
+}
+
+.BotonEliminar:hover {
+  background-color: #f80000;
 }
