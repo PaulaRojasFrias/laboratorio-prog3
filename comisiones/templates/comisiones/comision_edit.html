@@ -1,28 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Edición de Comision{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 <main>
-    <h1>Edición de CSTF</h1>
-    <form method="post" enctype="multipart/form-data">
-            <div class="campo">
-                {{ form.fechaDeCreacionComision.errors }}
-                <label for="{{ form.fechaDeCreacionComision.id_for_label}}">Fecha de Resolucion:</label>
-                {{ form.fechaDeCreacionComision }}
-            </div>
-            <br>
-            <div class="campo">
-                {{ form.nroResolucionComision.errors }}
-                <label for="{{ form.nroResolucionComision.id_for_label}}">Nro. de Resolucion:</label>
-                {{ form.nroResolucionComision }}
-            </div>
-            <br>
-            <div class="campo">
-                {{ form.archivoResolucion.errors }}
-                <label for="{{ form.archivoResolucion.id_for_label}}">Archivo de Resolucion:</label>
-                {{form.archivoResolucion}}
-            </div>
-        {% csrf_token %}
-        <input type="submit" value="Actualizar">
-    </form>
+    <div class='contenedorPrincipal'>
+        <h1>Edicion de CSTF</h1>
+        <div class='contenerdorForm'>
+            <form method="post" enctype="multipart/form-data">
+                    <div class="campo">
+                        {{ form.fechaDeCreacionComision.errors }}
+                        <label for="{{ form.fechaDeCreacionComision.id_for_label}}">Fecha de Resolucion:</label>
+                        {{ form.fechaDeCreacionComision }}
+                    </div>
+                    <br>
+                    <div class="campo">
+                        {{ form.nroResolucionComision.errors }}
+                        <label for="{{ form.nroResolucionComision.id_for_label}}">Nro. de Resolucion:</label>
+                        {{ form.nroResolucionComision }}
+                    </div>
+                    <br>
+                    <div class="campo">
+                        {{ form.archivoResolucion.errors }}
+                        <label for="{{ form.archivoResolucion.id_for_label}}">Archivo de Resolucion:</label>
+                        {{form.archivoResolucion}}
+                    </div><br>
+                {% csrf_token %}
+                <div class='botones'>
+                    <input class='botonGuardar' type="submit" value="Actualizar">
+                </div>
+            </form>
+        </div>
+        <div class='botones'>
+            <button class= 'BotonCancelar btnEspecialedit'><a href="{% url 'comisiones:cstf_detalle' form.instance.id %}" >Cancelar</a></button>
+        </div>
+    </div>
 </main>
 {% endblock %}

@@ -1,11 +1,11 @@
 /* Estilos para la tabla */
 main{
-    padding: 40px 20px;
-    margin-top: 170px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  padding: 40px 20px;
+  margin-top: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -130,6 +130,7 @@ p {
 
 .BotonBuscar{
   margin-left: 10px;
+  background-color: #008eea;
 }
 
 .BotonBuscar:hover{
