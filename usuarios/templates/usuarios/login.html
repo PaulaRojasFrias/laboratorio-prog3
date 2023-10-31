@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
 
     <h2>Iniciar sesión </h2>
-
-    <form method="post">
+     {% if msj %}
+        <div>{{ msj }}</div>
+    {% endif %}
+    <form action="{% url 'usuarios:login_view' %}" method="post">
         {% csrf_token%}
-        <label for = "usuario" >
+        <label for = "username" >
             usuario
             <input type="text" name="username">
         </label>
-        <label for="contraseña" >
+        <label for="password" >
             contraseña
             <input type="password" name="password" >
         </label>

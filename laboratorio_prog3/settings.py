@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'persona',
     'comisiones',
     'dictamenes',
+    'usuarios',
 
 ]
 
