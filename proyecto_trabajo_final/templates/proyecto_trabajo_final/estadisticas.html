@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Lista Alumnos{% endblock %}
+{% block contenido %}
+
+<main>
+
+  <div style="display: flex; flex-direction: column; gap:30px;">
+  <a href="{% url 'proyecto_trabajo_final:proyecto_informen1' %}">Informe 1</a>
+  <a href="{% url 'proyecto_trabajo_final:proyecto_informen2' %}">Informe 2</a>
+  </div>
+
+</main>
+
+{% endblock %}

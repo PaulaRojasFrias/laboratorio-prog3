@@ -253,6 +253,9 @@ def informeProyecto_edit(request, pk, pk2):
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< ESTADISTICAS >>>>>>>>>>>>>>>>>>>>>>
 
+def estadisticas(request):
+    return render(request, 'proyecto_trabajo_final/estadisticas.html')
+
 class Informe1(ListView):
     model = Movimientos
     template_name = 'proyecto_trabajo_final/informe1.html'

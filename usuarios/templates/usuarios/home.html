@@ -5,23 +5,23 @@
 
     <section class="contenedor">
       <div class="opcion opcion-1 opcion-a">
-        <a href="./pages/2_registroCSTF.html">Registrar integrantes de la CSTF</a>
+        <a href="{% url 'comisiones:cstf_create' %}">Registrar integrantes de la CSTF</a>
       </div>
 
       <div class="opcion opcion-2 opcion-b">
-        <a href="./pages/2_registroTE.html">Registrar integrantes del tribunal evaluador</a>
+        <a href="#">Registrar integrantes del tribunal evaluador</a>
       </div>
 
       <div class="opcion opcion-3 opcion-c">
-        <a href="/pages/inscripcionalumno.html"> Registrar alumnos</a>
+        <a href="{% url 'persona:registro_alumno' %}"> Registrar alumnos</a>
       </div>
 
       <div class="opcion opcion-3 opcion-a">
-        <a href="#">Registrar proyecto de trabajo final</a>
+        <a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Registrar proyecto de trabajo final</a>
       </div>
 
       <div class="opcion opcion-1 opcion-b">
-        <a href="#">Registrar movimientos y estados de un PTF</a>
+        <a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Registrar movimientos y estados de un PTF</a>
       </div>
 
       <div class="opcion opcion-2 opcion-c">
@@ -29,11 +29,11 @@
       </div>
 
       <div class="opcion  opcion-2 opcion-a">
-        <a href="#"> Listado de los PTF</a>
+        <a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}"> Listado de los PTF</a>
       </div>
 
       <div class="opcion opcion-3 opcion-b">
-        <a href="#">Listado de tribunales evaluadores y sus PTF </a>
+        <a href="{% url 'proyecto_trabajo_final:proyecto_informen2' %}">Listado de tribunales evaluadores y sus PTF </a>
       </div>
 
       <div class="opcion opcion-1 opcion-c">

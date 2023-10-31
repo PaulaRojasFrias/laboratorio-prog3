@@ -39,19 +39,19 @@
 
               <nav>
               <ul>
-                <li><a href="#">Inicio</a></li>
+                <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
                 <li><a href="#">Registrar</a>
                 <ul>
-                  <li><a href="{% url 'comisiones:cstf_lista' %}">Listado de las CSTF's</a></li>
-                  <li><a href="{% url 'comisiones:te_lista' %}">Listado de TE's</a></li>
-                  <li><a href="./pages/inscripcionalumno.html">Alumnos</a></li>
-                  <li><a href="./pages/punto1.html">Proyecto de trabajo final</a></li>
-                  <li><a href="#">Movimientos y estados de un PTF</a></li>
+                  <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
+                  <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
+                  <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
+                  <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
+                  <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
                   <li><a href="#">Informes y evaluciones</a></li>
                 </ul>
                 </li>
-                <li><a href="./estadisticas.html">Informes</a></li>
-                <li><a href="#">Evaluación formal</a></li>
+                <li><a href="{% url 'proyecto_trabajo_final:estadisticas' %}">Informes</a></li>
+                <li><a href="{% url 'dictamenes:evaluacion_ptf_cstf_create' %}">Evaluación formal</a></li>
               </ul>
               </nav>
           </div>
