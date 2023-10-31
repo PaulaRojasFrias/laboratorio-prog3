@@ -4,11 +4,13 @@ from .models import Docente, Alumno, Asesor
 class DocenteForm(forms.ModelForm):
     class Meta:
         model = Docente
-        fields = ('nombre','apellido','cuil', )
+        fields = ('nombre','apellido','cuil','correo','crear_usuario')
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control'}),
             'cuil': forms.TextInput(attrs={'class': 'form-control'}),
+            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
+            'crear_usuario': forms.CheckboxInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -19,7 +21,7 @@ class AlumnoForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control'}),
-
+            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
         }
 
 class AsesorForm(forms.ModelForm):
