@@ -140,3 +140,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media Files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # smtp.gmail.com para Gmail
+EMAIL_PORT = 587  # El puerto puede variar según el proveedor
+EMAIL_USE_TLS = True  # Usar TLS para la conexión
+EMAIL_HOST_USER = 'sistemadeseguimetoptf@gmail.com'  # Tu dirección de correo electrónico
+EMAIL_HOST_PASSWORD = 'cmtttjmyykqipfic'  # Tu contraseña (puedes usar una clave de aplicación si es necesario)
+DEFAULT_FROM_EMAIL = 'sistemadeseguimetoptf@gmail.com'  # Dirección de correo predeterminadappy
