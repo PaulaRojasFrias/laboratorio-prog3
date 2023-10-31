@@ -75,7 +75,7 @@ def evaluacion_ptf_te_edit(request, pk):
         evaluacion_form = EvaluacionPTF_TEForm(instance=evaluacion)
     return render(request, 'dictamenes/templates/evaluacion_ptf_te_form.html', {'form': evaluacion_form})
 def evaluacion_te_delete(request, pk):
-    evaluacion = get_object_or_404(EvaluacionTE, pk=pk)
+    evaluacion = get_object_or_404(EvaluacionPTF_TE, pk=pk)
     if request.method == 'POST':
         evaluacion.delete()
         messages.success(request, f'Se ha eliminado existosamente la evaluación TE con ID: {pk}')
