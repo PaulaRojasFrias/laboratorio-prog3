@@ -1,12 +1,12 @@
 from django.db import models
-<<<<<<< HEAD
+
 from django.contrib.auth.models import Permission
-=======
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
->>>>>>> 76be33e209a0ad553986335176e036a79803c02f
+
 
 # Create your models here.
 class AbstractPersona(models.Model):

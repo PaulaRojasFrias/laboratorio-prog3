@@ -2,7 +2,7 @@
 {% block titulo %}Home Admin{% endblock %}
 {% block contenido %}
     <main>
-
+    {% if perms.usuarios.permiso_administrador %}
     <section class="contenedor">
       <div class="opcion opcion-1 opcion-a">
         <a href="{% url 'comisiones:cstf_create' %}">Registrar integrantes de la CSTF</a>
@@ -41,6 +41,7 @@
       </div>
 
     </section>
+      {% endif %}
   </main>
 
 {% endblock %} 

@@ -14,6 +14,8 @@
         {% block extra_css %}{% endblock %}
     </head>
     <body>
+    {% if perms.usuarios.permiso_administrador %}
+
         <header>
         <div class="header-superior">
           <!-- Write your comments here -->
@@ -59,6 +61,9 @@
         </div>
 
         </header>
+         {% endif %}
+
+        <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
 
         <section>
                 {% block contenido %}
