@@ -8,10 +8,10 @@ from .models import EvaluacionPTF_CSTF, EvaluacionPTF_TE, EvaluacionITF
 # Vistas para EvaluacionPTF_CSTF
 def evaluacion_ptf_cstf_lista(request):
     evaluaciones = EvaluacionPTF_CSTF.objects.all()
-    return render(request, 'dictamenes/templates/evaluacion_ptf_cstf_form.html', {'evaluaciones': evaluaciones})
+    return render(request, 'evaluacion_ptf_cstf_form.html', {'evaluaciones': evaluaciones})
 def evaluacion_ptf_cstf_detalle(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_CSTF, pk=pk)
-    return render(request, 'dictamenes/templates/evaluacion_ptf_cstf_detalle.html', {'evaluacion': evaluacion})
+    return render(request, 'evaluacion_ptf_cstf_detalle.html', {'evaluacion': evaluacion})
 def evaluacion_ptf_cstf_create(request):
     nueva_evaluacion = None
     if request.method == 'POST':
@@ -22,7 +22,7 @@ def evaluacion_ptf_cstf_create(request):
             return redirect('dictamenes:evaluacion_ptf_cstf_detalle', pk=nueva_evaluacion.pk)
     else:
         evaluacion_form = EvaluacionPTF_CSTFForm()
-    return render(request, 'dictamenes/templates/evaluacion_ptf_cstf_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_ptf_cstf_form.html', {'form': evaluacion_form})
 def evaluacion_ptf_cstf_edit(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_CSTF, pk=pk)
     if request.method == 'POST':
@@ -32,14 +32,14 @@ def evaluacion_ptf_cstf_edit(request, pk):
             return redirect('dictamenes:evaluacion_ptf_cstf_detalle', pk=evaluacion.pk)
     else:
         evaluacion_form = EvaluacionPTF_CSTFForm(instance=evaluacion)
-    return render(request, 'dictamenes/templates/evaluacion_ptf_cstf_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_ptf_cstf_form.html', {'form': evaluacion_form})
 def evaluacion_ptf_cstf_delete(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_CSTF, pk=pk)
     if request.method == 'POST':
         evaluacion.delete()
         messages.success(request, f'Se ha eliminado existosamente la evaluación PTF CSTF con ID: {pk}')
         return redirect('dictamenes:evaluacion_ptf_cstf_lista')
-    return render(request, 'dictamenes/templates/evaluacion_ptf_cstf_confirm_delete.html', {'evaluacion': evaluacion})
+    return render(request, 'evaluacion_ptf_cstf_confirm_delete.html', {'evaluacion': evaluacion})
 
 
 
@@ -48,10 +48,10 @@ def evaluacion_ptf_cstf_delete(request, pk):
 # Vistas para EvaluacionPTF_TE
 def evaluacion_ptf_te_lista(request):
     evaluaciones = EvaluacionPTF_TE.objects.all()
-    return render(request, 'dictamenes/templates/evaluacion_ptf_te_form.html', {'evaluaciones': evaluaciones})
+    return render(request, 'evaluacion_ptf_te_form.html', {'evaluaciones': evaluaciones})
 def evaluacion_ptf_te_detalle(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_TE, pk=pk)
-    return render(request, 'dictamenes/templates/evaluacion_ptf_te_detalle.html', {'evaluacion': evaluacion})
+    return render(request, 'evaluacion_ptf_te_detalle.html', {'evaluacion': evaluacion})
 def evaluacion_ptf_te_create(request):
     nueva_evaluacion = None
     if request.method == 'POST':
@@ -62,7 +62,7 @@ def evaluacion_ptf_te_create(request):
             return redirect('dictamenes:evaluacion_ptf_te_detalle', pk=nueva_evaluacion.pk)
     else:
         evaluacion_form = EvaluacionPTF_TEForm()
-    return render(request, 'dictamenes/templates/evaluacion_ptf_te_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_ptf_te_form.html', {'form': evaluacion_form})
 def evaluacion_ptf_te_edit(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_TE, pk=pk)
     if request.method == 'POST':
@@ -73,23 +73,23 @@ def evaluacion_ptf_te_edit(request, pk):
             return redirect('dictamenes:evaluacion_ptf_te_detalle', pk=evaluacion.pk)
     else:
         evaluacion_form = EvaluacionPTF_TEForm(instance=evaluacion)
-    return render(request, 'dictamenes/templates/evaluacion_ptf_te_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_ptf_te_form.html', {'form': evaluacion_form})
 def evaluacion_te_delete(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_TE, pk=pk)
     if request.method == 'POST':
         evaluacion.delete()
         messages.success(request, f'Se ha eliminado existosamente la evaluación TE con ID: {pk}')
         return redirect('dictamenes:evaluacion_ptf_te_lista')
-    return render(request, 'dictamenes/templates/evaluacion_te_confirm_delete.html', {'evaluacion': evaluacion})
+    return render(request, 'evaluacion_te_confirm_delete.html', {'evaluacion': evaluacion})
 
 
 # Vistas para EvaluacionITF
 def evaluacion_itf_lista(request):
     evaluaciones = EvaluacionITF.objects.all()
-    return render(request, 'dictamenes/templates/evaluacion_itf_form.html', {'evaluaciones': evaluaciones})
+    return render(request, 'evaluacion_itf_form.html', {'evaluaciones': evaluaciones})
 def evaluacion_itf_detalle(request, pk):
     evaluacion = get_object_or_404(EvaluacionITF, pk=pk)
-    return render(request, 'dictamenes/templates/evaluacion_itf_detalle.html', {'evaluacion': evaluacion})
+    return render(request, 'evaluacion_itf_detalle.html', {'evaluacion': evaluacion})
 def evaluacion_itf_create(request):
     nueva_evaluacion = None
     if request.method == 'POST':
@@ -100,7 +100,7 @@ def evaluacion_itf_create(request):
             return redirect('dictamenes:evaluacion_itf_detalle', pk=nueva_evaluacion.pk)
     else:
         evaluacion_form = EvaluacionITFForm()
-    return render(request, 'dictamenes/templates/evaluacion_itf_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_itf_form.html', {'form': evaluacion_form})
 def evaluacion_itf_edit(request, pk):
     evaluacion = get_object_or_404(EvaluacionITF, pk=pk)
     if request.method == 'POST':
@@ -111,11 +111,11 @@ def evaluacion_itf_edit(request, pk):
             return redirect('dictamenes:evaluacion_itf_detalle', pk=evaluacion.pk)
     else:
         evaluacion_form = EvaluacionITFForm(instance=evaluacion)
-    return render(request, 'dictamenes/templates/evaluacion_itf_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_itf_form.html', {'form': evaluacion_form})
 def evaluacion_itf_delete(request, pk):
     evaluacion = get_object_or_404(EvaluacionITF, pk=pk)
     if request.method == 'POST':
         evaluacion.delete()
         messages.success(request, f'Se ha eliminado existosamente la evaluación ITF con ID: {pk}')
         return redirect('dictamenes:evaluacion_itf_lista')
-    return render(request, 'dictamenes/templates/evaluacion_itf_confirm_delete.html', {'evaluacion': evaluacion})
+    return render(request, 'evaluacion_itf_confirm_delete.html', {'evaluacion': evaluacion})
