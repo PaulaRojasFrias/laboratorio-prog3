@@ -1,7 +1,8 @@
 from django.db import models
-
+from django.dispatch import receiver
+from datetime import date
 from proyecto_trabajo_final.models import InformeTF, ProyectoFinal,Movimientos
-
+from django.db.models.signals import post_save
 
 from comisiones.models import Comision, IntegrantesComision,IntegrantesTribunal,TribunalEvaluador
 # Create your models here.
@@ -18,7 +19,18 @@ class EvaluacionPTF_CSTF(models.Model):
     ptf_evaluadoCSTF = models.OneToOneField(ProyectoFinal, on_delete= models.CASCADE) #PREGUNTAR A LA PROFE
     informeEvaluacionCSTF =models.FileField(null=True, blank=True, upload_to='archivosDictamenes/')
     fechaEvaluacionCSTF = models.DateField(auto_now=False)
-    #movimiento_registrado = models.ForeignKey(Movimientos, on_delete= models.CASCADE) 
+
+@receiver(post_save, sender=EvaluacionPTF_CSTF)
+def actualizar_movimiento(sender, instance, created, **kwargs):
+    if created:
+        # Encuentra el movimiento asociado al proyecto
+        movimiento = Movimientos.objects.get(proyecto=instance.ptf_evaluadoCSTF)
+        movimiento.tipoMovimiento = 'dictamen de la cstf sobre el formato del ptf'
+        movimiento.fechaMovimiento = date.today()
+        movimiento.archivoAsociado = instance.informeEvaluacionCSTF 
+        movimiento.observacion = instance.observaciones
+        movimiento.estado = instance.resultadoCSTF
+        movimiento.save()
 
 class EvaluacionPTF_TE(models.Model):
     resultados_opc = (
