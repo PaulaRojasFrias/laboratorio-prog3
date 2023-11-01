@@ -22,7 +22,7 @@ def cstf_listaEvaluacionesComision(request, username):
 
 def evaluacion_ptf_cstf_lista(request):
     evaluaciones = EvaluacionPTF_CSTF.objects.all()
-    return render(request, 'evaluacion_ptf_cstf_form.html', {'evaluaciones': evaluaciones})
+    return render(request, 'evaluacion_ptf_cstf_lista.html', {'evaluaciones': evaluaciones})
 
 def evaluacion_ptf_cstf_detalle(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_CSTF, pk=pk)

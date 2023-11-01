@@ -1,17 +1,32 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block titulo %}Detalle de Evaluacion PTF CSTF{% endblock %}
-
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
     <main>
-        <h1>Detalle de Evaluacion PTF CSTF</h1>
-        <div class="detalle-evaluacion">
-            <p><strong>Resultado:</strong> {{ evaluacion.resultadoCSTF }}</p>
-            <p><strong>Observaciones:</strong> {{ evaluacion.observaciones }}</p>
-            <p><strong>Evaluador:</strong> {{ evaluacion.evaluadorCSTF }}</p>
-            <p><strong>PTF Evaluado:</strong> {{ evaluacion.ptf_evaluadoCSTF }}</p>
-            <p><strong>Informe de Evaluacion:</strong> {{ evaluacion.informeEvaluacionCSTF }}</p>
-            <p><strong>Fecha de Evaluacion:</strong> {{ evaluacion.fechaEvaluacionCSTF }}</p>
+        <div class='contenedorPrincipal'>
+            <h1>Detalle de Evaluacion PTF CSTF</h1>
+            <div class='contenedorDetalle'>
+                <div class='contenedorInfo'>
+                    <p><strong>Comision:</strong> {{ evaluacion.evaluadorCSTF }}</p><br>
+                    <p><strong>Proyecto:</strong> {{ evaluacion.ptf_evaluadoCSTF }}</p><br>
+                    <p><strong>Fecha de Evaluacion:</strong> {{ evaluacion.fechaEvaluacionCSTF }}</p><br>
+                    <p><strong>Resultado:</strong> {{ evaluacion.resultadoCSTF }}</p><br>
+                    <p><strong>Observaciones:</strong> {{ evaluacion.observaciones |default_if_none:"---" }}</p><br>
+                    <p><strong>Informe de Evaluacion:</strong> {{ evaluacion.informeEvaluacionCSTF }}</p><br>
+                </div>
+
+                <div class='botones'>
+                    {% if perms.persona.permiso_cstf %}
+                        <button class='btnVolver btn'><a href="{% url 'dictamenes:cstf_listaEvaluacionesComision' user.username %}">Volver</a></button>
+                    {% endif %}
+
+                    {% if perms.usuarios.permiso_administrador %}
+                        <button class='btnVolver btn'><a href="{% url 'dictamenes:evaluacion_ptf_cstf_lista.html' %}">Volver</a></button>
+                        <button class='btnEditar btn'><a href="{% url 'dictamenes:evaluacion_ptf_cstf_edit' evaluacion.id %}">Editar</a></button>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </main>
 {% endblock %}
