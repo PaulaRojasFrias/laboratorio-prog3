@@ -234,7 +234,7 @@
                 {% if perms.persona.permiso_cstf %} 
                     <div class='botonesForm'>
                         <button class='btnVolver btn'><a href="{% url 'proyecto_trabajo_final:cstf_PTFSnoEvaluados' %}">Volver</a></button>
-                        <button class='btnEditar btn'><a href="{% url 'proyecto_trabajo_final:proyecto_edit' proyecto.id %}">Añadir Evaluacion</a></button>
+                        <button class='btnEditar btn'><a href="{% url 'dictamenes:evaluacion_ptf_cstf_create' proyecto.id %}">Añadir Evaluacion</a></button>
                     </div>
                 {% endif %}
 

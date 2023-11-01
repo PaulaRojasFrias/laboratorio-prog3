@@ -7,7 +7,7 @@ urlpatterns = [
     # URLs para EvaluacionPTF_CSTF
     path('evaluacion_ptf_cstf_lista/', views.evaluacion_ptf_cstf_lista, name='evaluacion_ptf_cstf_lista'),
     path('evaluacion_ptf_cstf_detalle/<int:pk>/', views.evaluacion_ptf_cstf_detalle, name='evaluacion_ptf_cstf_detalle'),
-    path('evaluacion_ptf_cstf_create/', views.evaluacion_ptf_cstf_create, name='evaluacion_ptf_cstf_create'),
+    path('evaluacion_ptf_cstf_create/create/<int:pk>/', views.evaluacion_ptf_cstf_create, name='evaluacion_ptf_cstf_create'),
     path('evaluacion_ptf_cstf_edit/<int:pk>/', views.evaluacion_ptf_cstf_edit, name='evaluacion_ptf_cstf_edit'),
     path('evaluacion_ptf_cstf_delete/<int:pk>/', views.evaluacion_ptf_cstf_delete, name='evaluacion_ptf_cstf_delete'),
 

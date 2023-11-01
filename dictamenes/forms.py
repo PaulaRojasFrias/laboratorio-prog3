@@ -3,10 +3,22 @@ from dictamenes.models import EvaluacionPTF_CSTF,EvaluacionPTF_TE,EvaluacionITF
 class EvaluacionPTF_CSTFForm(forms.ModelForm):
     class Meta:
         model = EvaluacionPTF_CSTF
-        fields = ('resultadoCSTF', 'observaciones', 'evaluadorCSTF' ,'ptf_evaluadoCSTF','informeEvaluacionCSTF','fechaEvaluacionCSTF')
+        fields = ( 'evaluadorCSTF' , 'ptf_evaluadoCSTF','fechaEvaluacionCSTF', 'informeEvaluacionCSTF','resultadoCSTF', 'observaciones')
+
+        labels = {'resultadoCSTF': 'Resultado', 
+                  'observaciones': 'Observaciones', 
+                  'evaluadorCSTF': 'Comision',
+                  'ptf_evaluadoCSTF': 'Proyecto',
+                  'informeEvaluacionCSTF': 'Informe',
+                  'fechaEvaluacionCSTF': 'Fecha Evaluacion'}
+        
         widgets = {
-            'resultadoCSTF': forms.Select(choices=EvaluacionPTF_CSTF.resultados_opc),
-            'fechaEvaluacionCSTF': forms.DateInput(attrs={'type': 'date'})
+            'resultadoCSTF': forms.Select(choices=EvaluacionPTF_CSTF.resultados_opc, attrs={'class': 'campoInput'}),
+            'fechaEvaluacionCSTF': forms.DateInput(attrs={'type': 'date', 'class': 'campoInput'}),
+            'evaluadorCSTF':forms.Select(attrs={'class': 'campoInput'}),
+            'ptf_evaluadoCSTF':forms.Select(attrs={'class': 'campoInput'}),
+            'informeEvaluacionCSTF':forms.FileInput(attrs={'class': 'campoInput'}),
+            'observaciones': forms.Textarea(attrs={'class': 'campoInput'})
         }
 
 
