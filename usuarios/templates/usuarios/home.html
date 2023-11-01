@@ -25,7 +25,7 @@
         </div>
 
         <div class="opcion opcion-2 opcion-c">
-          <a href="#">Registrar informes y evaluciones</a>
+          <a href="{% url 'proyecto_trabajo_final:proyecto_informen1' %}">Informe 1</a>
         </div>
 
         <div class="opcion  opcion-2 opcion-a">
@@ -37,7 +37,7 @@
         </div>
 
         <div class="opcion opcion-1 opcion-c">
-          <a href="#">Emitir evaluación formal</a>
+          <a href="#"></a>
         </div>
 
       </section>
@@ -63,6 +63,48 @@
 
         <div class="opcion opcion-1 opcion-b blanco">
           <a href="{% url 'proyecto_trabajo_final:cstf_PTFSnoEvaluados' %}">Proyectos Sin Evaluar</a>
+        </div>
+
+        <div class="opcion opcion-2 opcion-c blanco">
+          
+        </div>
+
+        <div class="opcion  opcion-2 opcion-a blanco">
+         
+        </div>
+
+        <div class="opcion opcion-3 opcion-b blanco">
+          
+        </div>
+
+        <div class="opcion opcion-1 opcion-c blanco">
+         
+        </div>
+
+
+      </section>
+    {% endif %}
+
+    {% if perms.persona.permiso_te %}
+      <section class="contenedor">
+        <div class="opcion opcion-1 opcion-a">
+          <a href="{% url 'comisiones:te_misTribunales' user.username %}">Mis Tribunales</a>
+        </div>
+
+        <div class="opcion opcion-2 opcion-b">
+          
+        </div>
+
+        <div class="opcion opcion-3 opcion-c">
+          <a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}"> Proyectos Sin Evaluar</a>
+        </div>
+
+        <div class="opcion opcion-3 opcion-a">
+          
+        </div>
+
+        <div class="opcion opcion-1 opcion-b blanco">
+          
         </div>
 
         <div class="opcion opcion-2 opcion-c blanco">

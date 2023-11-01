@@ -1,17 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Creacion de Evaluacion PTF TE{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
-    <main>
-        <h1>Creacion de Evaluacion PTF TE</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% for field in form %}
-              <div class="campo">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-              </div><br>
-            {% endfor %}
-          {% csrf_token %}
-          <input type="submit" value="Guardar">
-        </form>
-    </main>
+  <main>
+      <div class='contenedorPrincipal'>
+        <h1>Creacion de Evaluacion PTF por TE</h1>
+        <div class='contenerdorForm'>
+          <p>Ingrese los datos de la Evaluacion realizada por la comision:</p>
+          <form method="post" enctype="multipart/form-data">
+              {% for field in form %}
+                <div class="campo">
+                  {{ field.errors }}
+                  {{ field.label_tag }} {{ field }}
+                </div><br>
+              {% endfor %}
+            {% csrf_token %}
+            <div class='botones'>
+              <button class= 'BotonCancelar'><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' proyectoId %}" >Cancelar</a></button>
+              <input class='botonGuardar' type="submit" value="Guardar">
+            </div>
+          </form>
+        </div>
+      </div>
+  </main>
 {% endblock %}

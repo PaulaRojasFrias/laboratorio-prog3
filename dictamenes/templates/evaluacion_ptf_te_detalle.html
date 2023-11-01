@@ -1,17 +1,26 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block titulo %}Detalle de Evaluacion PTF TE{% endblock %}
-
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
     <main>
-        <h1>Detalle de Evaluacion PTF TE</h1>
-        <div class="detalle-evaluacion">
-            <p><strong>Resultado:</strong> {{ evaluacion.resultadoTE }}</p>
-            <p><strong>Observaciones:</strong> {{ evaluacion.observaciones }}</p>
-            <p><strong>Evaluador:</strong> {{ evaluacion.evaluadorTE }}</p>
-            <p><strong>PTF Evaluado:</strong> {{ evaluacion.ptf_evaluadoTE }}</p>
-            <p><strong>Informe de Evaluacion:</strong> {{ evaluacion.informeEvaluacionTE }}</p>
-            <p><strong>Fecha de Evaluacion:</strong> {{ evaluacion.fechaEvaluacionTE }}</p>
+        <div class='contenedorPrincipal'>
+            <h1>Detalle de Evaluacion PTF TE</h1>
+            <div class='contenedorDetalle'>
+                <div class="contenedorInfo">
+                    <p><strong>Resultado:</strong> {{ evaluacion.resultadoTE }}</p><br>
+                    <p><strong>Observaciones:</strong> {{ evaluacion.observaciones }}</p><br>
+                    <p><strong>Evaluador:</strong> {{ evaluacion.evaluadorTE }}</p><br>
+                    <p><strong>PTF Evaluado:</strong> {{ evaluacion.ptf_evaluadoTE }}</p><br>
+                    <p><strong>Informe de Evaluacion:</strong> {{ evaluacion.informeEvaluacionTE }}</p><br>
+                    <p><strong>Fecha de Evaluacion:</strong> {{ evaluacion.fechaEvaluacionTE }}</p><br>
+                </div>
+                <div class='botones'>
+                    {% if perms.persona.permiso_te %}
+                        <button class='btnVolver btn'><a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}">Volver</a></button>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </main>
 {% endblock %}

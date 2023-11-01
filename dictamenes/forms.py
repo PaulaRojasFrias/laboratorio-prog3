@@ -25,10 +25,23 @@ class EvaluacionPTF_CSTFForm(forms.ModelForm):
 class EvaluacionPTF_TEForm(forms.ModelForm):
     class Meta:
         model = EvaluacionPTF_TE
-        fields = ('resultadoTE', 'observaciones', 'evaluadorTE', 'ptf_evaluadoTE', 'informeEvaluacionTE', 'fechaEvaluacionTE')
+        fields = ( 'evaluadorTE', 'ptf_evaluadoTE', 'fechaEvaluacionTE', 'resultadoTE', 'observaciones','informeEvaluacionTE')
+
+        labels = {'resultadoTE': 'Resultado', 
+                  'observaciones': 'Observaciones', 
+                  'evaluadorTE': 'Comision',
+                  'ptf_evaluadoTE': 'Proyecto',
+                  'informeEvaluacionTE': 'Informe',
+                  'fechaEvaluacionTE': 'Fecha Evaluacion'}
+        
+
         widgets = {
-            'resultadoTE': forms.Select(choices=EvaluacionPTF_TE.resultados_opc),
-            'fechaEvaluacionTE': forms.DateInput(attrs={'type': 'date'})
+            'resultadoTE': forms.Select(choices=EvaluacionPTF_TE.resultados_opc, attrs={'class': 'campoInput'}),
+            'fechaEvaluacionTE': forms.DateInput(attrs={'type': 'date', 'class': 'campoInput'}),
+            'evaluadorTE':forms.Select(attrs={'class': 'campoInput'}),
+            'ptf_evaluadoTE':forms.Select(attrs={'class': 'campoInput'}),
+            'informeEvaluacionTE':forms.FileInput(attrs={'class': 'campoInput'}),
+            'observaciones': forms.Textarea(attrs={'class': 'campoInput'})
         }
 
 class EvaluacionITFForm(forms.ModelForm):
