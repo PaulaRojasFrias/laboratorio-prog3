@@ -9,7 +9,8 @@ class Comision(models.Model):
     archivoResolucion = models.FileField(upload_to='archivosComisiones/')
     class Meta:
        ordering = ['fechaDeCreacionComision']
-
+    def __str__(self):
+        return f'Resolución {self.nroResolucionComision} - Año {self.fechaDeCreacionComision.year}'
 
 class TribunalEvaluador(models.Model):
     nroDisposicionTribunal = models.CharField(max_length=50, unique = True)
@@ -19,6 +20,9 @@ class TribunalEvaluador(models.Model):
     class Meta:
        ordering = ['fechaCreacionTribunal']
 
+    def __str__(self):
+        return f'Proyecto: {self.proyectoTE.titulo} - Disposición {self.nroDisposicionTribunal}'
+
 class IntegrantesComision(models.Model):
     docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
     comision = models.ForeignKey(Comision, on_delete=models.CASCADE)
@@ -26,6 +30,9 @@ class IntegrantesComision(models.Model):
     fecha_baja_cs = models.DateField(auto_now_add=False, null=True, blank=True)
     class Meta:
        ordering = ['fecha_alta_cs']
+    
+    def __str__(self):
+        return f'{self.docente.apellido}, {self.docente.nombre} - Resolución {self.comision.nroResolucionComision}'
 
 class IntegrantesTribunal(models.Model):
     rol_opc = (
@@ -40,3 +47,6 @@ class IntegrantesTribunal(models.Model):
     fecha_baja_te = models.DateField(auto_now_add=False, null=True, blank=True)
     class Meta:
        ordering = ['fecha_alta_te']
+
+    def __str__(self):
+        return f'{self.docente.apellido}, {self.docente.nombre} - Disposición {self.tribunal.nroDisposicionTribunal}'
