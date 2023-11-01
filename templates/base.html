@@ -30,7 +30,7 @@
             <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
 
         </div>
-     {% if perms.usuarios.permiso_administrador %}
+
         <div class="container-menu">
 
           <div class="menu">
@@ -38,7 +38,7 @@
             <label id="#label__Check" for="check__menu">
               <i class="fa-solid fa-bars icon__menu"></i>
             </label>
-
+             {% if perms.usuarios.permiso_administrador %}
               <nav>
               <ul>
                 <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
