@@ -84,7 +84,11 @@
 
       </section>
     {% endif %}
-
+    {% if perms.persona.permiso_alumno %}
+        <script>
+            window.location.href = "{% url 'proyecto_trabajo_final:proyectos_de_alumno' user.username %}";
+        </script>
+    {% endif %}
 
   </main>
 

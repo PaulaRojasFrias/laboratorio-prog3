@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib import messages
+from .models import Alumno
 from django.views.generic import ListView
 from datetime import datetime
 from comisiones.models import IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
@@ -345,3 +346,10 @@ class Informe2(ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = self.form_class(self.request.GET)
         return context
+
+
+def proyectos_de_alumno(request, username):
+    alumno = Alumno.objects.get(dni=username)
+    proyectos_integrantes = PTF_Integrantes.objects.filter(alumnos=alumno)
+    proyectos = [proyecto_integrante.proyectoFinal for proyecto_integrante in proyectos_integrantes]
+    return render(request, 'proyecto_trabajo_final/proyecto_lista.html', {'proyectos': proyectos})

@@ -26,7 +26,7 @@
         </div>
 
         <h2>Gestión de trabajos finales</h2>
-        <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
+        <a href="{% url 'usuarios:logout_view' %}" style=" color: #334eac;">Cerrar Sesión</a>
       </div>
 
       {% if perms.usuarios.permiso_administrador %}
@@ -80,8 +80,19 @@
           </div>
         </div>
       {% endif %}
-
-      {% if perms.persona.permiso_te %}
+       {% if perms.persona.permiso_alumno %}
+              <div class="container-menu">
+                <div class="menu">
+                  <input type="checkbox" name="" id="check__menu">
+                  <label id="#label__Check" for="check__menu">
+                    <i class="fa-solid fa-bars icon__menu"></i>
+                  </label>
+                  <nav>
+              <ul>
+                <li><h1 style=" color: white;">Tu proyecto</h1></li>
+            </nav>
+                  {% endif %}
+                  {% if perms.persona.permiso_te %}
         <div class="container-menu">  
           <div class="menu">
             <input type="checkbox" name="" id="check__menu">
