@@ -14,7 +14,7 @@
         {% block extra_css %}{% endblock %}
     </head>
     <body>
-    {% if perms.usuarios.permiso_administrador %}
+
 
         <header>
         <div class="header-superior">
@@ -30,7 +30,7 @@
             <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
 
         </div>
-
+     {% if perms.usuarios.permiso_administrador %}
         <div class="container-menu">
 
           <div class="menu">
@@ -59,11 +59,12 @@
           </div>
 
         </div>
-
-        </header>
          {% endif %}
+        </header>
+
 
 <!-- PARA LOGIN -->
+ {% if not user.is_authenticated %}
      <header>
      <div class="header-superior">
 
@@ -79,8 +80,8 @@
 
         </div>
      </header>
+     {% endif %}
 
-        <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
 
         <section>
                 {% block contenido %}
