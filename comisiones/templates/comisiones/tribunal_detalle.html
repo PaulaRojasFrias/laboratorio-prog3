@@ -4,63 +4,80 @@
 {% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
     <main>
-        <h1>Tribunal Evaluador</h1>
-        
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
-            {% endfor %}
-        {% endif %}
-
-        <p><strong>Nro. Dictamen: </strong>{{ tribunal.nroDisposicionTribunal }}</p>
-        <p><strong>Fecha Dictamen: </strong>{{ tribunal.fechaCreacionTribunal|date:"SHORT_DATE_FORMAT" }}</p>
-        <p><strong>Proyecto: </strong>{{ tribunal.proyectoTE }}</p>
-        <p><strong>Archivo Dictamen:</strong>
-            {% if tribunal.archivoDisposicion %}
-                {{ tribunal.archivoDisposicion }}
-            {% else %}
-            No posee
-            {% endif %}
-        </p>
-
-        <p><strong>Integrantes:</strong></p>
-            <div id='divTabla'>
-                <table clase='tabla'>
-                    <tr clase='encabezado'>
-                        <th>Docente</th>
-                        <th>Tribunal</th>
-                        <th>Fecha Alta</th>
-                        <th>Fecha Baja</th>
-                        <th>Rol</th>
-                        <th></th>
-                    </tr>
-                    {% for integrante in integrantes %}
-                        <tr>
-                        <td>{{ integrante.docente }}</td>
-                        <td>{{ integrante.tribunal }}</td>
-                        <td>{{ integrante.fecha_alta_te|date:"SHORT_DATE_FORMAT" }}</td>
-                        <td>{{ integrante.fecha_baja_te|default_if_none:"---"  }}</td>
-                        <td>{{ integrante.rol }}</td>
-                        <td> 
-                            <button><a href="{% url 'comisiones:integranteTE_edit' pk=integrante.id pk2=tribunal.id %}">Modificar</a></button>
-                            <form action="{% url 'comisiones:integranteTE_delete' tribunal.id%}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
-                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                            </form>
-                        </td>
-                        </tr>
+        <div class='contenedorPrincipal'>
+            <h1>Tribunal Evaluador</h1>
+            <div class='contenedorDetalle'>
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}  <div class="message">{{ message }}</div>{% endif %}
                     {% endfor %}
-                </table>
-                <button><a href="{% url 'comisiones:integranteTE_create' tribunal.id%}">Agregar Integrante</a></button>
+                {% endif %}
 
+                <div class='contenedorInfo'>
+                    <p><strong>Nro. Dictamen: </strong>{{ tribunal.nroDisposicionTribunal }}</p><br>
+                    <p><strong>Fecha Dictamen: </strong>{{ tribunal.fechaCreacionTribunal|date:"SHORT_DATE_FORMAT" }}</p><br>
+                    <p><strong>Proyecto: </strong>{{ tribunal.proyectoTE }}</p><br>
+                    <p><strong>Archivo Dictamen:</strong>
+                        {% if tribunal.archivoDisposicion %}
+                            {{ tribunal.archivoDisposicion }}
+                        {% else %}
+                        No posee
+                        {% endif %}
+                    </p><br>
+                    <p><strong>Integrantes:</strong></p>
+                </div>
+                <div id='divTabla'>
+                    <table clase='tabla'>
+                        <tr clase='encabezado'>
+                            <th>Docente</th>
+                            <th>Tribunal</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Baja</th>
+                            <th>Rol</th>
+                            {% if perms.usuarios.permiso_administrador %}
+                                <th></th>
+                            {% endif %}
+                        </tr>
+                        {% for integrante in integrantes %}
+                            <tr>
+                                <td>{{ integrante.docente }}</td>
+                                <td>{{ integrante.tribunal }}</td>
+                                <td>{{ integrante.fecha_alta_te|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ integrante.fecha_baja_te|default_if_none:"---"  }}</td>
+                                <td>{{ integrante.rol }}</td>
+                                {% if perms.usuarios.permiso_administrador %}
+                                    <td> 
+                                        <button><a href="{% url 'comisiones:integranteTE_edit' pk=integrante.id pk2=tribunal.id %}">Modificar</a></button>
+                                        <form action="{% url 'comisiones:integranteTE_delete' tribunal.id%}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
+                                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% if perms.usuarios.permiso_administrador %}
+                        <button><a href="{% url 'comisiones:integranteTE_create' tribunal.id%}">Agregar Integrante</a></button>
+                    {% endif %}
+                </div>
+                
+                <div class='botones'>
+                    {% if perms.persona.permiso_te %}
+                        <button class='btnVolver btn'><a href="{% url 'comisiones:te_misTribunales' user.username %}">Volver</a></button>
+                    {% endif %}
+                    {% if perms.usuarios.permiso_administrador %}
+                        <form action="{% url 'comisiones:te_delete' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_tribunal" value="{{ tribunal.id }}">
+                            <button><a href="{% url 'comisiones:te_edit' tribunal.id %}">Editar</a></button>
+                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                        </form>
+                    {% endif %}
+                </div>
             </div>
-        
-        <form action="{% url 'comisiones:te_delete' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="id_tribunal" value="{{ tribunal.id }}">
-            <button><a href="{% url 'comisiones:te_edit' tribunal.id %}">Editar</a></button>
-            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-        </form>
+        </div>
     </main>
 {% endblock %}

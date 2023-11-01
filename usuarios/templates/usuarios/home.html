@@ -5,15 +5,15 @@
     {% if perms.usuarios.permiso_administrador %}
       <section class="contenedor">
         <div class="opcion opcion-1 opcion-a">
-          <a href="{% url 'comisiones: cstf_lista' %}">Registrar integrantes de la CSTF</a>
+          <a href="{% url 'comisiones:cstf_lista' %}">Registrar integrantes de la CSTF</a>
         </div>
 
         <div class="opcion opcion-2 opcion-b">
-          <a href="#">Registrar integrantes del tribunal evaluador</a>
+          <a href="{% url 'comisiones:te_lista' %}">Registrar integrantes del tribunal evaluador</a>
         </div>
 
         <div class="opcion opcion-3 opcion-c">
-          <a href="{% url 'persona:lista_alumno' %}"> Alumnos</a>
+          <a href="{% url 'persona:registro_alumno' %}"> Registrar Alumnos</a>
         </div>
 
         <div class="opcion opcion-3 opcion-a">
@@ -84,7 +84,11 @@
 
       </section>
     {% endif %}
-
+    {% if perms.persona.permiso_alumno %}
+        <script>
+            window.location.href = "{% url 'proyecto_trabajo_final:proyectos_de_alumno' user.username %}";
+        </script>
+    {% endif %}
 
   </main>
 

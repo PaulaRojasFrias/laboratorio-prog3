@@ -2,6 +2,7 @@
 {% block titulo %}Informe 1{% endblock %}
 {% block contenido %}
 <main>
+    <div  style="display: flex; flex-direction: column; gap:20px;">
     <h1>Informen 1: Listado de los PTF según su estado y rango de fecha</h1>
 
     <form id="miFormulario" method="GET">
@@ -29,6 +30,6 @@
         {% else %}
             <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
         {% endif %}
-
+    </div>
     </main>
 {% endblock %}

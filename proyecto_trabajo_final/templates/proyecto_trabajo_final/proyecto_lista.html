@@ -12,6 +12,10 @@
         {% if perms.persona.permiso_cstf %}
             <h2>Lista de Proyectos Sin Evaluar</h2>
         {% endif %}
+
+        {% if perms.persona.permiso_te %}
+            <h2>Lista de Proyectos Sin Evaluar</h2>
+        {% endif %}
         <br>
         <br>
         {% if messages %}

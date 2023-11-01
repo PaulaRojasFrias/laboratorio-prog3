@@ -123,8 +123,20 @@ def integranteComision_delete(request, pk):
 
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< TRIBUNAL EVALUADOR >>>>>>>>>>>>>>>>>>>>>>
+def te_misTribunales(request, cuilDocente):
+    docente = get_object_or_404(Docente, cuil=cuilDocente)
+    integrantes = IntegrantesTribunal.objects.filter(docente=docente)
+    tribunales = [integrante.tribunal for integrante in integrantes]
+    return render(request, 'comisiones/tribunal_lista.html', {'tribunales': tribunales})
+
 def te_lista(request): 
+    busqueda = request.GET.get("buscar")
     tribunales = TribunalEvaluador.objects.all()
+    if busqueda:
+        tribunales = TribunalEvaluador.objects.filter(
+            Q(nroDisposicionTribunal__icontains = busqueda) |
+            Q(fechaCreacionTribunal__icontains = busqueda)
+        ).distinct()
     return render(request, 'comisiones/tribunal_lista.html', {'tribunales': tribunales})
 
 def te_detalle(request, pk):

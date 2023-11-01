@@ -2,6 +2,7 @@
 {% block titulo %}Informe 1{% endblock %}
 {% block contenido %}
 <main>
+    <div  style="display: flex; flex-direction: column; gap:20px;">
     <h1>Informen 2: Listado de los Tribunales Evaluadores y sus PTF asignados</h1>
 
     <form  method="GET">
@@ -16,13 +17,13 @@
         {% if object_list %}
             <ul >
                 {% for objeto in object_list %}
-                   <li><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' objeto. proyectoTE .id %}">{{ objeto.proyectoTE.titulo }}</a></li>
+                   <li><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' objeto.proyectoTE.id %}">{{ objeto.proyectoTE.titulo }}</a></li>
 
                 {% endfor %}
             </ul>
         {% else %}
             <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
         {% endif %}
-
+    </div>
     </main>
 {% endblock %}

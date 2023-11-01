@@ -3,6 +3,7 @@
 {% block contenido %}
 
      <main>
+          <div  style="display: flex; flex-direction: column; gap:20px;">
           <h3>Registro asesores</h3>
           <form method="post">
 
@@ -10,7 +11,7 @@
                {% csrf_token %}
             <button type="submit">Enviar</button>
           </form>
-
+          </div>
      </main>
 
 {% endblock %}

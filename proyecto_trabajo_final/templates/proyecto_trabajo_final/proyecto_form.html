@@ -2,6 +2,7 @@
 {% block titulo %}Creacion del Proyecto{% endblock %}
 {% block contenido %}
     <main>
+         <div  style="display: flex; flex-direction: column; gap:20px;">
         <h1>Creacion del Proyecto de Trabajo Final</h1>
         <form method="post" enctype="multipart/form-data">
             {% for field in form %}
@@ -13,5 +14,6 @@
           {% csrf_token %}
           <input type="submit" value="Guardar">
         </form>
+         </div>
     </main>
 {% endblock %}
