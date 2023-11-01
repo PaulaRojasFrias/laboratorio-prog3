@@ -4,13 +4,33 @@ from django.urls import reverse
 from django.contrib import messages
 from django.views.generic import ListView
 from datetime import datetime
-from comisiones.models import TribunalEvaluador
+from comisiones.models import IntegrantesComision, TribunalEvaluador
+from dictamenes.models import EvaluacionPTF_CSTF
+from persona.models import Docente
 from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, \
     ProyectoForm, TutorForm, Informe1, Informe2
 from django.contrib.auth.decorators import login_required
 from proyecto_trabajo_final.models import AsesorPTF, InformeTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
 from django.db.models import Q
+
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
+@login_required(login_url='usuarios:login_view')
+def cstf_PTFsEvaluados(request, cuilDocente):
+    docente = get_object_or_404(Docente, cuil=cuilDocente)
+    integrantes = IntegrantesComision.objects.filter(docente=docente).order_by('-comision__fechaDeCreacionComision')
+    if integrantes:
+        comision = integrantes[0].comision
+    evaluaciones = EvaluacionPTF_CSTF.objects.filter(evaluadorCSTF = comision)
+    proyectos = {}
+
+    if evaluaciones:
+        for evaluacion in evaluaciones:
+            proyecto = evaluacion.ptf_evaluadoCSTF
+            proyectos[evaluacion.id] = proyecto
+    
+    return render(request, 'proyecto_trabajo_final/proyecto_lista_evaluados.html', {'proyectos': proyectos})
+    
+
 @login_required(login_url='usuarios:login_view')
 def cstf_PTFSnoEvaluados(request):
     proyectos = ProyectoFinal.objects.filter(movimientos__tipoMovimiento='pase a la cstf')

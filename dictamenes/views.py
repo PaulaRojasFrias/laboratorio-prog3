@@ -8,6 +8,15 @@ from .models import EvaluacionPTF_CSTF, EvaluacionPTF_TE, EvaluacionITF
 # Create your views here.
 
 # Vistas para EvaluacionPTF_CSTF
+#@login_required(login_url='usuarios:login_view')
+# def cstf_PTFsEvaluados(request, cuilDocente):
+#    docente = get_object_or_404(Docente, cuil=cuilDocente)
+#    integrantes = IntegrantesComision.objects.filter(docente=docente).order_by('-comision__fechaDeCreacionComision')
+#    if integrantes:
+#        comision = integrantes[0].comision
+#    evaluaciones = EvaluacionPTF_CSTF.objects.filter(evaluadorCSTF = comision)
+#    return render(request, 'evaluacion_ptf_cstf_form.html', {'evaluaciones': evaluaciones})
+
 def evaluacion_ptf_cstf_lista(request):
     evaluaciones = EvaluacionPTF_CSTF.objects.all()
     return render(request, 'evaluacion_ptf_cstf_form.html', {'evaluaciones': evaluaciones})
