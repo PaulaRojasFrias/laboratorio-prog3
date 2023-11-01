@@ -46,6 +46,18 @@ class EvaluacionPTF_TE(models.Model):
     fechaEvaluacionTE = models.DateField(auto_now=False)
     #movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
 
+@receiver(post_save, sender=EvaluacionPTF_TE)
+def actualizar_movimiento(sender, instance, created, **kwargs):
+    if created:
+        # Encuentra el movimiento asociado al proyecto
+        movimiento = Movimientos.objects.get(proyecto=instance.ptf_evaluadoTE)
+        movimiento.tipoMovimiento = 'dictamen tribunal evaluador sobre evaluación ptf'
+        movimiento.fechaMovimiento = date.today()
+        movimiento.archivoAsociado = instance.informeEvaluacionTE
+        movimiento.observacion = instance.observaciones
+        movimiento.estado = instance.resultadoTE
+        movimiento.save()
+
 class EvaluacionITF(models.Model):
     resultados_opc = (
         ('aprobado', 'Aprobado'),
