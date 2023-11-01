@@ -1,27 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %}Login{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
+{% block contenido %}
 
+
+ <main>
+     <div class='contenedorPrincipal'>
     <h2>Iniciar sesión </h2>
      {% if msj %}
         <div>{{ msj }}</div>
     {% endif %}
+    <div class='contenerdorForm'>
     <form action="{% url 'usuarios:login_view' %}" method="post">
         {% csrf_token%}
+        <div class="campo">
         <label for = "username" >
-            usuario
+            Usuario
             <input type="text" name="username">
         </label>
+         </div><br>
+        <div class="campo">
         <label for="password" >
-            contraseña
+            Contraseña
             <input type="password" name="password" >
         </label>
-        <button type="submit">Iniciar sesión</button>
+        </div><br>
+        <div class='botones'>
+        <button  class= "botonGuardar" type="submit" style=" background-color: #334eac;">Iniciar sesión</button>
+        </div>
     </form>
-</body>
-</html>
+    </div>
+    </div>
+</main>
+
+{% endblock %}
