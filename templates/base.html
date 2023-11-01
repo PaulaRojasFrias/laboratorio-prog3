@@ -27,8 +27,8 @@
 
         <h2>Gestión de trabajos finales</h2>
         <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
-
       </div>
+
       {% if perms.usuarios.permiso_administrador %}
         <div class="container-menu">  
           <div class="menu">
@@ -67,6 +67,7 @@
             <nav>
               <ul>
                 <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
+                <li><a href="{% url 'dictamenes:cstf_listaEvaluacionesComision' user.username %}">Evaluaciones</a></li>
                 <li><a href="#">Proyectos Asignados</a>
                   <ul>
                     <li><a href="{% url 'proyecto_trabajo_final:cstf_PTFSnoEvaluados' %}">Sin Evaluar</a></li>

@@ -11,6 +11,8 @@ urlpatterns = [
     path('evaluacion_ptf_cstf_edit/<int:pk>/', views.evaluacion_ptf_cstf_edit, name='evaluacion_ptf_cstf_edit'),
     path('evaluacion_ptf_cstf_delete/<int:pk>/', views.evaluacion_ptf_cstf_delete, name='evaluacion_ptf_cstf_delete'),
 
+    path('evaluaciones/cstf/<str:username>/', views.cstf_listaEvaluacionesComision, name='cstf_listaEvaluacionesComision'),
+
     # URLs para EvaluacionPTF_TE
     path('evaluacion_ptf_te_lista/', views.evaluacion_ptf_te_lista, name='evaluacion_ptf_te_lista'),
     path('evaluacion_ptf_te_detalle/<int:pk>/', views.evaluacion_ptf_te_detalle, name='evaluacion_ptf_te_detalle'),
