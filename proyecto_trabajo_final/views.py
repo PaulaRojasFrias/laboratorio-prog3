@@ -7,12 +7,27 @@ from datetime import datetime
 from comisiones.models import TribunalEvaluador
 from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, \
     ProyectoForm, TutorForm, Informe1, Informe2
-
+from django.contrib.auth.decorators import login_required
 from proyecto_trabajo_final.models import AsesorPTF, InformeTF, Movimientos, PTF_Integrantes, ProyectoFinal, TutoresPTF
-
+from django.db.models import Q
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
+@login_required(login_url='usuarios:login_view')
+def cstf_PTFSnoEvaluados(request):
+    proyectos = ProyectoFinal.objects.filter(movimientos__tipoMovimiento='pase a la cstf')
+    if not proyectos:
+        proyectos = []
+    return render(request, 'proyecto_trabajo_final/proyecto_lista.html', {'proyectos': proyectos})
+
+#Probar
 def proyecto_lista(request):
+    busqueda = request.GET.get("buscar")
     proyectos = ProyectoFinal.objects.all()
+    if busqueda:
+        proyectos = ProyectoFinal.objects.filter(
+            Q(titulo__icontains = busqueda) |
+            Q(descripcion__icontains = busqueda)|
+            Q(fechaPresentacion__icontains = busqueda)
+        ).distinct()
     return render(request, 'proyecto_trabajo_final/proyecto_lista.html', {'proyectos': proyectos})
 
 def proyecto_detalle(request, pk):

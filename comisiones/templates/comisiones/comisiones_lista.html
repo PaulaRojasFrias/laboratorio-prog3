@@ -31,39 +31,43 @@
             </div>
         {% endif %}
 
-        <div class= 'contenedorTabla'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nro. Resolucion</th>
-                        <th>Fecha Resolucion</th>
-                        <th>Archivo Resolucion</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for comision in comisiones %}
+        {% if comisiones %}
+            <div class= 'contenedorTabla'>
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ comision.nroResolucionComision }}</td>
-                            <td>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</td>
-                            <td>{{ comision.archivoResolucion|default_if_none:"---"  }}</td>
-                            <td>
-                                <div class='contenedorBotones'>
-                                    <button class= 'BotonVer'><a href="{% url 'comisiones:cstf_detalle' comision.id %} ">Detalles</a></button>
-                                    {% if perms.usuarios.permiso_administrador %}
-                                        <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="id_comision" value="{{ comision.id }}">
-                                            <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                                        </form>
-                                    {% endif %}
-                                </div>
-                            </td>
+                            <th>Nro. Resolucion</th>
+                            <th>Fecha Resolucion</th>
+                            <th>Archivo Resolucion</th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>  
+                    </thead>
+                    <tbody>
+                        {% for comision in comisiones %}
+                            <tr>
+                                <td>{{ comision.nroResolucionComision }}</td>
+                                <td>{{ comision.fechaDeCreacionComision|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ comision.archivoResolucion|default_if_none:"---"  }}</td>
+                                <td>
+                                    <div class='contenedorBotones'>
+                                        <button class= 'BotonVer'><a href="{% url 'comisiones:cstf_detalle' comision.id %} ">Detalles</a></button>
+                                        {% if perms.usuarios.permiso_administrador %}
+                                            <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_comision" value="{{ comision.id }}">
+                                                <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}  
+                    </tbody>
+                </table>
+            </div> 
+        {% else %}
+            <p>No hay comisiones.</p>
+        {% endif %} 
     </main>
 
 {% endblock %}

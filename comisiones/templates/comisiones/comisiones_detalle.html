@@ -67,7 +67,7 @@
 
                 <div class='botones'>
                     {% if perms.persona.permiso_cstf %}
-                        <button class='btnVolver btn'><a href="{% url 'comisiones:cstf_misComisiones' user.username %}">Volver</a></button>
+                        <button class='btnVolver btn'><a href="{% url 'usuarios:index_admin' %}">Volver</a></button>
                     {% endif %}
                     {% if perms.usuarios.permiso_administrador %}
                         <button class='btnVolver btn'><a href="{% url 'comisiones:cstf_lista' %}">Volver</a></button>

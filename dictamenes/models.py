@@ -42,11 +42,11 @@ class EvaluacionITF(models.Model):
     )
     resultadoITF = models.CharField(max_length=256, choices= resultados_opc)
     observaciones = models.CharField(max_length=256)
-    evaluadorTE_ITF = models.OneToOneField(TribunalEvaluador, on_delete=models.CASCADE)#PREGUNTAR A LA PROFE
+    evaluadorTE_ITF = models.OneToOneField(TribunalEvaluador, on_delete=models.CASCADE)
     itf_evaluadoTE = models.OneToOneField(InformeTF, on_delete=models.CASCADE)
     informeEvaluacionITF = models.FileField(null=True, blank=True, upload_to='archivosDictamenes/')
     fechaEvaluacionITF = models.DateField(auto_now=False)
-    #movimiento_registrado = models.ForeignKey(Movimientos, on_delete=models.CASCADE)
+    
     
 class DefensaOral(models.Model):
     fechaDefensa = models.DateField(auto_now=False)

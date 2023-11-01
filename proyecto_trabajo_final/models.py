@@ -12,7 +12,7 @@ class ProyectoFinal(models.Model):
     fechaPresentacion = models.DateField()
     proyectoFinal = models.FileField(upload_to='archivosPTF/')
     
-    def _str_(self):
+    def __str__(self):
         return f'{self.titulo}'
 
 class InformeTF(models.Model):
@@ -58,11 +58,14 @@ class Movimientos(models.Model):
         ('presentación borrador informe final', 'Presentación borrador Informe final'),
         ('dictamen tribunal evaluador sobre borrador', 'dictamen tribunal evaluador sobre borrador'),
     )
-    tipoMovimiento = models.CharField(max_length=50, choices=movimientos_opc)
+    tipoMovimiento = models.CharField(max_length=50, choices=movimientos_opc, null=True, blank=True)
     observacion = models.CharField(max_length=50,null=True, blank=True)
     fechaMovimiento = models.DateField()
     archivoAsociado = models.FileField(null=True, blank=True, upload_to='archivosPTF/')
     fechaVencimiento = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.proyecto.titulo} - {self.get_tipoMovimiento_display()}'
 
 @receiver(post_save, sender=ProyectoFinal)
 def crear_movimiento(sender, instance, created, **kwargs):
@@ -81,3 +84,6 @@ class PTF_Integrantes(models.Model):
     fechaAltaAlumno = models.DateField(null=True, blank=True)
     fechaBajaAlumno = models.DateField(null=True, blank=True)
     certificadoAnalitico = models.FileField(upload_to='archivosPTF/')
+
+    def __str__(self):
+        return f'{self.proyectoFinal.titulo} - {self.alumnos.nombre} {self.alumnos.apellido}'

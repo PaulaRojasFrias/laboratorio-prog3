@@ -44,7 +44,7 @@
                     <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
                     <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
                     <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
-                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Proyecto de trabajo final</a></li>
                     <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
                     <li><a href="#">Informes y evaluciones</a></li>
                   </ul>
@@ -67,18 +67,13 @@
             <nav>
               <ul>
                 <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
-                <li><a href="#">Registrar</a>
+                <li><a href="#">Proyectos Asignados</a>
                   <ul>
-                    <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
-                    <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
-                    <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
-                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
-                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
-                    <li><a href="#">Informes y evaluciones</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:cstf_PTFSnoEvaluados' %}">Sin Evaluar</a></li>
+                    <li><a href="{% url 'persona:registro_alumno' %}">Evaluados</a></li>
                   </ul>
                 </li>
-                <li><a href="{% url 'comisiones:cstf_misComisiones' user.username %}">Mis Comisiones</a></li>
-                <li><a href="{% url 'dictamenes:evaluacion_ptf_cstf_create' %}">Evaluación formal</a></li>
+                <li><a href="{% url 'comisiones:cstf_misComisiones' user.username %}">Mi Comision</a></li>
               </ul>
             </nav>
           </div>

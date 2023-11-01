@@ -1,6 +1,6 @@
 from django.urls import path
 
-from proyecto_trabajo_final.views import asesorProyecto_create, asesorProyecto_delete, asesorProyecto_edit, \
+from proyecto_trabajo_final.views import asesorProyecto_create, asesorProyecto_delete, asesorProyecto_edit, cstf_PTFSnoEvaluados, \
     informeProyecto_create, informeProyecto_delete, informeProyecto_edit, integranteProyecto_create, \
     integranteProyecto_delete, integranteProyecto_detalle, integranteProyecto_edit, movimientoProyecto_edit, \
     proyecto_create, proyecto_delete, proyecto_detalle, proyecto_edit, proyecto_lista, tutorProyecto_create, \
@@ -13,6 +13,8 @@ urlpatterns = [
     path('proyecto/create/', proyecto_create, name='proyecto_create'),
     path('proyecto/edit/<int:pk>/', proyecto_edit, name='proyecto_edit'),
     path('proyecto/delete/', proyecto_delete, name='proyecto_delete'),
+
+    path('proyecto/noEvaluadosCSTF/', cstf_PTFSnoEvaluados, name='cstf_PTFSnoEvaluados'),
 
     path('proyecto/estadisticas', estadisticas, name='estadisticas'),
     path('proyecto/informen1', Informe1.as_view(), name='proyecto_informen1'),

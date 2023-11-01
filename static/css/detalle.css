@@ -40,7 +40,7 @@ h1 {
 
 
 /*---------------TABLA---------------*/
-#divTabla {
+#divTabla, .divTabla {
     margin-bottom: 30px;
     width: 100%;
     text-align: left;
