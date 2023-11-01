@@ -15,17 +15,21 @@
             {% endfor %}
         {% endif %}
 
-        <div class='agregado'>
-            <div class='contendorBusqueda'>
-                <p>Buscar:</p>
-                <form action="{% url 'comisiones:cstf_lista' %}" method="GET">
-                    <input class='buscar' id='campoBusqueda' type="number" placeholder="Buscar" name='buscar' value="">
-                    <button class='BotonBuscar' type='submit' >Buscar</button>
-                </form>
-            </div>
+        {% if perms.usuarios.permiso_administrador %}
+            <div class='agregado'>
+                <div class='contendorBusqueda'>
+                    
+                        <p>Buscar:</p>
+                        <form action="{% url 'comisiones:cstf_lista' %}" method="GET">
+                            <input class='buscar' id='campoBusqueda' type="number" placeholder="Buscar" name='buscar' value="">
+                            <button class='BotonBuscar' type='submit' >Buscar</button>
+                        </form>
+                    
+                </div>
 
-            <button class='BotonAgregar'> <a href="{% url 'comisiones:cstf_create' %} ">Agregar Comision</a></button>
-        </div>
+                <button class='BotonAgregar'> <a href="{% url 'comisiones:cstf_create' %} ">Agregar Comision</a></button>
+            </div>
+        {% endif %}
 
         <div class= 'contenedorTabla'>
             <table>
@@ -46,11 +50,13 @@
                             <td>
                                 <div class='contenedorBotones'>
                                     <button class= 'BotonVer'><a href="{% url 'comisiones:cstf_detalle' comision.id %} ">Detalles</a></button>
-                                    <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="id_comision" value="{{ comision.id }}">
-                                        <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                                    </form>
+                                    {% if perms.usuarios.permiso_administrador %}
+                                        <form action="{% url 'comisiones:cstf_delete' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id_comision" value="{{ comision.id }}">
+                                            <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                        </form>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>
