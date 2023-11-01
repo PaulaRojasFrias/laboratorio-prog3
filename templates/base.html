@@ -43,14 +43,16 @@
                   <ul>
                     <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
                     <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
-                    <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
+                    <li><a href="{% url 'persona:registro_alumno' %}">Alumno</a></li>
+                    <li><a href="{% url 'persona:registro_docente' %}">Docente</a></li>
+                    <li><a href="{% url 'persona:registro_docente' %}">Asesor</a></li>
                     <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Proyecto de trabajo final</a></li>
                     <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
-                    <li><a href="#">Informes y evaluciones</a></li>
+
                   </ul>
                 </li>
                 <li><a href="{% url 'proyecto_trabajo_final:estadisticas' %}">Informes</a></li>
-                <li><a href="{% url 'dictamenes:evaluacion_ptf_cstf_create' %}">Evaluación formal</a></li>
+                <li><a href="#">Evaluación formal</a></li>
               </ul>
             </nav>
           </div>
@@ -98,6 +100,12 @@
            </div>
 
         </div>
+        <div class="container-menu">
+          <div class="menu">
+            <input type="checkbox" name="" id="check__menu">
+            <label id="#label__Check" for="check__menu">
+              <i class="fa-solid fa-bars icon__menu"></i>
+            </label>
      </header>
      {% endif %}
 
