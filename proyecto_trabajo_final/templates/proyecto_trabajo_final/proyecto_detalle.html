@@ -238,6 +238,12 @@
                     </div>
                 {% endif %}
 
+                {% if perms.persona.permiso_te %} 
+                    <div class='botonesForm'>
+                        <button class='btnVolver btn'><a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}">Volver</a></button>
+                    </div>
+                {% endif %}
+
         
             </div>
         </div>

@@ -92,6 +92,12 @@
               <ul>
                 <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
                 <li><a href="{% url 'comisiones:te_misTribunales' user.username %}">Mis Tribunales</a></li>
+                <li><a href="#">Proyectos Asignados</a>
+                  <ul>
+                    <li><a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}">Sin Evaluar</a></li>
+                    <li><a href="#">Evaluados</a></li>
+                  </ul>
+                </li>
               </ul>
             </nav>
           </div>

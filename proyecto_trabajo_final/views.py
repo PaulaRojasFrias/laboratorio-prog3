@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.views.generic import ListView
 from datetime import datetime
-from comisiones.models import IntegrantesComision, TribunalEvaluador
+from comisiones.models import IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
 from dictamenes.models import EvaluacionPTF_CSTF
 from persona.models import Docente
 from proyecto_trabajo_final.forms import AsesorPTFForm, InformeFinalForm, IntegranteProyectoForm, MovimientoForm, \
@@ -14,6 +14,17 @@ from proyecto_trabajo_final.models import AsesorPTF, InformeTF, Movimientos, PTF
 from django.db.models import Q
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< PROYECTO TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
+@login_required(login_url='usuarios:login_view')
+def te_PTFSnoEvaluados(request, cuilDocente):
+    docente = Docente.objects.get(cuil=cuilDocente)
+    integrantes = IntegrantesTribunal.objects.filter(docente=docente)
+    tribunales = [integrante.tribunal for integrante in integrantes]
+    proyectosTribunal = [tribunal.proyectoTE for tribunal in tribunales]
+    movimientos = Movimientos.objects.filter(proyecto__in=proyectosTribunal)
+    movimientos_pase_te = movimientos.filter(tipoMovimiento='pase al te')
+    proyectos = [movimiento.proyecto for movimiento in movimientos_pase_te] 
+    return render(request, 'proyecto_trabajo_final/proyecto_lista.html', {'proyectos': proyectos}) 
+
 @login_required(login_url='usuarios:login_view')
 def cstf_PTFsEvaluados(request, cuilDocente):
     docente = get_object_or_404(Docente, cuil=cuilDocente)
