@@ -3,45 +3,89 @@
 {% block contenido %}
     <main>
     {% if perms.usuarios.permiso_administrador %}
-    <section class="contenedor">
-      <div class="opcion opcion-1 opcion-a">
-        <a href="{% url 'comisiones:cstf_create' %}">Registrar integrantes de la CSTF</a>
-      </div>
+      <section class="contenedor">
+        <div class="opcion opcion-1 opcion-a">
+          <a href="{% url 'comisiones:cstf_create' %}">Registrar integrantes de la CSTF</a>
+        </div>
 
-      <div class="opcion opcion-2 opcion-b">
-        <a href="#">Registrar integrantes del tribunal evaluador</a>
-      </div>
+        <div class="opcion opcion-2 opcion-b">
+          <a href="#">Registrar integrantes del tribunal evaluador</a>
+        </div>
 
-      <div class="opcion opcion-3 opcion-c">
-        <a href="{% url 'persona:registro_alumno' %}"> Registrar alumnos</a>
-      </div>
+        <div class="opcion opcion-3 opcion-c">
+          <a href="{% url 'persona:registro_alumno' %}"> Registrar alumnos</a>
+        </div>
 
-      <div class="opcion opcion-3 opcion-a">
-        <a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Registrar proyecto de trabajo final</a>
-      </div>
+        <div class="opcion opcion-3 opcion-a">
+          <a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Registrar proyecto de trabajo final</a>
+        </div>
 
-      <div class="opcion opcion-1 opcion-b">
-        <a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Registrar movimientos y estados de un PTF</a>
-      </div>
+        <div class="opcion opcion-1 opcion-b">
+          <a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Registrar movimientos y estados de un PTF</a>
+        </div>
 
-      <div class="opcion opcion-2 opcion-c">
-        <a href="#">Registrar informes y evaluciones</a>
-      </div>
+        <div class="opcion opcion-2 opcion-c">
+          <a href="#">Registrar informes y evaluciones</a>
+        </div>
 
-      <div class="opcion  opcion-2 opcion-a">
-        <a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}"> Listado de los PTF</a>
-      </div>
+        <div class="opcion  opcion-2 opcion-a">
+          <a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}"> Listado de los PTF</a>
+        </div>
 
-      <div class="opcion opcion-3 opcion-b">
-        <a href="{% url 'proyecto_trabajo_final:proyecto_informen2' %}">Listado de tribunales evaluadores y sus PTF </a>
-      </div>
+        <div class="opcion opcion-3 opcion-b">
+          <a href="{% url 'proyecto_trabajo_final:proyecto_informen2' %}">Listado de tribunales evaluadores y sus PTF </a>
+        </div>
 
-      <div class="opcion opcion-1 opcion-c">
-        <a href="#">Emitir evaluación formal</a>
-      </div>
+        <div class="opcion opcion-1 opcion-c">
+          <a href="#">Emitir evaluación formal</a>
+        </div>
 
-    </section>
-      {% endif %}
+      </section>
+    {% endif %}
+
+    {% if perms.persona.permiso_cstf %}
+      <section class="contenedor">
+        <div class="opcion opcion-1 opcion-a">
+          <a href="{% url 'dictamenes:cstf_listaEvaluacionesComision' user.username %}">Evaluaciones Realizadas</a>
+        </div>
+
+        <div class="opcion opcion-2 opcion-b">
+          <a href="{% url 'comisiones:cstf_misComisiones' user.username %}">Mi Comision</a>
+        </div>
+
+        <div class="opcion opcion-3 opcion-c">
+          <a href="{% url 'proyecto_trabajo_final:cstf_PTFsEvaluados' user.username %}"> Proyectos Evaluados</a>
+        </div>
+
+        <div class="opcion opcion-3 opcion-a">
+          
+        </div>
+
+        <div class="opcion opcion-1 opcion-b blanco">
+          <a href="{% url 'proyecto_trabajo_final:cstf_PTFSnoEvaluados' %}">Proyectos Sin Evaluar</a>
+        </div>
+
+        <div class="opcion opcion-2 opcion-c blanco">
+          
+        </div>
+
+        <div class="opcion  opcion-2 opcion-a blanco">
+         
+        </div>
+
+        <div class="opcion opcion-3 opcion-b blanco">
+          
+        </div>
+
+        <div class="opcion opcion-1 opcion-c blanco">
+         
+        </div>
+
+
+      </section>
+    {% endif %}
+
+
   </main>
 
 {% endblock %} 
