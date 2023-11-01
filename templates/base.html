@@ -80,40 +80,41 @@
           </div>
         </div>
       {% endif %}
+
        {% if perms.persona.permiso_alumno %}
-              <div class="container-menu">
-                <div class="menu">
-                  <input type="checkbox" name="" id="check__menu">
-                  <label id="#label__Check" for="check__menu">
-                    <i class="fa-solid fa-bars icon__menu"></i>
-                  </label>
-                  <nav>
-              <ul>
+          <div class="container-menu">
+            <div class="menu">
+              <input type="checkbox" name="" id="check__menu">
+              <label id="#label__Check" for="check__menu">
+                <i class="fa-solid fa-bars icon__menu"></i>
+              </label>
+              <nav>
+                <ul>
                 <li><h1 style=" color: white;">Tu proyecto</h1></li>
-            </nav>
-                  {% endif %}
-                  {% if perms.persona.permiso_te %}
-        <div class="container-menu">  
-          <div class="menu">
-            <input type="checkbox" name="" id="check__menu">
-            <label id="#label__Check" for="check__menu">
-              <i class="fa-solid fa-bars icon__menu"></i>
-            </label>
-            <nav>
-              <ul>
-                <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
-                <li><a href="{% url 'comisiones:te_misTribunales' user.username %}">Mis Tribunales</a></li>
-                <li><a href="#">Proyectos Asignados</a>
-                  <ul>
-                    <li><a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}">Sin Evaluar</a></li>
-                    <li><a href="#">Evaluados</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
+              </nav>
+        {% endif %}
+
+        {% if perms.persona.permiso_te %}
+          <div class="container-menu">  
+            <div class="menu">
+              <input type="checkbox" name="" id="check__menu">
+              <label id="#label__Check" for="check__menu">
+                <i class="fa-solid fa-bars icon__menu"></i>
+              </label>
+              <nav>
+                <ul>
+                  <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
+                  <li><a href="{% url 'comisiones:te_misTribunales' user.username %}">Mis Tribunales</a></li>
+                  <li><a href="#">Proyectos Asignados</a>
+                    <ul>
+                      <li><a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}">Sin Evaluar</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
     </header>
 
 <!-- PARA LOGIN -->

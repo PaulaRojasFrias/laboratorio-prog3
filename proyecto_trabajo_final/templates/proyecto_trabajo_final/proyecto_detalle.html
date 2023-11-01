@@ -241,6 +241,7 @@
                 {% if perms.persona.permiso_te %} 
                     <div class='botonesForm'>
                         <button class='btnVolver btn'><a href="{% url 'proyecto_trabajo_final:te_PTFSnoEvaluados' user.username %}">Volver</a></button>
+                        <button class='btnEditar btn'><a href="{% url 'dictamenes:evaluacion_ptf_te_create' proyecto.id %}">Añadir Evaluacion</a></button>
                     </div>
                 {% endif %}
 

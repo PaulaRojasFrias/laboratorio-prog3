@@ -70,7 +70,7 @@ def evaluacion_ptf_te_detalle(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_TE, pk=pk)
     return render(request, 'evaluacion_ptf_te_detalle.html', {'evaluacion': evaluacion})
 
-def evaluacion_ptf_te_create(request):
+def evaluacion_ptf_te_create(request, pk):
     nueva_evaluacion = None
     if request.method == 'POST':
         evaluacion_form = EvaluacionPTF_TEForm(request.POST, request.FILES)
@@ -80,7 +80,7 @@ def evaluacion_ptf_te_create(request):
             return redirect('dictamenes:evaluacion_ptf_te_detalle', pk=nueva_evaluacion.pk)
     else:
         evaluacion_form = EvaluacionPTF_TEForm()
-    return render(request, 'evaluacion_ptf_te_form.html', {'form': evaluacion_form})
+    return render(request, 'evaluacion_ptf_te_form.html', {'form': evaluacion_form, 'proyectoId': pk})
 
 def evaluacion_ptf_te_edit(request, pk):
     evaluacion = get_object_or_404(EvaluacionPTF_TE, pk=pk)
