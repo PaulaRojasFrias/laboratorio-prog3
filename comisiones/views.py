@@ -5,9 +5,17 @@ from django.contrib import messages
 from comisiones.forms import ComisionForm, IntegranteComisionForm, IntegrantesTribunalForm, TribunalForm
 from .models import Comision, IntegrantesComision, IntegrantesTribunal, TribunalEvaluador
 from django.views.generic import UpdateView
-
+from django.contrib.auth.decorators import login_required
+from persona.models import Docente
 
 #<<<<<<<<<<<<<<<<<<<<<<<<< COMISION DE SEGUIMIENTO DE TRABAJO FINAL >>>>>>>>>>>>>>>>>>>>>>
+@login_required(login_url='usuarios:login_view')
+def cstf_misComisiones(request, cuilDocente):
+    docente = get_object_or_404(Docente, cuil=cuilDocente)
+    integrantes = IntegrantesComision.objects.filter(docente=docente)
+    misComisiones = [integrante.comision for integrante in integrantes]
+    return render(request, 'comisiones/comisiones_lista.html', {'comisiones': misComisiones})
+
 def cstf_lista(request): 
     busqueda = request.GET.get("buscar")
     comisiones = Comision.objects.all()

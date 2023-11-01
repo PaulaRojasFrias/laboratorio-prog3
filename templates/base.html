@@ -1,67 +1,90 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{% block titulo %}Gestion de trabajos finales{% endblock %}</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Permanent+Marker&display=swap"
-        rel="stylesheet">
-        <script src="https://kit.fontawesome.com/42b0819548.js" crossorigin="anonymous"></script>
-        <link  href="{% static 'css/styles.css' %}"  rel="stylesheet">
-        {% block extra_css %}{% endblock %}
-    </head>
-    <body>
+  <head>
+    <title>{% block titulo %}Gestion de trabajos finales{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Permanent+Marker&display=swap"
+    rel="stylesheet">
+    <script src="https://kit.fontawesome.com/42b0819548.js" crossorigin="anonymous"></script>
+    <link  href="{% static 'css/styles.css' %}"  rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body>
 
 
-        <header>
-        <div class="header-superior">
-          <!-- Write your comments here -->
-          <div class="logos">
-            <img src="https://res.cloudinary.com/dczlfdat0/image/upload/v1698281148/logo-unca_hxdisk.png" alt="unca">
-            <img src="https://res.cloudinary.com/dczlfdat0/image/upload/v1698281428/LogoFTCA_afy2tq.png" alt="tecno">
-          </div>
-
-          <h2>Gestión de trabajos finales</h2>
-
-
-            <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
-
+    <header>
+      <div class="header-superior">
+        <!-- Write your comments here -->
+        <div class="logos">
+          <img src="https://res.cloudinary.com/dczlfdat0/image/upload/v1698281148/logo-unca_hxdisk.png" alt="unca">
+          <img src="https://res.cloudinary.com/dczlfdat0/image/upload/v1698281428/LogoFTCA_afy2tq.png" alt="tecno">
         </div>
 
-        <div class="container-menu">
+        <h2>Gestión de trabajos finales</h2>
+        <a href="{% url 'usuarios:logout_view' %}">Cerrar Sesión</a>
 
+      </div>
+      {% if perms.usuarios.permiso_administrador %}
+        <div class="container-menu">  
           <div class="menu">
             <input type="checkbox" name="" id="check__menu">
             <label id="#label__Check" for="check__menu">
               <i class="fa-solid fa-bars icon__menu"></i>
             </label>
-             {% if perms.usuarios.permiso_administrador %}
-              <nav>
+            <nav>
               <ul>
                 <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
                 <li><a href="#">Registrar</a>
-                <ul>
-                  <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
-                  <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
-                  <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
-                  <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
-                  <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
-                  <li><a href="#">Informes y evaluciones</a></li>
-                </ul>
+                  <ul>
+                    <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
+                    <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
+                    <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
+                    <li><a href="#">Informes y evaluciones</a></li>
+                  </ul>
                 </li>
                 <li><a href="{% url 'proyecto_trabajo_final:estadisticas' %}">Informes</a></li>
                 <li><a href="{% url 'dictamenes:evaluacion_ptf_cstf_create' %}">Evaluación formal</a></li>
               </ul>
-              </nav>
+            </nav>
           </div>
-
         </div>
-         {% endif %}
-        </header>
+      {% endif %}
 
+      {% if perms.persona.permiso_cstf %}
+        <div class="container-menu">  
+          <div class="menu">
+            <input type="checkbox" name="" id="check__menu">
+            <label id="#label__Check" for="check__menu">
+              <i class="fa-solid fa-bars icon__menu"></i>
+            </label>
+            <nav>
+              <ul>
+                <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
+                <li><a href="#">Registrar</a>
+                  <ul>
+                    <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
+                    <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
+                    <li><a href="{% url 'persona:registro_alumno' %}">Alumnos</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
+                    <li><a href="#">Informes y evaluciones</a></li>
+                  </ul>
+                </li>
+                <li><a href="{% url 'comisiones:cstf_misComisiones' user.username %}">Mis Comisiones</a></li>
+                <li><a href="{% url 'dictamenes:evaluacion_ptf_cstf_create' %}">Evaluación formal</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      {% endif %}
+    </header>
 
 <!-- PARA LOGIN -->
  {% if not user.is_authenticated %}
@@ -88,11 +111,10 @@
                 {% endblock %}
         </section>
 
+        <footer>
+          <h3>&copy Gestión de trabajos finales</h3>
+          <h4>UNCa | Facultad de Tecnologia y Ciencias Aplicadas</h4>
+        </footer>
     </body>
-
-      <footer>
-        <h3>&copy Gestión de trabajos finales</h3>
-        <h4>UNCa | Facultad de Tecnologia y Ciencias Aplicadas</h4>
-      </footer>
 
 </html>
