@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Detalle alumno{% endblock %}
+{% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
 <main>
     <div class='contenedorPrincipal'>
@@ -11,11 +13,20 @@
                 {% endfor %}
             {% endif %}
 
-            <p><strong>Nombre: </strong>{{ alumno.nombre }}</p>
-            <p><strong>Apellido: </strong>{{ alumno.apellido}}</p>
-            <p><strong>DNI: </strong>{{ alumno.dni}}</p>
-            <p><strong>Matricula: </strong>{{ alumno.matricula}}</p>
-            <p><strong>Correo: </strong>{{ alumno.correo}}</p>
+            <div class='contenedorInfo'>
+
+                <p><strong>Nombre: </strong>{{ alumno.nombre }}</p><br>
+                <p><strong>Apellido: </strong>{{ alumno.apellido}}</p><br>
+                <p><strong>DNI: </strong>{{ alumno.dni}}</p><br>
+                <p><strong>Matricula: </strong>{{ alumno.matricula}}</p><br>
+                <p><strong>Correo: </strong>{{ alumno.correo}}</p><br>
+            </div>
+            <div class='botones'>
+                {% if perms.usuarios.permiso_administrador %}
+                    <button class='btnVolver btn'><a href="{% url 'persona:lista_alumno' %}">Volver</a></button>
+                    <button class='btnEditar btn'><a href="{% url 'persona:edit_alumno' alumno.id %}">Editar</a></button>
+                {% endif %}
+            </div>
         </div>
     </div>
 </main>

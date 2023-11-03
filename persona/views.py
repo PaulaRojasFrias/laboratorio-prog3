@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Docente, Alumno, Asesor
 from .forms import DocenteForm, AlumnoForm, AsesorForm
 from django.urls import reverse
+from django.db.models import Q
 from django.contrib import messages
 
 # Create your views here.
@@ -76,7 +77,16 @@ def registro_alumno(request):
 
 
 def lista_alumno(request):
+    busqueda = request.GET.get("buscar")
     alumnos = Alumno.objects.all()
+    if busqueda:
+        alumnos = Alumno.objects.filter(
+            Q(dni__icontains = busqueda) |
+            Q(matricula__icontains = busqueda) |
+            Q(correo__icontains = busqueda) |
+            Q(nombre__icontains = busqueda) |
+            Q(apellido__icontains = busqueda)
+        ).distinct()
     return render(request, 'persona/listaAlumno.html', {'alumnos': alumnos})
 
 
