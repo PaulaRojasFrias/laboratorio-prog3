@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block titulo %}Detalle de la CSTF{% endblock %}
+{% block titulo %}Detalle del TE{% endblock %}
 {% block extra_css %} <link href="{% static 'css/detalle.css' %}" rel="stylesheet" > {% endblock %}
 {% block contenido %}
     <main>
@@ -48,11 +48,11 @@
                                 <td>{{ integrante.rol }}</td>
                                 {% if perms.usuarios.permiso_administrador %}
                                     <td> 
-                                        <button><a href="{% url 'comisiones:integranteTE_edit' pk=integrante.id pk2=tribunal.id %}">Modificar</a></button>
+                                        <button class='btn btnEditar'><a href="{% url 'comisiones:integranteTE_edit' pk=integrante.id pk2=tribunal.id %}">Modificar</a></button>
                                         <form action="{% url 'comisiones:integranteTE_delete' tribunal.id%}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
-                                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                            <input  class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
                                         </form>
                                     </td>
                                 {% endif %}
@@ -60,7 +60,7 @@
                         {% endfor %}
                     </table>
                     {% if perms.usuarios.permiso_administrador %}
-                        <button><a href="{% url 'comisiones:integranteTE_create' tribunal.id%}">Agregar Integrante</a></button>
+                        <button class='btnAgregar btn' ><a href="{% url 'comisiones:integranteTE_create' tribunal.id%}">Agregar Integrante</a></button>
                     {% endif %}
                 </div>
                 
@@ -69,12 +69,8 @@
                         <button class='btnVolver btn'><a href="{% url 'comisiones:te_misTribunales' user.username %}">Volver</a></button>
                     {% endif %}
                     {% if perms.usuarios.permiso_administrador %}
-                        <form action="{% url 'comisiones:te_delete' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="id_tribunal" value="{{ tribunal.id }}">
-                            <button><a href="{% url 'comisiones:te_edit' tribunal.id %}">Editar</a></button>
-                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                        </form>
+                        <button class='btnVolver btn'><a href="{% url 'comisiones:te_lista' %}">Volver</a></button>
+                        <button class='btnEditar btn'><a href="{% url 'comisiones:te_edit' tribunal.id %}">Editar</a></button>
                     {% endif %}
                 </div>
             </div>
