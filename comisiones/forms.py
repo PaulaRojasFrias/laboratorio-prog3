@@ -49,8 +49,8 @@ class IntegranteComisionForm(forms.ModelForm):
         widgets = {
             'docente': forms.Select(attrs={'class': 'campoInput'}),
             'comision': forms.Select(attrs={'class': 'campoInput'}), 
-            'fecha_alta_cs': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'campoInput'}),
-            'fecha_baja_cs': DateInput(format='%y-%m-%d', attrs={'type': 'date', 'class': 'campoInput'})
+            'fecha_alta_cs': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'campoInput formulario__input', 'id': 'fecha_alta_cs', 'name': 'fecha_alta_cs'}),
+            'fecha_baja_cs': DateInput(format='%y-%m-%d', attrs={'type': 'date', 'class': 'campoInput formulario__input', 'id': 'fecha_baja_cs', 'name': 'fecha_baja_cs'})
         }
 
         def clean_fecha_alta_cs(self):

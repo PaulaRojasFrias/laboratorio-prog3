@@ -10,15 +10,25 @@
       <h1>Agregar Integrante a la CSTF</h1>
       <div class='contenerdorForm'>
         <p>Ingrese los datos del integrate:</p>
-        <form method="post" enctype="multipart/form-data">
-            {% for field in form %}
-              <div class="campo">
-                {{ field.errors }}
-                <label for="{{ field.id_for_label }}" class="campoLabel">{{ field.label_tag }}</label>
-                {{ field }}
-              </div><br>
-            {% endfor %}
+        <form method="post" id='formIntegranteCSTF' class='formulario' enctype="multipart/form-data">
+          {% for field in form %}
+            <div class="campo formulario__grupo" id="grupo__{{ forloop.counter }}">
+              {{ field.errors }}
+              <label for="{{ field.id_for_label }}" class="campoLabel">{{ field.label_tag }}</label>
+              {{ field }}
+            </div><br>
+          {% endfor %}
           {% csrf_token %}
+
+          <div class='formulario__grupo' id='grupo__3'>
+            <p class = 'formulario__input-error'>La fecha no puede ser posterior a la actual</p>
+          </div>
+
+          <p class='formulario__mensaje' id='formulario__mensaje'><i class="fa-solid fa-circle-exclamation" style="color: #e32400;"></i> Error: Por favor relleno el formulario correctamente</p>
+          
+          
+          <p class='formulario__mensaje-exito' id='formulario__mensaje-exito'><i class="fa-solid fa-circle-check" style="color: #77bb41;"></i> El formulario se envio existosamente</p>
+
           <div class='botones'>
             <button class= 'BotonCancelar'><a href="{% url 'comisiones:cstf_detalle' comisionId %}" >Cancelar</a></button>
             <input class='botonGuardar' type="submit" value="Guardar">
@@ -27,4 +37,7 @@
       </dic>
     </div>
   </main>
+{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'js/validacionesComision.js' %}"></script>
 {% endblock %}
