@@ -1,32 +1,76 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Lista Asesor{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/tabla.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 
 <main>
-    <secction class='seccionClasico'>
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
-                {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
-            {% endfor %}
-        {% endif %}
-        <h2>Lista de Asesor</h2>
+    <h1>Listado de Asesores</h1>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
+            {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if perms.usuarios.permiso_administrador %}
+        <div class='agregado'>
+            <div class='contendorBusqueda'>
+                
+                    <p>Buscar:</p>
+                    <form action="{% url 'persona:lista_asesor' %}" method="GET">
+                        <input class='buscar' id='campoBusqueda' type="number" placeholder="Buscar" name='buscar' value="">
+                        <button class='BotonBuscar' type='submit' >Buscar</button>
+                    </form>
+                
+            </div>
+
+            <button class='BotonAgregar'> <a href="{% url 'persona:registro_asesor' %} ">Agregar Asesor</a></button>
+        </div>
+    {% endif %}
+    <div class= 'contenedorTabla'>
+    
         <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Cuil</th>
-                <th>Curriculum</th>
-            </tr>
-            {% for asesor in asesores %}
+            <thead>
                 <tr>
-                <td>{{ asesor.nombre }}</a></td>
-                <td>{{ asesor.apellido}}</td>
-                <td>{{ asesor.cuil }}</td>
-                <td>{{ asesor.curriculum }}</td>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Cuil</th>
+                    <th>Curriculum</th>
+                    {% if perms.usuarios.permiso_administrador %}
+                        <th></th>
+                    {% endif %}
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% if asesores %}
+                    {% for asesor in asesores %}
+                        <tr>
+                        <td>{{ asesor.nombre }}</a></td>
+                        <td>{{ asesor.apellido}}</td>
+                        <td>{{ asesor.cuil }}</td>
+                        <td>{{ asesor.curriculum }}</td>
+                        {% if perms.usuarios.permiso_administrador %}
+                            <td>
+                                <div class='btnTabla'>
+                                    <button class= 'BotonVer'><a href="{% url 'persona:edit_asesor' asesor.id %}">Modificar</a></button>
+                                    <form action="{% url 'persona:delete_asesor' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id_asesor" value="{{ asesor.id }}">
+                                        <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                    </form>
+                                </div>
+                            </td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <p>No hay Asesores.</p><br>
+                {% endif %} 
+            </tbody>
         </table>
-    </secction>
+    
   </main>
 {% endblock %}

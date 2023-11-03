@@ -144,7 +144,12 @@ def registro_asesor(request):
 
 
 def lista_asesor(request):
+    busqueda = request.GET.get("buscar")
     asesores = Asesor.objects.all()
+    if busqueda:
+        asesores = Asesor.objects.filter(
+            Q(cuil__icontains = busqueda)
+        ).distinct()
     return render(request, 'persona/listaAsesor.html', {'asesores': asesores})
 
 

@@ -27,160 +27,176 @@
                     <p><strong>Informe:</strong></p>
                 </div>
 
-                {% if informe %}
-                    <div class='divTabla'>
-                        <table clase='tabla'>
-                            <tr clase='encabezado'>
-                                <th>Proyecto</th>
-                                <th>Archivo</th>
-                                <th>Fecha Presentacion</th>
-                                {% if perms.usuarios.permiso_administrador %} 
-                                    <th>Opciones</th>
-                                {% endif %}
+                
+                <div class='divTabla'>
+                    <table clase='tabla'>
+                        <tr clase='encabezado'>
+                            <th>Proyecto</th>
+                            <th>Archivo</th>
+                            <th>Fecha Presentacion</th>
+                            {% if perms.usuarios.permiso_administrador %} 
+                                <th>Opciones</th>
+                            {% endif %}
+                        </tr>
+                        
+                        {% for informe in informes %}
+                            <tr>
+                            <td>{{ informe.proyectoTF }}</td>
+                            <td>{{ informe.archivoITF  }}</td>
+                            <td>{{ informe.fechaPresentacion|date:"SHORT_DATE_FORMAT" }}</td>
+                            {% if perms.usuarios.permiso_administrador %} 
+                                <td>
+                                    <button class='btn btnEditar'><a href="{% url 'proyecto_trabajo_final:informeProyecto_edit' pk=informe.id pk2=proyecto.id %}">Modificar</a></button>
+                                    <form action="{% url 'proyecto_trabajo_final:informeProyecto_delete' proyecto.id%}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id_informe" value="{{ informe.id }}">
+                                        <input class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                    </form>
+                                </td>
+                            {% endif %}
                             </tr>
-                            
-                            {% for informe in informes %}
-                                <tr>
-                                <td>{{ informe.proyectoTF }}</td>
-                                <td>{{ informe.archivoITF  }}</td>
-                                <td>{{ informe.fechaPresentacion|date:"SHORT_DATE_FORMAT" }}</td>
-                                {% if perms.usuarios.permiso_administrador %} 
-                                    <td>
-                                        <button class='btn btnEditar'><a href="{% url 'proyecto_trabajo_final:informeProyecto_edit' pk=informe.id pk2=proyecto.id %}">Modificar</a></button>
-                                        <form action="{% url 'proyecto_trabajo_final:informeProyecto_delete' proyecto.id%}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="id_informe" value="{{ informe.id }}">
-                                            <input class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                                        </form>
-                                    </td>
-                                {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </table>
+                        {% endfor %}
+                    </table>
 
-                        {% if perms.usuarios.permiso_administrador %} 
-                            <button><a href="{% url 'proyecto_trabajo_final:informeProyecto_create' proyecto.id%}">Agregar Informe</a></button>
-                        {% endif %}
+                    {% if perms.usuarios.permiso_administrador %} 
+                        <button class='btnAgregar btn'><a href="{% url 'proyecto_trabajo_final:informeProyecto_create' proyecto.id%}">Agregar Informe</a></button>
+                    {% endif %}
 
-                    </div>
-                {% endif %}
+                </div>
+              
 
                 <div class='contenedorInfo'>
                     <p><strong>Integrantes:</strong></p>
                 </div>
-                {% if integrantes %}
-                    <div class='divTabla'>
-                        <table clase='tabla'>
-                            <tr clase='encabezado'>
-                                <th>Proyecto</th>
-                                <th>Alumno</th>
-                                <th>Fecha Alta</th>
-                                <th>Fecha Baja</th>
-                                <th>Certificado Analitico</th>
-                            </tr>
-                            {% for integrante in integrantes %}
-                                <tr>
+                
+                <div class='divTabla'>
+                    <table clase='tabla'>
+                        <tr clase='encabezado'>
+                            <th>Proyecto</th>
+                            <th>Alumno</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Baja</th>
+                            <th>Certificado Analitico</th>
+                            {% if perms.usuarios.permiso_administrador %}
+                                <th></th>
+                            {% endif %}
+                        </tr>
+                        {% for integrante in integrantes %}
+                            <tr>
                                 <td>{{ integrante.proyectoFinal }}</td>
                                 <td>{{ integrante.alumnos }}</td>
                                 <td>{{ integrante.fechaAltaAlumno|date:"SHORT_DATE_FORMAT" }}</td>
                                 <td>{{ integrante.fechaBajaAlumno|default_if_none:"---"  }}</td>
                                 <td>{{ integrante.certificadoAnalitico }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        {% if perms.usuarios.permiso_administrador %} 
-                            <button><a href="{% url 'proyecto_trabajo_final:integranteProyecto_create' %}">Agregar Integrante</a></button>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                                {% if perms.usuarios.permiso_administrador %}
+                                        <td>
+                                            <div class='btnTabla'>
+                                                <button class='btn btnEditar'><a href="{% url 'proyecto_trabajo_final:integranteProyecto_edit' integrante.id %}">Modificar</a></button>
+                                                <form action="{% url 'proyecto_trabajo_final:integranteProyecto_delete' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="id_integrante" value="{{ integrante.id }}">
+                                                    <input class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                                </form>
+                                            </div>
+                                        </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% if perms.usuarios.permiso_administrador %} 
+                        <button class='btnAgregar btn'><a href="{% url 'proyecto_trabajo_final:integranteProyecto_create' %}">Agregar Integrante</a></button>
+                    {% endif %}
+                </div>
+                
                 
                 <div class='contenedorInfo'>
                     <p><strong>Tutores:</strong></p>
                 </div>
-                {% if tutores %}
-                    <div iclass='divTabla'>
-                        <table clase='tabla'>
-                            <tr clase='encabezado'>
-                                <th>Proyecto</th>
-                                <th>Docentes</th>
-                                <th>Fecha Alta</th>
-                                <th>Fecha Baja</th>
-                                <th>Nota Aceptacion</th>
-                                <th>Rol del Tutor</th>
-                                {% if perms.usuarios.permiso_administrador %} 
-                                    <th>Opciones</th>
-                                {% endif %}
+            
+                <div iclass='divTabla'>
+                    <table clase='tabla'>
+                        <tr clase='encabezado'>
+                            <th>Proyecto</th>
+                            <th>Docentes</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Baja</th>
+                            <th>Nota Aceptacion</th>
+                            <th>Rol del Tutor</th>
+                            {% if perms.usuarios.permiso_administrador %} 
+                                <th>Opciones</th>
+                            {% endif %}
+                        </tr>
+                        {% for tutor in tutores %}
+                            <tr>
+                            <td>{{ tutor.proyecto }}</td>
+                            <td>{{ tutor.docente }}</td>
+                            <td>{{ tutor.fechaAltaTutor|date:"SHORT_DATE_FORMAT" }}</td>
+                            <td>{{ tutor.fechaBajaTutor|default_if_none:"---"  }}</td>
+                            <td>{{ tutor.notaAceptacion }}</td>
+                            <td>{{ tutor.rol_tutor }}</td>
+                            {% if perms.usuarios.permiso_administrador %} 
+                                <td>
+                                    <button class='btn btnEditar'><a href="{% url 'proyecto_trabajo_final:tutorProyecto_edit' pk=tutor.id pk2=proyecto.id %}">Modificar</a></button>
+                                    <form action="{% url 'proyecto_trabajo_final:tutorProyecto_delete' proyecto.id%}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id_tutor" value="{{ tutor.id }}">
+                                        <input class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                    </form>
+                                </td>
+                            {% endif %}
                             </tr>
-                            {% for tutor in tutores %}
-                                <tr>
-                                <td>{{ tutor.proyecto }}</td>
-                                <td>{{ tutor.docente }}</td>
-                                <td>{{ tutor.fechaAltaTutor|date:"SHORT_DATE_FORMAT" }}</td>
-                                <td>{{ tutor.fechaBajaTutor|default_if_none:"---"  }}</td>
-                                <td>{{ tutor.notaAceptacion }}</td>
-                                <td>{{ tutor.rol_tutor }}</td>
-                                {% if perms.usuarios.permiso_administrador %} 
-                                    <td>
-                                        <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_edit' pk=tutor.id pk2=proyecto.id %}">Modificar</a></button>
-                                        <form action="{% url 'proyecto_trabajo_final:tutorProyecto_delete' proyecto.id%}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="id_tutor" value="{{ tutor.id }}">
-                                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                                        </form>
-                                    </td>
-                                {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        {% if perms.usuarios.permiso_administrador %} 
-                            <button><a href="{% url 'proyecto_trabajo_final:tutorProyecto_create' proyecto.id%}">Agregar Tutor</a></button>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                        {% endfor %}
+                    </table>
+                    {% if perms.usuarios.permiso_administrador %} 
+                        <button class='btnAgregar btn'><a href="{% url 'proyecto_trabajo_final:tutorProyecto_create' proyecto.id%}">Agregar Tutor</a></button>
+                    {% endif %}
+                </div>
+                
                 
                 <br>
                 <div class='contenedorInfo'>
                     <p><strong>Asesores:</strong></p>
                 </div>
-                {% if asesores %}
-                    <p><strong>Asesores:</strong></p>
-                    <div class='divTabla'>
-                        <table clase='tabla'>
-                            <tr clase='encabezado'>
-                                <th>Proyecto</th>
-                                <th>Asesor</th>
-                                <th>Fecha Alta</th>
-                                <th>Fecha Baja</th>
-                                <th>Nota Aceptacion</th>
+                
+                <p><strong>Asesores:</strong></p>
+                <div class='divTabla'>
+                    <table clase='tabla'>
+                        <tr clase='encabezado'>
+                            <th>Proyecto</th>
+                            <th>Asesor</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Baja</th>
+                            <th>Nota Aceptacion</th>
+                            {% if perms.usuarios.permiso_administrador %} 
+                                <th>Opciones</th>
+                            {% endif %}
+                        </tr>
+                        {% for asesor in asesores %}
+                            <tr>
+                                <td>{{ asesor.proyecto }}</td>
+                                <td>{{ asesor.asesor }}</td>
+                                <td>{{ asesor.fechaAltaAsesor|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ asesor.fechaBajaAsesor|default_if_none:"---"  }}</td>
+                                <td>{{ asesor.notaAceptacion }}</td>
                                 {% if perms.usuarios.permiso_administrador %} 
-                                    <th>Opciones</th>
+                                    <td>
+                                        <button class='btn btnEditar'><a href="{% url 'proyecto_trabajo_final:asesorProyecto_edit' pk=asesor.id pk2=proyecto.id %}">Modificar</a></button>
+                                        <form action="{% url 'proyecto_trabajo_final:asesorProyecto_delete' proyecto.id%}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id_asesor" value="{{ asesor.id }}">
+                                            <input  class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                        </form>
+                                    </td>
                                 {% endif %}
                             </tr>
-                            {% for asesor in asesores %}
-                                <tr>
-                                    <td>{{ asesor.proyecto }}</td>
-                                    <td>{{ asesor.asesor }}</td>
-                                    <td>{{ asesor.fechaAltaAsesor|date:"SHORT_DATE_FORMAT" }}</td>
-                                    <td>{{ asesor.fechaBajaAsesor|default_if_none:"---"  }}</td>
-                                    <td>{{ asesor.notaAceptacion }}</td>
-                                    {% if perms.usuarios.permiso_administrador %} 
-                                        <td>
-                                            <button><a href="{% url 'proyecto_trabajo_final:asesorProyecto_edit' pk=asesor.id pk2=proyecto.id %}">Modificar</a></button>
-                                            <form action="{% url 'proyecto_trabajo_final:asesorProyecto_delete' proyecto.id%}" method="POST">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="id_asesor" value="{{ asesor.id }}">
-                                                <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                                            </form>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        {% if perms.usuarios.permiso_administrador %} 
-                            <button><a href="{% url 'proyecto_trabajo_final:asesorProyecto_create' proyecto.id%}">Agregar Asesor</a></button>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                        {% endfor %}
+                    </table>
+                    {% if perms.usuarios.permiso_administrador %} 
+                        <button class='btnAgregar btn'><a href="{% url 'proyecto_trabajo_final:asesorProyecto_create' proyecto.id%}">Agregar Asesor</a></button>
+                    {% endif %}
+                </div>
+                
+
                 <br>
                 <div class='contenedorInfo'>
                     <p><strong>Movimiento:</strong></p>
@@ -210,7 +226,7 @@
                             <td>{{ movimiento.fechaVencimiento|date:"SHORT_DATE_FORMAT" }}</td>
                             {% if perms.usuarios.permiso_administrador %} 
                                 <td>
-                                    <button><a href="{% url 'proyecto_trabajo_final:movimientoProyecto_edit' pk=movimiento.id pk2=proyecto.id %}">Modificar</a></button>
+                                    <button class='btn btnEditar' ><a href="{% url 'proyecto_trabajo_final:movimientoProyecto_edit' pk=movimiento.id pk2=proyecto.id %}">Modificar</a></button>
                                 </td>
                             {% endif %}
                             </tr>
@@ -222,11 +238,11 @@
 
                 {% if perms.usuarios.permiso_administrador %} 
                     <div class='botonesForm'>
-                        <button><a href="{% url 'proyecto_trabajo_final:proyecto_edit' proyecto.id %}">Editar</a></button>
+                        <button class='btnEditar btn'><a href="{% url 'proyecto_trabajo_final:proyecto_edit' proyecto.id %}">Editar</a></button>
                         <form action="{% url 'proyecto_trabajo_final:proyecto_delete' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="id_proyecto" value="{{ proyecto.id }}">
-                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                            <input class='btnVolver btn' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
                         </form>
                     </div>
                 {% endif %}
