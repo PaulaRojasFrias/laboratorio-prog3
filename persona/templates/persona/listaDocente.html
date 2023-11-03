@@ -1,31 +1,74 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Lista Docentes{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/tabla.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 
-<main>
-    <secction class='seccionClasico'>
+    <main>  
+        <h2>Lista de Docentes</h2>
+
         {% if messages %}
             {% for message in messages %}
                 {% if message.tags == 'success' %}  <div class="message" role="status">{{ message }}</div>{% endif %}
                 {% if message.tags == 'error' %}  <div class="errors" role="alert">{{ message }}</div>{% endif %}
             {% endfor %}
         {% endif %}
-        <h2>Lista de Docentes</h2>
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Cuil</th>
+
+        {% if perms.usuarios.permiso_administrador %}
+            <div class='agregado'>
+                <div class='contendorBusqueda'>
+                    
+                        <p>Buscar:</p>
+                        <form action="{% url 'persona:lista_docente' %}" method="GET">
+                            <input class='buscar' id='campoBusqueda' type="number" placeholder="Buscar" name='buscar' value="">
+                            <button class='BotonBuscar' type='submit' >Buscar</button>
+                        </form>
+                    
+                </div>
+
+                <button class='BotonAgregar'> <a href="{% url 'persona:registro_docente' %} ">Agregar Docente</a></button>
+            </div>
+        {% endif %}
+        {% if docentes %}
+            <div class= 'contenedorTabla'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Cuil</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for docente in docentes %}
+                            <tr>
+                                <td>{{ docente.nombre }}</a></td>
+                                <td>{{ docente.apellido}}</td>
+                                <td>{{ docente.cuil }}</td>
+                                <td>
+                                    <div class='contenedorBotones'>
+                                        <button class= 'BotonVer'><a href="{% url 'persona:detalle_docente' docente.id %} ">Detalles</a></button>
+                                        {% if perms.usuarios.permiso_administrador %}
+                                            <form action="{% url 'persona:delete_docente' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_docente" value="{{ id_docente }}">
+                                                <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </tr>
-            {% for docente in docentes %}
-                <tr>
-                <td>{{ docente.nombre }}</a></td>
-                <td>{{ docente.apellido}}</td>
-                <td>{{ docente.cuil }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </secction>
-  </main>
+        {% else %}
+            <p>No hay comisiones.</p>
+        {% endif %} 
+            
+    </main>
 
 {% endblock %}

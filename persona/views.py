@@ -22,7 +22,13 @@ def registro_docente(request):
 
 
 def lista_docente(request):
+    busqueda = request.GET.get("buscar")
     docentes = Docente.objects.all()
+    if busqueda:
+        docentes = Docente.objects.filter(
+            Q(cuil__icontains = busqueda) |
+            Q(correo__icontains = busqueda)
+        ).distinct()
     return render(request, 'persona/listaDocente.html', {'docentes': docentes})
 
 def detalle_docente(request, pk):

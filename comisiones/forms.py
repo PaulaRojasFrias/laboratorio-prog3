@@ -94,9 +94,10 @@ class TribunalForm(forms.ModelForm):
                   'archivoDisposicion': 'Archivo Disposion', 
                   'proyectoTE': 'Proyecto'}
         widgets = {
-            'archivoDisposicion': forms.ClearableFileInput(),
-            'fechaCreacionTribunal': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
-            'proyectoTE': forms.Select()
+            'archivoDisposicion': forms.ClearableFileInput(attrs={'class': 'campoInput'}),
+            'fechaCreacionTribunal': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'campoInput'}),
+            'proyectoTE': forms.Select(attrs={'class': 'campoInput'}),
+            'nroDisposicionTribunal':forms.TextInput(attrs={'class': 'campoInput'}),
         }
     
     def clean_archivoDisposicion(self):

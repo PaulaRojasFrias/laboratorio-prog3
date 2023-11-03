@@ -6,7 +6,7 @@
 {% endblock %}
 {% block contenido %}
     <main>
-        <h2>Lista de Tribunales Evaluadores</h2>
+        <br><h2>Lista de Tribunales Evaluadores</h2><br><br>
 
         {% if messages %}
             {% for message in messages %}
@@ -27,7 +27,7 @@
                     
                 </div>
 
-                <button class='BotonAgregar'> <a href="{% url 'comisiones:cstf_create' %} ">Agregar Comision</a></button>
+                <button class='BotonAgregar'> <a href="{% url 'comisiones:te_create' %} ">Agregar Tribunal</a></button>
             </div>
         {% endif %}
         <br>
