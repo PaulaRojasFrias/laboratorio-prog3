@@ -14,8 +14,10 @@ class ProyectoForm(forms.ModelForm):
                   'proyectoFinal': 'Archivo Proyecto'  }
         
         widgets = {
-            'proyectoFinal': forms.ClearableFileInput(),
-            'fechaPresentacion': DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+            'titulo': forms.TextInput(attrs={'class': 'campoInput'}),
+            'descripcion': forms.TextInput(attrs={'class': 'campoInput'}),
+            'proyectoFinal': forms.ClearableFileInput(attrs={'class': 'campoInput'}),
+            'fechaPresentacion': DateInput(format='%Y-%m-%d', attrs={'type': 'date','class': 'campoInput'})
         }
     
     def clean_proyectoFinal(self):

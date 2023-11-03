@@ -1,29 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Informe 1{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 <main>
-    <div  style="display: flex; flex-direction: column; gap:20px;">
+    <div class='contenedorPrincipal'>
     <h1>Informen 2: Listado de los Tribunales Evaluadores y sus PTF asignados</h1>
-
+    <div class='contenerdorForm'>
     <form  method="GET">
         {% csrf_token %}
+        <div class="campo">
         <label for="nroDisposicionTribunal">Número de disposicion tribunal:</label>
         <input type="text" name="nroDisposicionTribunal" id="nroDisposicionTribunal">
+         </div>
         <br>
-        <button type="submit" id="myButton">Filtrar</button>
+         <br>
+        <div class='botones'>
+
+              <input class='botonGuardar' type="submit" value="Filtrar">
+            </div>
     </form>
-
-
+  </div>
+  </div>
         {% if object_list %}
             <ul >
                 {% for objeto in object_list %}
-                   <li><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' objeto.proyectoTE.id %}">{{ objeto.proyectoTE.titulo }}</a></li>
+                   <li><a href="{% url 'proyecto_trabajo_final:proyecto_detalle' objeto.proyectoTE.id %}" style="color: black;">{{ objeto.proyectoTE.titulo }}</a></li>
 
                 {% endfor %}
             </ul>
         {% else %}
             <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
         {% endif %}
-    </div>
+
     </main>
 {% endblock %}

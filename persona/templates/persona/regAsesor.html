@@ -1,17 +1,31 @@
 {% extends "base.html" %}
-{% block titulo %}Inicio{% endblock %}
+{% load static %}
+{% block titulo %}Registro {% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 
      <main>
-          <div  style="display: flex; flex-direction: column; gap:20px;">
+     <div class='contenedorPrincipal'>
           <h3>Registro asesores</h3>
+         <div class='contenerdorForm'>
           <form method="post">
-
-            {{ form }}
-               {% csrf_token %}
-            <button type="submit">Enviar</button>
+            {% for field in form %}
+              <div class="campo">
+                {{ field.errors }}
+                <label for="{{ field.id_for_label }}" class="campoLabel">{{ field.label_tag }}</label>
+                {{ field }}
+              </div><br>
+            {% endfor %}
+             {% csrf_token %}
+              <div class='botones'>
+              <button class= 'BotonCancelar'><a href="{% url 'persona:lista_asesor' %} " >Cancelar</a></button>
+              <input class='botonGuardar' type="submit" value="Registrar">
+            </div>
           </form>
           </div>
+     </div>
      </main>
 
 {% endblock %}

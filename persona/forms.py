@@ -29,11 +29,11 @@ class AlumnoForm(forms.ModelForm):
 class AsesorForm(forms.ModelForm):
     class Meta:
         model = Asesor
-        fields = ('nombre', 'apellido', 'cuil', 'curriculum')
+        fields = ('nombre', 'apellido', 'cuil', 'curriculum',)
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'apellido': forms.TextInput(attrs={'class': 'form-control'}),
-            'cuil': forms.TextInput(attrs={'class': 'form-control'}),
-            'curriculum': forms.ClearableFileInput(attrs={'multiple': False}),
+            'nombre': forms.TextInput(attrs={'class': 'campoInput'}),
+            'apellido': forms.TextInput(attrs={'class': 'campoInput'}),
+            'cuil': forms.TextInput(attrs={'class':'campoInput'}),
+            'curriculum': forms.ClearableFileInput(attrs={'multiple': False, 'class':'campoInput'}),
 
         }

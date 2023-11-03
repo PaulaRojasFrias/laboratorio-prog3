@@ -1,19 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 {% block titulo %}Creacion del Proyecto{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
     <main>
-         <div  style="display: flex; flex-direction: column; gap:20px;">
+         <div class='contenedorPrincipal'>
         <h1>Creacion del Proyecto de Trabajo Final</h1>
+             <div class='contenerdorForm'>
         <form method="post" enctype="multipart/form-data">
             {% for field in form %}
               <div class="campo">
                 {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
+                   <label for="{{ field.id_for_label }}" class="campoLabel">{{ field.label_tag }}</label>
+               {{ field }}
               </div><br>
             {% endfor %}
           {% csrf_token %}
-          <input type="submit" value="Guardar">
+             <div class='botones'>
+              <button class= 'BotonCancelar'><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %} " >Cancelar</a></button>
+              <input class='botonGuardar' type="submit" value="Guardar">
+            </div>
         </form>
          </div>
+             </div>
     </main>
 {% endblock %}
