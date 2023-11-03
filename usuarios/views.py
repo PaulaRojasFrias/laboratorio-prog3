@@ -30,5 +30,4 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, "usuarios/login.html", {
-        "msj": "Usuario Deslogueado"})
+    return render(request, "usuarios/login.html", {"msj": "Usuario Deslogueado"})
