@@ -1,39 +1,61 @@
-{% extends "base.html" %}
 {% load static %}
-{% block titulo %}Login{% endblock %}
-{% block extra_css %}
- <link href="{% static 'css/form.css' %}" rel="stylesheet" >
-{% endblock %}
-{% block contenido %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block titulo %}Gestion de trabajos finales{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/ec88d42f1e.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap" rel="stylesheet">
+        <link  href="{% static 'css/login.css' %}"  rel="stylesheet">
+        {% block extra_css %}{% endblock %}
+    </head>
 
- <main>
-     <div class='contenedorPrincipal'>
-    <h2>Iniciar sesión </h2>
-     {% if msj %}
-        <div>{{ msj }}</div>
-    {% endif %}
-    <div class='contenerdorForm'>
-    <form action="{% url 'usuarios:login_view' %}" method="post">
-        {% csrf_token%}
-        <div class="campo">
-        <label for = "username" >
-            Usuario
-            <input type="text" name="username">
-        </label>
-         </div><br>
-        <div class="campo">
-        <label for="password" >
-            Contraseña
-            <input type="password" name="password" >
-        </label>
-        </div><br>
-        <div class='botones'>
-        <button  class= "botonGuardar" type="submit" style=" background-color: #334eac;">Iniciar sesión</button>
-        </div>
-    </form>
-    </div>
-    </div>
-</main>
+    <body>
+        <main>
+            <section>
+                <div class='contenedor'>
+                    <div class='formulario'>
+        
+                        <form action="{% url 'usuarios:login_view' %}" method="post">
+                            <h2><strong>Iniciar Sesion</strong><h2>
+        
+                            <div class="input-contenedor">
+                                <i class="fa-solid fa-user"></i>
+                                <input type="text" name="username" required>
+                                <label for = "#" >Usuario</label>
+                            </div>
+        
+                            <div class="input-contenedor">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" name="password" required >
+                                <label for="#" >Contraseña</label>
+                            </div>
+        
+                            <div class='botones'>
+                                <button  type="submit">Acceder</button>
+                            </div>
+                            {% csrf_token%}
+                        </form>
 
-{% endblock %}
+                        {% if msj %}
+                            <div class="mensaje">
+                                <p>{{ msj }}</p>
+                            <div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </main>
+
+            
+    </body>
+
+</html>
+

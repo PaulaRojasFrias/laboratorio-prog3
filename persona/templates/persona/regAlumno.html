@@ -1,18 +1,33 @@
 {% extends "base.html" %}
-{% block titulo %}Inicio{% endblock %}
+{% load static %}
+{% block titulo %}Registro{% endblock %}
+{% block extra_css %}
+ <link href="{% static 'css/form.css' %}" rel="stylesheet" >
+{% endblock %}
 {% block contenido %}
 
-     <main>
-        <div  style="display: flex; flex-direction: column; gap:20px;">
-          <h3>Registro alumnos</h3>
+  <main>
+    <div class='contenedorPrincipal'>
+        <h1>Registro alumnos</h1>
+        <div class='contenerdorForm'>
+          <p>Ingrese los datos del alumno:</p>
           <form method="post">
+            {% for field in form %}
+              <div class="campo">
+                {{ field.errors }}
+                <label for="{{ field.id_for_label }}" class="campoLabel">{{ field.label_tag }}</label>
+                {{ field }}
+              </div><br>
+            {% endfor %}
+            {% csrf_token %}
 
-            {{ form }}
-               {% csrf_token %}
-            <button type="submit">Enviar</button>
+            <div class='botones'>
+              <button class= 'BotonCancelar'><a href="{% url 'persona:lista_alumno' %} " >Cancelar</a></button>
+              <input class='botonGuardar' type="submit" value="Registrar">
+            </div>
           </form>
-
+        </div>
     </div>
-     </main>
+  </main>
 
 {% endblock %}

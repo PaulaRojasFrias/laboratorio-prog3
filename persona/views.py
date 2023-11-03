@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Docente, Alumno, Asesor
 from .forms import DocenteForm, AlumnoForm, AsesorForm
@@ -56,16 +57,22 @@ def delete_docente(request):
 #<<<<<<<<<<<<<<<<<<<<<<< ALUMNO >>>>>>>>>>>>>>>>>>>>>>
 
 def registro_alumno(request):
-    form = AlumnoForm()
-
+    nuevo_alumno= None
     if request.method == 'POST':
         form = AlumnoForm(request.POST)
         if form.is_valid():
-            form.save()
+            try:
+                nuevo_alumno = form.save(commit=True)
+                messages.success(request, 'El alumno ha sido registrado exitosamente.')
+                return redirect(reverse('persona:detalle_alumno', args={nuevo_alumno.id}))
+            except IntegrityError:
+                messages.error(request, 'Ya existe un alumno con ese DNI o matricula.')
+                return render(request,'persona/regAlumno.html', { 'form': form })
+   
+    else:
+        form = AlumnoForm()
 
-    context = {'form': form}
-
-    return render(request, 'persona/regAlumno.html', context)
+    return render(request, 'persona/regAlumno.html', {'form': form})
 
 
 def lista_alumno(request):

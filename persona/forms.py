@@ -6,11 +6,11 @@ class DocenteForm(forms.ModelForm):
         model = Docente
         fields = ('nombre','apellido','cuil','correo','crear_usuario')
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'apellido': forms.TextInput(attrs={'class': 'form-control'}),
-            'cuil': forms.TextInput(attrs={'class': 'form-control'}),
-            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
-            'crear_usuario': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'campoInput'}),
+            'apellido': forms.TextInput(attrs={'class': 'campoInput'}),
+            'cuil': forms.TextInput(attrs={'class': 'campoInput'}),
+            'correo': forms.EmailInput(attrs={'class': 'campoInput'}),
+            'crear_usuario': forms.CheckboxInput(attrs={'class': 'campoInput'}),
         }
 
 
@@ -19,9 +19,11 @@ class AlumnoForm(forms.ModelForm):
         model = Alumno
         fields = ('nombre', 'apellido', 'dni','matricula','correo',)
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'apellido': forms.TextInput(attrs={'class': 'form-control'}),
-            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'campoInput'}),
+            'apellido': forms.TextInput(attrs={'class': 'campoInput'}),
+            'correo': forms.EmailInput(attrs={'class': 'campoInput'}),
+            'dni': forms.TextInput(attrs={'class': 'campoInput'}),
+            'matricula': forms.TextInput(attrs={'class': 'campoInput'}),
         }
 
 class AsesorForm(forms.ModelForm):

@@ -104,3 +104,16 @@ select.campoInput {
     width: 100%; /* O el ancho que prefieras */
 }
 
+
+.message {
+    background-color: #ccf5ff;
+    border: 1px solid #cccccc;
+    padding: 10px;
+}
+
+.error {
+    background-color: #ffb3b3;
+    border: 1px solid #cccccc;
+    padding: 10px;
+}
+
