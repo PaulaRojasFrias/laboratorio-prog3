@@ -149,3 +149,15 @@ p {
 .BotonEliminar:hover {
   background-color: #f80000;
 }
+
+.message {
+  background-color: #ccf5ff;
+  border: 1px solid #cccccc;
+  padding: 10px;
+}
+
+.error {
+  background-color: #ffb3b3;
+  border: 1px solid #cccccc;
+  padding: 10px;
+}

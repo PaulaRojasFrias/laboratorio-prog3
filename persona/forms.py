@@ -19,11 +19,11 @@ class AlumnoForm(forms.ModelForm):
         model = Alumno
         fields = ('nombre', 'apellido', 'dni','matricula','correo',)
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'campoInput'}),
-            'apellido': forms.TextInput(attrs={'class': 'campoInput'}),
-            'correo': forms.EmailInput(attrs={'class': 'campoInput'}),
-            'dni': forms.TextInput(attrs={'class': 'campoInput'}),
-            'matricula': forms.TextInput(attrs={'class': 'campoInput'}),
+            'nombre': forms.TextInput(attrs={'class': 'campoInput formulario__input', 'id': 'inputNombre', 'name': 'nombre'}),
+            'apellido': forms.TextInput(attrs={'class': 'campoInput formulario__input', 'id': 'inputApellido', 'name': 'apellido'}),
+            'correo': forms.EmailInput(attrs={'class': 'campoInput formulario__input', 'id': 'inputCorreo', 'name': 'correo'}),
+            'dni': forms.TextInput(attrs={'class': 'campoInput formulario__input', 'id': 'inputDNI', 'name': 'dni'}),
+            'matricula': forms.TextInput(attrs={'class': 'campoInput formulario__input', 'id': 'inputMatricula', 'name': 'matricula'}),
         }
 
 class AsesorForm(forms.ModelForm):

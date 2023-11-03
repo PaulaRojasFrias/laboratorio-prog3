@@ -115,7 +115,7 @@ def delete_alumno(request):
         if 'id_alumno' in request.POST:
             alumno = get_object_or_404(Alumno, pk=request.POST['id_alumno'])
             alumno.delete()
-            messages.success(request, 'Se ha eliminado existosamente el alumno  {}')
+            messages.success(request, 'Se ha eliminado existosamente el alumno ')
         else:
             messages.error(request, 'Debe indicar que Alumno desea eliminar')
     return redirect(reverse('persona:lista_alumno'))
