@@ -31,7 +31,7 @@
                 <button class='BotonAgregar'> <a href="{% url 'persona:registro_docente' %} ">Agregar Docente</a></button>
             </div>
         {% endif %}
-        {% if docentes %}
+        
             <div class= 'contenedorTabla'>
                 <table>
                     <thead>
@@ -39,35 +39,41 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Cuil</th>
-                            <th></th>
+                            {% if perms.usuarios.permiso_administrador %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
-                        {% for docente in docentes %}
-                            <tr>
-                                <td>{{ docente.nombre }}</a></td>
-                                <td>{{ docente.apellido}}</td>
-                                <td>{{ docente.cuil }}</td>
-                                <td>
-                                    <div class='contenedorBotones'>
-                                        <button class= 'BotonVer'><a href="{% url 'persona:detalle_docente' docente.id %} ">Detalles</a></button>
-                                        {% if perms.usuarios.permiso_administrador %}
-                                            <form action="{% url 'persona:delete_docente' %}" method="POST">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="id_docente" value="{{ id_docente }}">
-                                                <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
-                                            </form>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                        {% if docentes %}
+                            {% for docente in docentes %}
+                                <tr>
+                                    <td>{{ docente.nombre }}</a></td>
+                                    <td>{{ docente.apellido}}</td>
+                                    <td>{{ docente.cuil }}</td>
+                                    {% if perms.usuarios.permiso_administrador %}
+                                        <td>
+                                            <div class='btnTabla'>
+                                                <button class= 'BotonVer'><a href="{% url 'persona:edit_docente' docente.id %}">Modificar</a></button>
+                                                
+                                                <form action="{% url 'persona:delete_docente' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="id_docente" value="{{ docente.id }}">
+                                                    <input class='BotonEliminar' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">  
+                                                </form>
+                                            
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <p>No hay comisiones.</p>
+                        {% endif %} 
                     </tbody>
                 </table>
             </tr>
-        {% else %}
-            <p>No hay comisiones.</p>
-        {% endif %} 
+        
             
     </main>
 

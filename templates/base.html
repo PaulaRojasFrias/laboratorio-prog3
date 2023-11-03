@@ -40,12 +40,12 @@
             <nav>
               <ul>
                 <li><a href="{% url 'usuarios:index_admin' %}">Inicio</a></li>
-                <li><a href="#">Registrar</a>
+                <li><a href="#">Registros</a>
                   <ul>
-                    <li><a href="{% url 'comisiones:cstf_create' %}">CSTF</a></li>
-                    <li><a href="{% url 'comisiones:te_create' %}">Tribunal Evaluador</a></li>
-                    <li><a href="{% url 'persona:registro_alumno' %}">Alumno</a></li>
-                    <li><a href="{% url 'persona:registro_docente' %}">Docente</a></li>
+                    <li><a href="{% url 'comisiones:cstf_lista' %}">CSTF's</a></li>
+                    <li><a href="{% url 'comisiones:te_lista' %}">Tribunales Evaluadores</a></li>
+                    <li><a href="{% url 'persona:lista_alumno' %}">Alumnos</a></li>
+                    <li><a href="{% url 'persona:lista_docente' %}">Docentes</a></li>
                     <li><a href="{% url 'persona:registro_asesor' %}">Asesor</a></li>
                     <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Proyecto de trabajo final</a></li>
                     <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
