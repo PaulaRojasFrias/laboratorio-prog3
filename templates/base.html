@@ -46,7 +46,7 @@
                     <li><a href="{% url 'persona:registro_alumno' %}">Alumno</a></li>
                     <li><a href="{% url 'persona:registro_docente' %}">Docente</a></li>
                     <li><a href="{% url 'persona:registro_asesor' %}">Asesor</a></li>
-                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_create' %}">Proyecto de trabajo final</a></li>
+                    <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Proyecto de trabajo final</a></li>
                     <li><a href="{% url 'proyecto_trabajo_final:proyecto_lista' %}">Movimientos y estados de un PTF</a></li>
 
                   </ul>
@@ -77,7 +77,7 @@
                 <li><a href="#">Proyectos Asignados</a>
                   <ul>
                     <li><a href="{% url 'proyecto_trabajo_final:cstf_PTFSnoEvaluados' %}">Sin Evaluar</a></li>
-                    <li><a href="{% url 'proyecto_trabajo_final:cstf_PTFsEvaluados' user.username %}">Evaluados</a></li>
+
                   </ul>
                 </li>
                 <li><a href="{% url 'comisiones:cstf_misComisiones' user.username %}">Mi Comision</a></li>

@@ -46,11 +46,11 @@
                                 <td>{{ informe.fechaPresentacion|date:"SHORT_DATE_FORMAT" }}</td>
                                 {% if perms.usuarios.permiso_administrador %} 
                                     <td>
-                                        <button><a href="{% url 'proyecto_trabajo_final:informeProyecto_edit' pk=informe.id pk2=proyecto.id %}">Modificar</a></button>
+                                        <button class='btn btnEditar'><a href="{% url 'proyecto_trabajo_final:informeProyecto_edit' pk=informe.id pk2=proyecto.id %}">Modificar</a></button>
                                         <form action="{% url 'proyecto_trabajo_final:informeProyecto_delete' proyecto.id%}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="id_informe" value="{{ informe.id }}">
-                                            <input type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
+                                            <input class='btn btnRojo' type="submit" value="Eliminar" onclick="return confirm('¿Está seguro que desea eliminar el registro?');">
                                         </form>
                                     </td>
                                 {% endif %}
